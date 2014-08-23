@@ -1,53 +1,54 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage" %>
-
-<asp:Content ID="contactTitle" ContentPlaceHolderID="TitleContent" runat="server">
-    Contact - My ASP.NET MVC Application
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<Contact>" %>
+<%@ Import Namespace="SchoolIntercom"%>
+<%@ Import Namespace="SchoolIntercom.Models"%>
+<%@ Import Namespace="SchoolIntercom.Controllers"%>
+<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
+    Contact
 </asp:Content>
 
-<asp:Content ID="contactContent" ContentPlaceHolderID="MainContent" runat="server">
-    <hgroup class="title">
-        <h1>Contact.</h1>
-        <h2><%: ViewBag.Message %></h2>
-    </hgroup>
-    <section class="contact">
-        <header>
-            <h3>Phone:</h3>
-        </header>
-        <p>
-            <span class="label">Main:</span>
-            <span>425.555.0100</span>
-        </p>
-        <p>
-            <span class="label">After Hours:</span>
-            <span>425.555.0199</span>
-        </p>
-    </section>
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <section class="contact">
-        <header>
-            <h3>Email:</h3>
-        </header>
-        <p>
-            <span class="label">Support:</span>
-            <span><a href="mailto:Support@example.com">Support@example.com</a></span>
-        </p>
-        <p>
-            <span class="label">Marketing:</span>
-            <span><a href="mailto:Marketing@example.com">Marketing@example.com</a></span>
-        </p>
-        <p>
-            <span class="label">General:</span>
-            <span><a href="mailto:General@example.com">General@example.com</a></span>
-        </p>
-    </section>
+<h2>Contacts</h2>
+    
+    <table>
+        <tr>
+            <td>
+                <%  Html.Telerik().Grid<Contact>()
+                        .Name("Contact")
+                        .DataKeys(keys => keys.Add(s => s.ContactId))
+                        .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(GridButtonType.ImageAndText).Text("Add New Contact Detail"))
+                        .Columns(columns =>
+                        {
+                                    //columns.Bound(m => m.ContactId).Title("Contact");
+                                    columns.Bound(m => m.Name);
+                                    columns.Bound(m => m.Surname);
+                                    columns.Bound(m => m.Number);
+                                    columns.Bound(m => m.Email);
+                                    columns.Bound(m => m.Body);
+      
+                            columns.Command(commands =>
+                            {
+                                commands.Edit().ButtonType(GridButtonType.ImageAndText).Text("Update Contact");
+                                commands.Delete().ButtonType(GridButtonType.ImageAndText).Text("Remove Contact");
 
-    <section class="contact">
-        <header>
-            <h3>Address:</h3>
-        </header>
-        <p>
-            One Microsoft Way<br />
-            Redmond, WA 98052-6399
-        </p>
-    </section>
+                            }).Title("");
+                        })
+                        .DataBinding(dataBinding => 
+                        {
+                            dataBinding.Ajax()
+                                       .Select("_ListContact", "Home")
+                                       .Insert("_InsertContact", "Home")
+                                       .Update("_UpdateContact", "Home")
+                                       .Delete("_DeleteContact", "Home"); 
+                        })
+       
+                        .Pageable(paging => paging.PageSize(50))
+                        .Sortable()
+                        .Scrollable(scrolling => scrolling.Height(250))
+                        .Filterable()
+                        .Editable(editing => editing.Mode(GridEditMode.PopUp).InsertRowPosition(GridInsertRowPosition.Top))
+                        .Render(); %>
+            </td>
+        </tr>
+    </table>
 </asp:Content>
