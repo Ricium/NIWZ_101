@@ -214,6 +214,7 @@
   <ItemGroup>
     <Compile Include="App_Code_\AutoLogOffActionFilterAttribute.cs" />
     <Compile Include="App_Code_\DatabaseConnection.cs" />
+    <Compile Include="App_Code_\StoredProcedures.cs" />
     <Compile Include="App_GlobalResources\EditorLocalization.bg-BG.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
