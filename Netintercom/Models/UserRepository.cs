@@ -11,7 +11,7 @@ namespace Netintercom.Models
     {
         public void GetClientId(string UserName)
         {
-            string SchoolId = "";
+            string ClientId = "";
 
             MembershipUser user = Membership.GetUser(UserName);
             Guid guid = (Guid)user.ProviderUserKey;
@@ -25,7 +25,7 @@ namespace Netintercom.Models
             {
                 while (drI.Read())
                 {
-                    SchoolId = drI["ClientId"].ToString();
+                    ClientId = drI["ClientId"].ToString();
                 }
             }
             drI.Close();
@@ -33,7 +33,7 @@ namespace Netintercom.Models
             drI.Dispose();
             con.Dispose();
            
-            HttpContext.Current.Session["SchoolId"] = SchoolId;
+            HttpContext.Current.Session["ClientId"] = ClientId;
         }
 
         public void GetUserID(string UserName)

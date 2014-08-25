@@ -41,7 +41,7 @@ namespace Netintercom.Controllers
             List<Notifications> lst = new List<Notifications>();
 
             //...Populate List...
-            lst = NotRep.GetListNotifications(Convert.ToInt32(HttpContext.Session["SchoolId"]));
+            lst = NotRep.GetListNotifications(Convert.ToInt32(HttpContext.Session["ClientId"]));
 
             //...Return List to Grid...
             return View(new GridModel(lst));
@@ -52,7 +52,7 @@ namespace Netintercom.Controllers
         public ActionResult _InsertNotifications(Notifications ins)
         {
             //...Fix...
-            ins.ClientId = Convert.ToInt32(HttpContext.Session["SchoolId"]);
+            ins.ClientId = Convert.ToInt32(HttpContext.Session["ClientId"]);
 
             //...Insert into Database...
             Notifications ins2 = NotRep.InsertNotifications(ins);
@@ -63,7 +63,7 @@ namespace Netintercom.Controllers
 
             //...Repopulate Grid...
             List<Notifications> lst = new List<Notifications>();
-            lst = NotRep.GetListNotifications(Convert.ToInt32(HttpContext.Session["SchoolId"]));
+            lst = NotRep.GetListNotifications(Convert.ToInt32(HttpContext.Session["ClientId"]));
             return View(new GridModel(lst));
         }
 
@@ -71,12 +71,12 @@ namespace Netintercom.Controllers
         public ActionResult _UpdateNotifications(Notifications ins)
         {
             //...ViewData...
-            ins.ClientId = Convert.ToInt32(HttpContext.Session["SchoolId"]);
+            ins.ClientId = Convert.ToInt32(HttpContext.Session["ClientId"]);
             Notifications ins2 = NotRep.UpdateNotifications(ins);
 
             //...Repopulate Grid...
             List<Notifications> lst = new List<Notifications>();
-            lst = NotRep.GetListNotifications(Convert.ToInt32(HttpContext.Session["SchoolId"]));
+            lst = NotRep.GetListNotifications(Convert.ToInt32(HttpContext.Session["ClientId"]));
             return View(new GridModel(lst));
         }
 
@@ -88,7 +88,7 @@ namespace Netintercom.Controllers
 
             //...Repopulate Grid...
             List<Notifications> lst = new List<Notifications>();
-            lst = NotRep.GetListNotifications(Convert.ToInt32(HttpContext.Session["SchoolId"]));
+            lst = NotRep.GetListNotifications(Convert.ToInt32(HttpContext.Session["ClientId"]));
             return View(new GridModel(lst));
         }
 

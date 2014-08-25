@@ -62,25 +62,25 @@ namespace Netintercom.Controllers
             Client ins2 = schReP.InsertClient(ins);
             
             //...Create Folders...
-            string targetPath = Server.MapPath("~/Images/Schools/" + ins2.ClientId + "/News");
+            string targetPath = Server.MapPath("~/Images/Client/" + ins2.ClientId + "/News");
             if (!System.IO.Directory.Exists(targetPath))
             {
                 System.IO.Directory.CreateDirectory(targetPath);
             }
 
-            targetPath = Server.MapPath("~/Images/Schools/" + ins2.ClientId + "/Events");
+            targetPath = Server.MapPath("~/Images/Client/" + ins2.ClientId + "/Events");
             if (!System.IO.Directory.Exists(targetPath))
             {
                 System.IO.Directory.CreateDirectory(targetPath);
             }
 
-            targetPath = Server.MapPath("~/Images/Schools/" + ins2.ClientId + "/Ads");
+            targetPath = Server.MapPath("~/Images/Client/" + ins2.ClientId + "/Ads");
             if (!System.IO.Directory.Exists(targetPath))
             {
                 System.IO.Directory.CreateDirectory(targetPath);
             }
 
-            targetPath = Server.MapPath("~/Images/Schools/" + ins2.ClientId + "/Logo");
+            targetPath = Server.MapPath("~/Images/Client/" + ins2.ClientId + "/Logo");
             if (!System.IO.Directory.Exists(targetPath))
             {
                 System.IO.Directory.CreateDirectory(targetPath);
@@ -114,7 +114,7 @@ namespace Netintercom.Controllers
 
             //...Delete Files...
             Functions func = new Functions();
-            func.DeleteFiles(Server.MapPath("~/Images/Schools/" + id + "/"));         
+            func.DeleteFiles(Server.MapPath("~/Images/Client/" + id + "/"));         
 
             //...Repopulate Grid...
             List<Client> lst = new List<Client>();
@@ -127,7 +127,7 @@ namespace Netintercom.Controllers
         {
             SelectList sl = new SelectList(Roles.GetAllRoles(), "roleNames");
             ViewData["roleNames"] = sl;
-            ViewData["Schools"] = schReP.GetSchoolList();
+            ViewData["Clients"] = schReP.GetSchoolList();
 
             return View();
         }
@@ -149,7 +149,7 @@ namespace Netintercom.Controllers
         [GridAction]
         public ActionResult _InsertUser(RegisterModel model)
         {
-            ViewData["Schools"] = schReP.GetSchoolList();
+            ViewData["Clients"] = schReP.GetSchoolList();
 
             //....Insert User...
             if (ModelState.IsValid)
@@ -185,7 +185,7 @@ namespace Netintercom.Controllers
         [GridAction]
         public ActionResult _UpdateUser(RegisterModel model)
         {
-            ViewData["Schools"] = schReP.GetSchoolList();
+            ViewData["Clients"] = schReP.GetSchoolList();
 
             //...Repopulate Grid...
             List<Client> lst = new List<Client>();
@@ -197,7 +197,7 @@ namespace Netintercom.Controllers
         [GridAction]
         public ActionResult _DeleteUser(int id)
         {
-            ViewData["Schools"] = schReP.GetSchoolList();
+            ViewData["Clients"] = schReP.GetSchoolList();
 
             //...Repopulate Grid...
             List<Client> lst = new List<Client>();

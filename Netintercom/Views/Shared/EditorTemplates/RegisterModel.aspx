@@ -80,7 +80,7 @@
                 <%: Html.LabelFor(m => m.ClientId) %>
             </td>
             <td>
-                <%: Html.Telerik().DropDownListFor(m => m.ClientId).BindTo((IEnumerable<SelectListItem>)ViewData["Schools"]) %>
+                <%: Html.Telerik().DropDownListFor(m => m.ClientId).BindTo((IEnumerable<SelectListItem>)ViewData["Clients"]) %>
                 <%: Html.ValidationMessageFor(m => m.ClientId) %>
             </td>
         </tr>

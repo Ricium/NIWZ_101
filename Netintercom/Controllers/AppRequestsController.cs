@@ -12,11 +12,11 @@ namespace Netintercom.Controllers
         private AppRequestRepository appRep = new AppRequestRepository();
 
         [HttpPost]
-        public JsonResult GetNews(int SchoolId, int LastId)
+        public JsonResult GetNews(int ClientId, int LastId)
         {
             //...Query DB....
             List<NewsRequest> list = new List<NewsRequest>();
-            list = appRep.GetNews(SchoolId, LastId);
+            list = appRep.GetNews(ClientId, LastId);
            
             //...Dummy Data...
             //NewsRequest ins = new NewsRequest();
@@ -48,96 +48,96 @@ namespace Netintercom.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetEvents(int SchoolId, int LastId)
+        public JsonResult GetEvents(int ClientId, int LastId)
         {
             //...Query DB....
             List<EventRequest> list = new List<EventRequest>();
-            list = appRep.GetEvents(SchoolId, LastId);
+            list = appRep.GetEvents(ClientId, LastId);
 
             var j = this.Json(list);
             return Json(j, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult GetContacts(int SchoolId)
+        public JsonResult GetContacts(int ClientId)
         {
             //...Query DB....
             List<ContactRequest> list = new List<ContactRequest>();
-            list = appRep.GetContact(SchoolId);
+            list = appRep.GetContact(ClientId);
 
             var j = this.Json(list);
             return Json(j, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult GetAds(int SchoolId, int LastId)
+        public JsonResult GetAds(int ClientId, int LastId)
         {
             //...Query DB....
             List<AdRequest> list = new List<AdRequest>();
-            list = appRep.GetAd(SchoolId, LastId);
+            list = appRep.GetAd(ClientId, LastId);
 
             var j = this.Json(list);
             return Json(j, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult GetSplashAd(int SchoolId)
+        public JsonResult GetSplashAd(int ClientId)
         {
             //...Query DB....
             AdRequest list = new AdRequest();
-            list = appRep.GetRandomSplashAdd(SchoolId);
+            list = appRep.GetRandomSplashAdd(ClientId);
 
             var j = this.Json(list);
             return Json(j, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult RegisterDevice(int SchoolId, string RegId)
+        public JsonResult RegisterDevice(int ClientId, string RegId)
         {
-            bool done = appRep.RegisterDevice(SchoolId, RegId);
+            bool done = appRep.RegisterDevice(ClientId, RegId);
 
             return null;
         }
 
         [HttpPost]
-        public JsonResult EditNews(int SchoolId, int EditId)
+        public JsonResult EditNews(int ClientId, int EditId)
         {
             //...Query DB....
             List<NewsRequest> list = new List<NewsRequest>();
-            list = appRep.GetEditNews(SchoolId, EditId);
+            list = appRep.GetEditNews(ClientId, EditId);
 
             var j = this.Json(list);
             return Json(j, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult EditEvent(int SchoolId, int EditId)
+        public JsonResult EditEvent(int ClientId, int EditId)
         {
             //...Query DB....
             List<EventRequest> list = new List<EventRequest>();
-            list = appRep.GetEditEvent(SchoolId, EditId);
+            list = appRep.GetEditEvent(ClientId, EditId);
 
             var j = this.Json(list);
             return Json(j, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult EditContact(int SchoolId, int EditId)
+        public JsonResult EditContact(int ClientId, int EditId)
         {
             //...Query DB....
             List<ContactRequest> list = new List<ContactRequest>();
-            list = appRep.GetEditContact(SchoolId, EditId);
+            list = appRep.GetEditContact(ClientId, EditId);
 
             var j = this.Json(list);
             return Json(j, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult EditAd(int SchoolId, int EditId)
+        public JsonResult EditAd(int ClientId, int EditId)
         {
             //...Query DB....
             List<AdRequest> list = new List<AdRequest>();
-            list = appRep.GetEditAd(SchoolId, EditId);
+            list = appRep.GetEditAd(ClientId, EditId);
 
             var j = this.Json(list);
             return Json(j, JsonRequestBehavior.AllowGet);

@@ -11,7 +11,7 @@
 
     
     <link rel="stylesheet" type="text/css" href="<%= Url.Content("~/Content/Site.css")%>" />
-    <title>School Intercom</title>
+    <title>Netintercom</title>
 </head>
 
 <body>
@@ -49,7 +49,7 @@
                 <tr>
                 <td><%: Html.ActionLink("Forgot Password","ResetPassword","Account") %></td>        
                 <td>
-                    <button type="submit"><img src="../images/Shared/ButtonIcons/signin.gif" />&nbsp Continue</button>
+                    <button type="submit">&nbsp Log In</button>
                 </td>
                 </tr>
             </table>

@@ -58,6 +58,6 @@ namespace Netintercom.Models
     public class DeviceModel
     {
         public string DeviceReg { get; set; }
-        public int SchoolId { get; set; }
+        public int ClientId { get; set; }
     }
 }

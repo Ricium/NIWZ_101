@@ -32,7 +32,7 @@ namespace Netintercom.Controllers
         {
             PictureRepository picRep = new PictureRepository();
             Functions functions = new Functions();
-            int NewPicID = picRep.GetLastPictureId(Convert.ToInt32(HttpContext.Session["SchoolId"]));
+            int NewPicID = picRep.GetLastPictureId(Convert.ToInt32(HttpContext.Session["ClientId"]));
             NewPicID++;
             Picture ins = new Picture();
 
@@ -42,7 +42,15 @@ namespace Netintercom.Controllers
                 var fileName = Path.GetFileName(file.FileName);
                 var extention = fileName.Substring(fileName.IndexOf('.'));
                 var newfilename = NewPicID.ToString() + extention;
-                var physicalPath = Path.Combine(Server.MapPath("~/Images/Schools/" + HttpContext.Session["SchoolId"].ToString() + "/Events"), newfilename);
+
+                // Check if Path exsits
+                string serverpath = Server.MapPath("~/Images/Client/" + HttpContext.Session["ClientId"].ToString() + "/Events");
+                if (!Directory.Exists(serverpath))
+                {
+                    Directory.CreateDirectory(serverpath);
+                }
+
+                var physicalPath = Path.Combine(Server.MapPath("~/Images/Client/" + HttpContext.Session["ClientId"].ToString() + "/Events"), newfilename);
 
                 //...Resize..
                 Image original = Image.FromStream(file.InputStream, true, true);
@@ -57,7 +65,7 @@ namespace Netintercom.Controllers
 
                 //...Save In DB...                
                 ins.PicUrl = finalpath;
-                ins.ClientId = Convert.ToInt32(HttpContext.Session["SchoolId"]);
+                ins.ClientId = Convert.ToInt32(HttpContext.Session["ClientId"]);
 
                 ins = picRep.InsertPicture(ins);
             }
@@ -70,7 +78,7 @@ namespace Netintercom.Controllers
         public ActionResult Remove(string[] fileNames)
         {
             PictureRepository picRep = new PictureRepository();
-            int NewPicID = picRep.GetLastPictureId(Convert.ToInt32(HttpContext.Session["SchoolId"]));
+            int NewPicID = picRep.GetLastPictureId(Convert.ToInt32(HttpContext.Session["ClientId"]));
 
             // The parameter of the Remove action must be called "fileNames"
             foreach (var fullName in fileNames)
@@ -78,7 +86,16 @@ namespace Netintercom.Controllers
                 var fileName = Path.GetFileName(fullName);
                 var extention = fileName.Substring(fileName.IndexOf('.'));
                 var newfilename = NewPicID.ToString() + extention;
-                var physicalPath = Path.Combine(Server.MapPath("~/Images/Schools/" + HttpContext.Session["SchoolId"].ToString() + "/Events"), newfilename);
+
+                // Check if Path exsits
+                string serverpath = Server.MapPath("~/Images/Client/" + HttpContext.Session["ClientId"].ToString() + "/Events");
+                if (!Directory.Exists(serverpath))
+                {
+                    Directory.CreateDirectory(serverpath);
+                }
+
+
+                var physicalPath = Path.Combine(Server.MapPath("~/Images/Client/" + HttpContext.Session["ClientId"].ToString() + "/Events"), newfilename);
 
                 // TODO: Verify user permissions
                 if (System.IO.File.Exists(physicalPath))
@@ -97,7 +114,7 @@ namespace Netintercom.Controllers
         {
             PictureRepository picRep = new PictureRepository();
             Functions functions = new Functions();
-            int NewPicID = picRep.GetLastPictureId(Convert.ToInt32(HttpContext.Session["SchoolId"]));
+            int NewPicID = picRep.GetLastPictureId(Convert.ToInt32(HttpContext.Session["ClientId"]));
             NewPicID++;
             Picture ins = new Picture();
 
@@ -107,7 +124,15 @@ namespace Netintercom.Controllers
                 var fileName = Path.GetFileName(file.FileName);
                 var extention = fileName.Substring(fileName.IndexOf('.'));
                 var newfilename = NewPicID.ToString() + extention;
-                var physicalPath = Path.Combine(Server.MapPath("~/Images/Schools/" + HttpContext.Session["SchoolId"].ToString() + "/Ads"), newfilename);
+
+                // Check if Path exsits
+                string serverpath = Server.MapPath("~/Images/Client/" + HttpContext.Session["ClientId"].ToString() + "/Ads");
+                if (!Directory.Exists(serverpath))
+                {
+                    Directory.CreateDirectory(serverpath);
+                }
+
+                var physicalPath = Path.Combine(Server.MapPath("~/Images/Client/" + HttpContext.Session["ClientId"].ToString() + "/Ads"), newfilename);
 
                 //...Resize..
                 Image original = Image.FromStream(file.InputStream, true, true);
@@ -122,7 +147,7 @@ namespace Netintercom.Controllers
 
                 //...Save In DB...                
                 ins.PicUrl = finalpath;
-                ins.ClientId = Convert.ToInt32(HttpContext.Session["SchoolId"]);
+                ins.ClientId = Convert.ToInt32(HttpContext.Session["ClientId"]);
 
                 ins = picRep.InsertPicture(ins);
             }
@@ -135,7 +160,7 @@ namespace Netintercom.Controllers
         public ActionResult RemoveAD(string[] fileNames)
         {
             PictureRepository picRep = new PictureRepository();
-            int NewPicID = picRep.GetLastPictureId(Convert.ToInt32(HttpContext.Session["SchoolId"]));
+            int NewPicID = picRep.GetLastPictureId(Convert.ToInt32(HttpContext.Session["ClientId"]));
 
             // The parameter of the Remove action must be called "fileNames"
             foreach (var fullName in fileNames)
@@ -143,7 +168,15 @@ namespace Netintercom.Controllers
                 var fileName = Path.GetFileName(fullName);
                 var extention = fileName.Substring(fileName.IndexOf('.'));
                 var newfilename = NewPicID.ToString() + extention;
-                var physicalPath = Path.Combine(Server.MapPath("~/Images/Schools/" + HttpContext.Session["SchoolId"].ToString() + "/Ads"), newfilename);
+
+                // Check if Path exsits
+                string serverpath = Server.MapPath("~/Images/Client/" + HttpContext.Session["ClientId"].ToString() + "/Ads");
+                if (!Directory.Exists(serverpath))
+                {
+                    Directory.CreateDirectory(serverpath);
+                }
+
+                var physicalPath = Path.Combine(Server.MapPath("~/Images/Client/" + HttpContext.Session["ClientId"].ToString() + "/Ads"), newfilename);
 
                 // TODO: Verify user permissions
                 if (System.IO.File.Exists(physicalPath))
@@ -172,7 +205,7 @@ namespace Netintercom.Controllers
             List<Event> lst = new List<Event>();
 
             //...Populate List...
-            lst = EventRep.GetListEvent(Convert.ToInt32(HttpContext.Session["SchoolId"]));
+            lst = EventRep.GetListEvent(Convert.ToInt32(HttpContext.Session["ClientId"]));
 
             //...Return List to Grid...
             return View(new GridModel(lst));
@@ -183,7 +216,7 @@ namespace Netintercom.Controllers
         public ActionResult _InsertEvent(Event ins)
         {
             //...Fix...
-            ins.ClientId = Convert.ToInt32(HttpContext.Session["SchoolId"]);
+            ins.ClientId = Convert.ToInt32(HttpContext.Session["ClientId"]);
 
             //...Insert into Database...
             Event ins2 = EventRep.InsertEvent(ins);
@@ -194,7 +227,7 @@ namespace Netintercom.Controllers
 
             //...Repopulate Grid...
             List<Event> lst = new List<Event>();
-            lst = EventRep.GetListEvent(Convert.ToInt32(HttpContext.Session["SchoolId"]));
+            lst = EventRep.GetListEvent(Convert.ToInt32(HttpContext.Session["ClientId"]));
             return View(new GridModel(lst));
         }
         
@@ -202,7 +235,7 @@ namespace Netintercom.Controllers
         public ActionResult _UpdateEvent(Event ins)
         {
             //...ViewData...
-            ins.ClientId = Convert.ToInt32(HttpContext.Session["SchoolId"]);
+            ins.ClientId = Convert.ToInt32(HttpContext.Session["ClientId"]);
 
             Event ins2 = EventRep.UpdateEvent(ins);
 
@@ -212,7 +245,7 @@ namespace Netintercom.Controllers
 
             //...Repopulate Grid...
             List<Event> lst = new List<Event>();
-            lst = EventRep.GetListEvent(Convert.ToInt32(HttpContext.Session["SchoolId"]));
+            lst = EventRep.GetListEvent(Convert.ToInt32(HttpContext.Session["ClientId"]));
             return View(new GridModel(lst));
         }
         
@@ -236,12 +269,12 @@ namespace Netintercom.Controllers
             bool ins2 = EventRep.RemoveEvent(id);
 
             //...Notify...
-            string regIds = AppRep.GetAllRegIds(Convert.ToInt32(HttpContext.Session["SchoolId"]));
+            string regIds = AppRep.GetAllRegIds(Convert.ToInt32(HttpContext.Session["ClientId"]));
             comrep.NewUpdateData(regIds, "CMD_DELEVENT", id.ToString());
 
             //...Repopulate Grid...
             List<Event> lst = new List<Event>();
-            lst = EventRep.GetListEvent(Convert.ToInt32(HttpContext.Session["SchoolId"]));
+            lst = EventRep.GetListEvent(Convert.ToInt32(HttpContext.Session["ClientId"]));
             return View(new GridModel(lst));
         }
 
@@ -253,7 +286,7 @@ namespace Netintercom.Controllers
             List<Advertisement> lst = new List<Advertisement>();
 
             //...Populate List...
-            lst = AdvertisementRep.GetListAdvertisement(Convert.ToInt32(HttpContext.Session["SchoolId"]));
+            lst = AdvertisementRep.GetListAdvertisement(Convert.ToInt32(HttpContext.Session["ClientId"]));
 
             //...Return List to Grid...
             return View(new GridModel(lst));
@@ -264,7 +297,7 @@ namespace Netintercom.Controllers
         public ActionResult _InsertAdvertisement(Advertisement ins)
         {
             //...Fix...
-            ins.ClientId = Convert.ToInt32(HttpContext.Session["SchoolId"]);
+            ins.ClientId = Convert.ToInt32(HttpContext.Session["ClientId"]);
 
             //...Insert into Database...
             Advertisement ins2 = AdvertisementRep.InsertAdvertisement(ins);
@@ -275,7 +308,7 @@ namespace Netintercom.Controllers
 
             //...Repopulate Grid...
             List<Advertisement> lst = new List<Advertisement>();
-            lst = AdvertisementRep.GetListAdvertisement(Convert.ToInt32(HttpContext.Session["SchoolId"]));
+            lst = AdvertisementRep.GetListAdvertisement(Convert.ToInt32(HttpContext.Session["ClientId"]));
             return View(new GridModel(lst));
         }
 
@@ -283,7 +316,7 @@ namespace Netintercom.Controllers
         public ActionResult _UpdateAdvertisement(Advertisement ins)
         {
             //...ViewData...
-            ins.ClientId = Convert.ToInt32(HttpContext.Session["SchoolId"]);
+            ins.ClientId = Convert.ToInt32(HttpContext.Session["ClientId"]);
 
             Advertisement ins2 = AdvertisementRep.UpdateAdvertisement(ins);
 
@@ -293,7 +326,7 @@ namespace Netintercom.Controllers
 
             //...Repopulate Grid...
             List<Advertisement> lst = new List<Advertisement>();
-            lst = AdvertisementRep.GetListAdvertisement(Convert.ToInt32(HttpContext.Session["SchoolId"]));
+            lst = AdvertisementRep.GetListAdvertisement(Convert.ToInt32(HttpContext.Session["ClientId"]));
             return View(new GridModel(lst));
         }
 
@@ -318,12 +351,12 @@ namespace Netintercom.Controllers
             bool ins2 = AdvertisementRep.RemoveAdvertisement(id);
 
             //...Notify...
-            string regIds = AppRep.GetAllRegIds(Convert.ToInt32(HttpContext.Session["SchoolId"]));
+            string regIds = AppRep.GetAllRegIds(Convert.ToInt32(HttpContext.Session["ClientId"]));
             comrep.NewUpdateData(regIds, "CMD_DELAD", id.ToString());
 
             //...Repopulate Grid...
             List<Advertisement> lst = new List<Advertisement>();
-            lst = AdvertisementRep.GetListAdvertisement(Convert.ToInt32(HttpContext.Session["SchoolId"]));
+            lst = AdvertisementRep.GetListAdvertisement(Convert.ToInt32(HttpContext.Session["ClientId"]));
             return View(new GridModel(lst));
         }
 

@@ -50,7 +50,7 @@ namespace Netintercom.Controllers
             List<Contact> lst = new List<Contact>();
 
             //...Populate List...
-            lst = conRep.GetListContact(Convert.ToInt32(HttpContext.Session["SchoolId"]));
+            lst = conRep.GetListContact(Convert.ToInt32(HttpContext.Session["ClientId"]));
 
             //...Return List to Grid...
             return View(new GridModel(lst));
@@ -61,7 +61,7 @@ namespace Netintercom.Controllers
         public ActionResult _InsertContact(Contact ins)
         {
             //...Fix...
-            ins.ClientId = Convert.ToInt32(HttpContext.Session["SchoolId"]);
+            ins.ClientId = Convert.ToInt32(HttpContext.Session["ClientId"]);
 
             //...Insert into Database...
             Contact ins2 = conRep.InsertContact(ins);
@@ -72,7 +72,7 @@ namespace Netintercom.Controllers
 
             //...Repopulate Grid...
             List<Contact> lst = new List<Contact>();
-            lst = conRep.GetListContact(Convert.ToInt32(HttpContext.Session["SchoolId"]));
+            lst = conRep.GetListContact(Convert.ToInt32(HttpContext.Session["ClientId"]));
             return View(new GridModel(lst));
         }
         
@@ -80,7 +80,7 @@ namespace Netintercom.Controllers
         public ActionResult _UpdateContact(Contact ins)
         {
             ContactRepository conRep = new ContactRepository();
-            ins.ClientId = Convert.ToInt32(HttpContext.Session["SchoolId"]);
+            ins.ClientId = Convert.ToInt32(HttpContext.Session["ClientId"]);
 
             Contact ins2 = conRep.UpdateContact(ins);
 
@@ -90,7 +90,7 @@ namespace Netintercom.Controllers
 
             //...Repopulate Grid...
             List<Contact> lst = new List<Contact>();
-            lst = conRep.GetListContact(Convert.ToInt32(HttpContext.Session["SchoolId"]));
+            lst = conRep.GetListContact(Convert.ToInt32(HttpContext.Session["ClientId"]));
             return View(new GridModel(lst));
         }
         
@@ -101,12 +101,12 @@ namespace Netintercom.Controllers
              bool ins2 = conRep.RemoveContact(id);
 
              //...Notify...
-             string regIds = AppRep.GetAllRegIds(Convert.ToInt32(HttpContext.Session["SchoolId"]));
+             string regIds = AppRep.GetAllRegIds(Convert.ToInt32(HttpContext.Session["ClientId"]));
              comrep.NewUpdateData(regIds, "CMD_DELCONTACT", id.ToString());
 
              //...Repopulate Grid...
              List<Contact> lst = new List<Contact>();
-             lst = conRep.GetListContact(Convert.ToInt32(HttpContext.Session["SchoolId"]));
+             lst = conRep.GetListContact(Convert.ToInt32(HttpContext.Session["ClientId"]));
              return View(new GridModel(lst));
          }       
     }

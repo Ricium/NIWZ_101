@@ -246,25 +246,25 @@ namespace Netintercom.Models
             return Removed;
         }
 
-        public void RemoveSchoolData(int SchoolId)
+        public void RemoveSchoolData(int ClientId)
         {
             PictureRepository picrep = new PictureRepository();
-            picrep.RemoveSchoolPictures(SchoolId);
+            picrep.RemoveSchoolPictures(ClientId);
 
             NotificationsRepository nrep = new NotificationsRepository();
-            nrep.RemoveSchoolNotificationss(SchoolId);
+            nrep.RemoveSchoolNotificationss(ClientId);
 
             EventRepository erep = new EventRepository();
-            erep.RemoveSchoolEvents(SchoolId);
+            erep.RemoveSchoolEvents(ClientId);
 
             AdvertisementRepository arep = new AdvertisementRepository();
-            arep.RemoveSchoolAdvertisement(SchoolId);
+            arep.RemoveSchoolAdvertisement(ClientId);
 
             NewsRepository nerep = new NewsRepository();
-            nerep.RemoveSchoolNewss(SchoolId);
+            nerep.RemoveSchoolNewss(ClientId);
 
             ContactRepository crep = new ContactRepository();
-            crep.RemoveSchoolContacts(SchoolId);
+            crep.RemoveSchoolContacts(ClientId);
         }
     }
 }

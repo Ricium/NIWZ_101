@@ -12,7 +12,7 @@ namespace Netintercom.Models
     {
         private PictureRepository picRep = new PictureRepository();
 
-        public List<NewsRequest> GetNews(int SchoolId, int LastId)
+        public List<NewsRequest> GetNews(int ClientId, int LastId)
         {
             //...Get Data for App, based on the School Requesting the data, and the LastId of the data currently in the App...//
 
@@ -26,7 +26,7 @@ namespace Netintercom.Models
 
             //...SQL Commands...
             cmdI = new SqlCommand("SELECT n.NewsId, n.Title, n.Body, n.PostDate, n.PictureId "
-                                + "FROM News n WHERE n.ClientId=" + SchoolId + " AND n.NewsId >" + LastId, con);
+                                + "FROM News n WHERE n.ClientId=" + ClientId + " AND n.NewsId >" + LastId, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -59,7 +59,7 @@ namespace Netintercom.Models
             return list;
         }
 
-        public List<NewsRequest> GetEditNews(int SchoolId, int EditId)
+        public List<NewsRequest> GetEditNews(int ClientId, int EditId)
         {
             //...Get Data for App, based on the School Requesting the data, and the Edit of the News Requestes...//
 
@@ -73,7 +73,7 @@ namespace Netintercom.Models
 
             //...SQL Commands...
             cmdI = new SqlCommand("SELECT n.NewsId, n.Title, n.Body, n.PostDate, n.PictureId "
-                                + "FROM News n WHERE n.ClientId=" + SchoolId + " AND n.NewsId =" + EditId, con);
+                                + "FROM News n WHERE n.ClientId=" + ClientId + " AND n.NewsId =" + EditId, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -106,7 +106,7 @@ namespace Netintercom.Models
             return list;
         }
 
-        public List<EventRequest> GetEvents(int SchoolId, int LastId)
+        public List<EventRequest> GetEvents(int ClientId, int LastId)
         {
             List<EventRequest> list = new List<EventRequest>();
             EventRequest ins;
@@ -118,7 +118,7 @@ namespace Netintercom.Models
 
             //...SQL Commands...
             cmdI = new SqlCommand("SELECT n.EventsId, n.Title, n.Body, n.StartDate,n.EndDate,n.AllDay, n.PictureId "
-                                + "FROM Events n WHERE n.ClientId=" + SchoolId + " AND n.EventsId >" + LastId, con);
+                                + "FROM Events n WHERE n.ClientId=" + ClientId + " AND n.EventsId >" + LastId, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -153,7 +153,7 @@ namespace Netintercom.Models
             return list;
         }
 
-        public List<EventRequest> GetEditEvent(int SchoolId, int EditId)
+        public List<EventRequest> GetEditEvent(int ClientId, int EditId)
         {
             List<EventRequest> list = new List<EventRequest>();
             EventRequest ins;
@@ -165,7 +165,7 @@ namespace Netintercom.Models
 
             //...SQL Commands...
             cmdI = new SqlCommand("SELECT n.EventsId, n.Title, n.Body, n.StartDate,n.EndDate,n.AllDay, n.PictureId "
-                                + "FROM Events n WHERE n.ClientId=" + SchoolId + " AND n.EventsId =" + EditId, con);
+                                + "FROM Events n WHERE n.ClientId=" + ClientId + " AND n.EventsId =" + EditId, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -200,7 +200,7 @@ namespace Netintercom.Models
             return list;
         }
 
-        public List<ContactRequest> GetContact(int SchoolId)
+        public List<ContactRequest> GetContact(int ClientId)
         {
             List<ContactRequest> list = new List<ContactRequest>();
             ContactRequest ins;
@@ -211,7 +211,7 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT n.ContactsId, n.Name, n.Surname, n.Number, n.Body ,n.Email FROM Contacts n WHERE n.ClientId=" + SchoolId, con);
+            cmdI = new SqlCommand("SELECT n.ContactsId, n.Name, n.Surname, n.Number, n.Body ,n.Email FROM Contacts n WHERE n.ClientId=" + ClientId, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -238,7 +238,7 @@ namespace Netintercom.Models
             return list;
         }
 
-        public List<ContactRequest> GetEditContact(int SchoolId, int EditId)
+        public List<ContactRequest> GetEditContact(int ClientId, int EditId)
         {
             List<ContactRequest> list = new List<ContactRequest>();
             ContactRequest ins;
@@ -250,7 +250,7 @@ namespace Netintercom.Models
 
             //...SQL Commands...
             cmdI = new SqlCommand("SELECT n.ContactsId, n.Name, n.Surname, n.Number, n.Body ,n.Email "
-                                + "FROM Contacts n WHERE n.ClientId=" + SchoolId + " and n.ContactsId = " + EditId, con);
+                                + "FROM Contacts n WHERE n.ClientId=" + ClientId + " and n.ContactsId = " + EditId, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -275,7 +275,7 @@ namespace Netintercom.Models
             return list;
         }
 
-        public List<AdRequest> GetAd(int SchoolId, int LastId)
+        public List<AdRequest> GetAd(int ClientId, int LastId)
         {
             List<AdRequest> list = new List<AdRequest>();
             AdRequest ins;
@@ -287,7 +287,7 @@ namespace Netintercom.Models
 
             //...SQL Commands...
             cmdI = new SqlCommand("SELECT n.AdvertisementId, n.Title, n.Body, n.Number,n.WebSiteUrl,n.Email,n.PictureId "
-                                + "FROM Advertisement n WHERE n.ClientId=" + SchoolId + " AND n.AdvertisementId >" + LastId, con);
+                                + "FROM Advertisement n WHERE n.ClientId=" + ClientId + " AND n.AdvertisementId >" + LastId, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -322,7 +322,7 @@ namespace Netintercom.Models
             return list;
         }
 
-        public List<AdRequest> GetEditAd(int SchoolId, int EditId)
+        public List<AdRequest> GetEditAd(int ClientId, int EditId)
         {
             List<AdRequest> list = new List<AdRequest>();
             AdRequest ins;
@@ -334,7 +334,7 @@ namespace Netintercom.Models
 
             //...SQL Commands...
             cmdI = new SqlCommand("SELECT n.AdvertisementId, n.Title, n.Body, n.Number,n.WebSiteUrl,n.Email,n.PictureId "
-                                + "FROM Advertisement n WHERE n.ClientId=" + SchoolId + " AND n.AdvertisementId =" + EditId, con);
+                                + "FROM Advertisement n WHERE n.ClientId=" + ClientId + " AND n.AdvertisementId =" + EditId, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -369,7 +369,7 @@ namespace Netintercom.Models
             return list;
         }
 
-        public AdRequest GetRandomSplashAdd(int SchoolId)
+        public AdRequest GetRandomSplashAdd(int ClientId)
         {
             List<AdRequest> list = new List<AdRequest>();
             AdRequest ins;
@@ -381,7 +381,7 @@ namespace Netintercom.Models
 
             //...SQL Commands...
             cmdI = new SqlCommand("SELECT n.AdvertisementId, n.Title, n.Body, n.Number,n.WebSiteUrl,n.Email,n.PictureId "
-                                 + "FROM Advertisement n WHERE n.ClientId=" + SchoolId, con);
+                                 + "FROM Advertisement n WHERE n.ClientId=" + ClientId, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -423,7 +423,7 @@ namespace Netintercom.Models
                 return new AdRequest();
         }
 
-        public string GetAllRegIds(int SchoolId)
+        public string GetAllRegIds(int ClientId)
         {
             StringBuilder returnValue = new StringBuilder();
             List<RegistrationModel> RegIds = new List<RegistrationModel>();
@@ -435,7 +435,7 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT DISTINCT DeviceReg FROM Registration WHERE ClientId = " + SchoolId, con);
+            cmdI = new SqlCommand("SELECT DISTINCT DeviceReg FROM Registration WHERE ClientId = " + ClientId, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -466,7 +466,7 @@ namespace Netintercom.Models
             return returnValue.ToString();
         }
 
-        public bool RegisterDevice(int SchoolId, string RegId)
+        public bool RegisterDevice(int ClientId, string RegId)
         {
             //...Get User and Date Data...
             string strTrx = "Insert_Device";
@@ -491,7 +491,7 @@ namespace Netintercom.Models
                 cmdI.Parameters.Clear();
                 cmdI.CommandText = "f_Admin_Insert_DeviceRegister";
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
-                cmdI.Parameters.AddWithValue("@SchoolId", SchoolId);            // int,
+                cmdI.Parameters.AddWithValue("@ClientId", ClientId);            // int,
 		        cmdI.Parameters.AddWithValue("@RegId", RegId);                  // varchar(250)
 
                 //...Return new ID...
@@ -546,7 +546,7 @@ namespace Netintercom.Models
                 {
                     ins = new DeviceModel();
                     ins.DeviceReg = drI["DeviceReg"].ToString();
-                    ins.SchoolId = Convert.ToInt32(drI["ClientId"]);
+                    ins.ClientId = Convert.ToInt32(drI["ClientId"]);
                     list.Add(ins);
                 }
             }

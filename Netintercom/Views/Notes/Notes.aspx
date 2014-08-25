@@ -19,7 +19,7 @@
                 .Columns(columns =>
         {
             columns.Bound(m => m.DeviceReg);
-            columns.Bound(m => m.SchoolId);
+            columns.Bound(m => m.ClientId);
                   })
         .DataBinding(dataBinding => 
         {
