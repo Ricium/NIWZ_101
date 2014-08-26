@@ -59,6 +59,45 @@ namespace Netintercom.Models
             return list;
         }
 
+        public List<Notifications> GetNotifications(int ClientId, int LastId)
+        {
+            //...Get Data for App, based on the School Requesting the data, and the LastId of the data currently in the App...//
+
+            List<Notifications> list = new List<Notifications>();
+            Notifications ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * "
+                                + "FROM Notifications n WHERE n.ClientId=" + ClientId + " AND n.NotificationsId >" + LastId, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new Notifications();
+                    ins.NotificationsId = Convert.ToInt32(drI["NotificationsId"]);
+                    ins.Title = drI["Title"].ToString();
+                    ins.Body = drI["Body"].ToString();
+                    ins.PostDate = Convert.ToDateTime(drI["PostDate"]);
+                    ins.CategoryId = Convert.ToInt32(drI["CategoryId"]);
+                    ins.SubCategoryId = Convert.ToInt32(drI["SubCategoryId"]);
+                    list.Add(ins);
+                }
+            }
+            drI.Close();
+            con.Close();
+
+            return list;
+        }
+
         public List<NewsRequest> GetEditNews(int ClientId, int EditId)
         {
             //...Get Data for App, based on the School Requesting the data, and the Edit of the News Requestes...//

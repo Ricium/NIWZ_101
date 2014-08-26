@@ -17,31 +17,17 @@ namespace Netintercom.Controllers
             //...Query DB....
             List<NewsRequest> list = new List<NewsRequest>();
             list = appRep.GetNews(ClientId, LastId);
-           
-            //...Dummy Data...
-            //NewsRequest ins = new NewsRequest();
-            //ins.NewsId = 1;
-            //ins.PicUrl = "test";
-            //ins.Title = "Test";
-            //ins.Body = "Test";
-            //ins.Date = DateTime.Now;
-            //list.Add(ins);
 
-            //NewsRequest ins2 = new NewsRequest();
-            //ins2.NewsId = 2;
-            //ins2.PicUrl = "test";
-            //ins2.Title = "Test";
-            //ins2.Body = "Test 2";
-            //ins2.Date = DateTime.Now;
-            //list.Add(ins2);
+            var j = this.Json(list);
+            return Json(j, JsonRequestBehavior.AllowGet);
+        }
 
-            //NewsRequest ins3 = new NewsRequest();
-            //ins3.NewsId = 3;
-            //ins3.PicUrl = "test";
-            //ins3.Title = "Test";
-            //ins3.Body = "Test 3";
-            //ins3.Date = DateTime.Now;
-            //list.Add(ins3);
+        [HttpPost]
+        public JsonResult GetNotifications(int ClientId, int LastId)
+        {
+            //...Query DB....
+            List<Notifications> list = new List<Notifications>();
+            list = appRep.GetNotifications(ClientId, LastId);
 
             var j = this.Json(list);
             return Json(j, JsonRequestBehavior.AllowGet);

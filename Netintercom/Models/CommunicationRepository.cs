@@ -9,10 +9,10 @@ namespace Netintercom.Models
 {
     public class CommunicationRepository
     {
-        public void Notify(string regId, string Message)
+        public void Notify(string regId, string Message, string Id)
         {
             var result = "";
-            var API_key = "AIzaSyDtmW1crR9S4UOUCa8uzGwiX7OfkRXxkY4";
+            var API_key = Constants.API_key;
             var CONTENTTYPE = "application/json";
             var httpWebRequest = (HttpWebRequest)WebRequest.Create("https://android.googleapis.com/gcm/send");
 
@@ -23,7 +23,7 @@ namespace Netintercom.Models
 
             using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
             {
-                string json = "{\"registration_ids\":[" + regId + "]," + "\"data\": { \"CMD\" : \"CMD_NOTIFY\", \"MSG\" : \"" + Message + "\"}}";
+                string json = "{\"registration_ids\":[" + regId + "]," + "\"data\": { \"CMD\" : \"CMD_NOTIFY\", \"MSG\" : \"" + Message + "\", \"ID\" : \"" + Id + "\"}}";
                 Console.WriteLine(json);
                 streamWriter.Write(json);
                 streamWriter.Flush();
@@ -40,7 +40,7 @@ namespace Netintercom.Models
         public void NewsyncData(string regId, string DataContent)
         {
             var result = "";
-            var API_key = "AIzaSyDtmW1crR9S4UOUCa8uzGwiX7OfkRXxkY4";
+            var API_key = Constants.API_key;
             var CONTENTTYPE = "application/json";
             var httpWebRequest = (HttpWebRequest)WebRequest.Create("https://android.googleapis.com/gcm/send");
 
@@ -68,7 +68,7 @@ namespace Netintercom.Models
         public void NewUpdateData(string regId, string DataContent, string id)
         {
             var result = "";
-            var API_key = "AIzaSyDtmW1crR9S4UOUCa8uzGwiX7OfkRXxkY4";
+            var API_key = Constants.API_key;
             var CONTENTTYPE = "application/json";
             var httpWebRequest = (HttpWebRequest)WebRequest.Create("https://android.googleapis.com/gcm/send");
 
