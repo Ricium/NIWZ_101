@@ -128,5 +128,24 @@ namespace Netintercom.Controllers
             var j = this.Json(list);
             return Json(j, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult RegisterUser(int ClientId, string DeviceId, string NameSurname, string Phone, string Email, string Password)
+        {
+            DeviceUser newUser = new DeviceUser(ClientId, DeviceId, NameSurname, Phone, Email, Password);
+            DeviceUser insertedUser = appRep.AddDeviceUser(newUser);
+
+            //* In app, check if the DeviceUserId field != 1 for a successfull registration *//
+
+            var j = this.Json(insertedUser);
+            return Json(j, JsonRequestBehavior.AllowGet);
+
+        }
+
+        [HttpPost]
+        public ActionResult LoginDeviceUser(int DeviceUserId, string Password)
+        {
+            return Content(appRep.CheckDeviceUserLogin(DeviceUserId, Password).ToString(), "text/html");
+        }
     }
 }

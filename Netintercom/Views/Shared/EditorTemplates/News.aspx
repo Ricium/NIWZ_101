@@ -60,7 +60,7 @@
             </td>
             <td title="Select a subcategory for the announcement e.g. Rugby">
                 <%= Html.Telerik().DropDownListFor(c => c.SubCategoryId)
-                .DataBinding(binding => binding.Ajax().Select("_AsyncSubCategory", "News"))%>
+                .DataBinding(binding => binding.Ajax().Select("_AsyncSubCategory", "News")).SelectedIndex(0)%>
                 <%: Html.ValidationMessageFor(m => m.SubCategoryId) %>
             </td>
              <td style="vertical-align:bottom; text-align:right">

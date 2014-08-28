@@ -19,6 +19,7 @@ namespace Netintercom.Controllers
         public NotificationsRepository NotRep = new NotificationsRepository();
         private AppRequestRepository AppRep = new AppRequestRepository();
         private CommunicationRepository comrep = new CommunicationRepository();
+        private SubCategoryRepository SubCatRep = new SubCategoryRepository();
 
         public ActionResult _AsyncSubCategorys(int? CategoryId)
         {

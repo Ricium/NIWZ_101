@@ -285,6 +285,6 @@ C:\dev\GitHub\NIWZ_101\Netintercom\bin\ko\System.Spatial.resources.dll
 C:\dev\GitHub\NIWZ_101\Netintercom\bin\ru\System.Spatial.resources.dll
 C:\dev\GitHub\NIWZ_101\Netintercom\bin\zh-Hans\System.Spatial.resources.dll
 C:\dev\GitHub\NIWZ_101\Netintercom\bin\zh-Hant\System.Spatial.resources.dll
-C:\dev\GitHub\NIWZ_101\Netintercom\obj\Debug\Netintercom.csprojResolveAssemblyReference.cache
 C:\dev\GitHub\NIWZ_101\Netintercom\obj\Debug\Netintercom.dll
 C:\dev\GitHub\NIWZ_101\Netintercom\obj\Debug\Netintercom.pdb
+C:\dev\GitHub\NIWZ_101\Netintercom\obj\Debug\Netintercom.csprojResolveAssemblyReference.cache

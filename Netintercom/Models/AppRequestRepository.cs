@@ -594,5 +594,36 @@ namespace Netintercom.Models
 
             return list;
         }
+
+        public DeviceUser AddDeviceUser(DeviceUser ins)
+        {
+            DeviceUserRepository devurep = new DeviceUserRepository();
+
+            DeviceUser ins2 = devurep.InsertDeviceUser(ins);
+
+            return ins2;
+        }
+
+        public int CheckDeviceUserLogin(int DeviceUserId, string Password)
+        {
+             DeviceUserRepository devurep = new DeviceUserRepository();
+             DeviceUser checkMe = devurep.GetDeviceUser(DeviceUserId);
+
+             if (checkMe.Approved)
+             {
+                 if (checkMe.Password.Equals(Password))
+                 {
+                     return 0; //... Success
+                 }
+                 else
+                 {
+                     return 1; //... Incorrect Password
+                 }
+             }
+             else
+             {
+                 return 2; //... Not Approved
+             }
+        }
     }
 }

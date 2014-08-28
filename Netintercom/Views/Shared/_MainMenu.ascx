@@ -14,6 +14,9 @@
                  .Text("Home")
                  .Url("~/Home/Index");
             items.Add()
+                .Text("Users")
+                .Url("~/DeviceUser/DeviceUsers");
+            items.Add()
                   .Text("News")
                   .Url("~/News/News");
             items.Add()
