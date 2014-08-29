@@ -18,7 +18,7 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_NotificationGroups WHERE NotifcationGroupId =" + id, con);
+            cmdI = new SqlCommand("SELECT * FROM NotificationGroups WHERE NotifcationGroupId =" + id, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -30,8 +30,6 @@ namespace Netintercom.Models
                     ins.NotificationGroupId = Convert.ToInt32(drI["NotificationGroupId"]);
                     ins.ClientId = Convert.ToInt32(drI["ClientId"]);
                     ins.GroupName = drI["GroupName"].ToString();
-
-
                 }
             }
             drI.Close();
@@ -51,7 +49,40 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_NotificationGroups WHERE Removed = '0'", con);
+            cmdI = new SqlCommand("SELECT * FROM NotificationGroups", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new NotificationGroups();
+                    ins.NotificationGroupId = Convert.ToInt32(drI["NotificationGroupId"]);
+                    ins.ClientId = Convert.ToInt32(drI["ClientId"]);
+                    ins.GroupName = drI["GroupName"].ToString();
+                    lsNotificationGroupsList.Add(ins);
+                }
+            }
+            drI.Close();
+            con.Close();
+
+            return lsNotificationGroupsList;
+        }
+
+        public List<NotificationGroups> GetNotificationGroups(int ClientId)
+        {
+            List<NotificationGroups> lsNotificationGroupsList = new List<NotificationGroups>();
+            NotificationGroups ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM NotificationGroups WHERE ClientId="+ClientId, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -162,59 +193,8 @@ namespace Netintercom.Models
         {
             bool Removed = true;
 
-            //...Get User and Date Data...
-            string strTrx = "Remove_Doc";
-
-            //...Database Connection...
-            DataBaseConnection dbConn = new DataBaseConnection();
-            SqlConnection con = dbConn.SqlConn();
-            con.Open();
-
-            //...Command Interface...
-            SqlCommand cmdI = con.CreateCommand();
-            SqlTransaction trx;
-            trx = con.BeginTransaction(strTrx);
-            cmdI.Connection = con;
-            cmdI.Transaction = trx;
-
-            try
-            {
-                //...Insert Record...
-                cmdI.Parameters.Clear();
-                cmdI.CommandText = "f_Admin_Remove_NotifactionGroupLink";
-                //cmdI.Connection.Open();
-                cmdI.CommandType = System.Data.CommandType.StoredProcedure;
-                cmdI.Parameters.AddWithValue("@NotifcationGroupId", NotifcationGroupId);        // int
-
-                //...Return new ID...
-                int ret = (int)cmdI.ExecuteScalar();
-
-                //...Commit Transaction...
-                trx.Commit();
-                cmdI.Connection.Close();
-            }
-            catch (SqlException ex)
-            {
-                if (trx != null)
-                {
-                    trx.Rollback();
-                    Removed = false;
-                }
-            }
-            finally
-            {
-                //...Check for close and respond accordingly..
-                if (con.State != ConnectionState.Closed)
-                {
-                    con.Close();
-                }
-
-                //...Clean up...
-                con.Dispose();
-                cmdI.Dispose();
-                trx.Dispose();
-            }
-
+            // TODO
+           
             return Removed;
         }
     }

@@ -19,7 +19,7 @@ namespace Netintercom.Models
                 SqlCommand cmdI;
 
                 //...SQL Commands...
-                cmdI = new SqlCommand("SELECT * FROM t_NotifactionGroupLinks WHERE NotifcationGroupId =" + id, con);
+                cmdI = new SqlCommand("SELECT * FROM NotifactionGroupLinks WHERE LinkId =" + id, con);
                 cmdI.Connection.Open();
                 SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -28,12 +28,10 @@ namespace Netintercom.Models
                 {
                     while (drI.Read())
                     {
-                        ins.NotifcationGroupId = Convert.ToInt32(drI["NotifactionGroupLinksID"]);
+                        ins.NotifcationGroupId = Convert.ToInt32(drI["NotifcationGroupId"]);
                         ins.ClientId = Convert.ToInt32(drI["ClientId"]);
                         ins.DeviceUserId = Convert.ToInt32(drI["DeviceUserId"]);
-                        ins.LinkId = Convert.ToInt32(drI["LinkId"]);
-                        
-
+                        ins.LinkId = Convert.ToInt32(drI["LinkId"]);               
                     }
                 }
                 drI.Close();
@@ -53,7 +51,7 @@ namespace Netintercom.Models
                 SqlCommand cmdI;
 
                 //...SQL Commands...
-                cmdI = new SqlCommand("SELECT * FROM t_NotifactionGroupLinks WHERE Removed = '0'", con);
+                cmdI = new SqlCommand("SELECT * FROM NotifactionGroupLinks", con);
                 cmdI.Connection.Open();
                 SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -63,7 +61,75 @@ namespace Netintercom.Models
                     while (drI.Read())
                     {
                         ins = new NotifactionGroupLinks();
-                        ins.NotifcationGroupId = Convert.ToInt32(drI["NotifactionGroupLinksID"]);
+                        ins.NotifcationGroupId = Convert.ToInt32(drI["NotifcationGroupId"]);
+                        ins.ClientId = Convert.ToInt32(drI["ClientId"]);
+                        ins.DeviceUserId = Convert.ToInt32(drI["DeviceUserId"]);
+                        ins.LinkId = Convert.ToInt32(drI["LinkId"]);
+                        lsNotifactionGroupLinksList.Add(ins);
+                    }
+                }
+                drI.Close();
+                con.Close();
+
+                return lsNotifactionGroupLinksList;
+            }
+
+            public List<NotifactionGroupLinks> GetNotifactionGroupLinks(int ClientId)
+            {
+                List<NotifactionGroupLinks> lsNotifactionGroupLinksList = new List<NotifactionGroupLinks>();
+                NotifactionGroupLinks ins;
+
+                //...Database Connection...
+                DataBaseConnection dbConn = new DataBaseConnection();
+                SqlConnection con = dbConn.SqlConn();
+                SqlCommand cmdI;
+
+                //...SQL Commands...
+                cmdI = new SqlCommand("SELECT * FROM NotifactionGroupLinks WHERE ClientId=" + ClientId, con);
+                cmdI.Connection.Open();
+                SqlDataReader drI = cmdI.ExecuteReader();
+
+                //...Retrieve Data...
+                if (drI.HasRows)
+                {
+                    while (drI.Read())
+                    {
+                        ins = new NotifactionGroupLinks();
+                        ins.NotifcationGroupId = Convert.ToInt32(drI["NotifcationGroupId"]);
+                        ins.ClientId = Convert.ToInt32(drI["ClientId"]);
+                        ins.DeviceUserId = Convert.ToInt32(drI["DeviceUserId"]);
+                        ins.LinkId = Convert.ToInt32(drI["LinkId"]);
+                        lsNotifactionGroupLinksList.Add(ins);
+                    }
+                }
+                drI.Close();
+                con.Close();
+
+                return lsNotifactionGroupLinksList;
+            }
+
+            public List<NotifactionGroupLinks> GetNotifactionGroupLinks(int ClientId, int GroupId)
+            {
+                List<NotifactionGroupLinks> lsNotifactionGroupLinksList = new List<NotifactionGroupLinks>();
+                NotifactionGroupLinks ins;
+
+                //...Database Connection...
+                DataBaseConnection dbConn = new DataBaseConnection();
+                SqlConnection con = dbConn.SqlConn();
+                SqlCommand cmdI;
+
+                //...SQL Commands...
+                cmdI = new SqlCommand("SELECT * FROM NotifactionGroupLinks WHERE ClientId=" + ClientId + " AND NotifcationGroupId=" + GroupId, con);
+                cmdI.Connection.Open();
+                SqlDataReader drI = cmdI.ExecuteReader();
+
+                //...Retrieve Data...
+                if (drI.HasRows)
+                {
+                    while (drI.Read())
+                    {
+                        ins = new NotifactionGroupLinks();
+                        ins.NotifcationGroupId = Convert.ToInt32(drI["NotifcationGroupId"]);
                         ins.ClientId = Convert.ToInt32(drI["ClientId"]);
                         ins.DeviceUserId = Convert.ToInt32(drI["DeviceUserId"]);
                         ins.LinkId = Convert.ToInt32(drI["LinkId"]);
@@ -161,63 +227,11 @@ namespace Netintercom.Models
                 return ins;
             }
 
-
             public bool RemoveNotifactionGroupLinks(int NotifcationGroupId)
             {
                 bool Removed = true;
 
-                //...Get User and Date Data...
-                string strTrx = "Remove_Doc";
-
-                //...Database Connection...
-                DataBaseConnection dbConn = new DataBaseConnection();
-                SqlConnection con = dbConn.SqlConn();
-                con.Open();
-
-                //...Command Interface...
-                SqlCommand cmdI = con.CreateCommand();
-                SqlTransaction trx;
-                trx = con.BeginTransaction(strTrx);
-                cmdI.Connection = con;
-                cmdI.Transaction = trx;
-
-                try
-                {
-                    //...Insert Record...
-                    cmdI.Parameters.Clear();
-                    cmdI.CommandText = "f_Admin_Remove_NotifactionGroupLink";
-                    //cmdI.Connection.Open();
-                    cmdI.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmdI.Parameters.AddWithValue("@NotifcationGroupId", NotifcationGroupId);        // int
-
-                    //...Return new ID...
-                    int ret = (int)cmdI.ExecuteScalar();
-
-                    //...Commit Transaction...
-                    trx.Commit();
-                    cmdI.Connection.Close();
-                }
-                catch (SqlException ex)
-                {
-                    if (trx != null)
-                    {
-                        trx.Rollback();
-                        Removed = false;
-                    }
-                }
-                finally
-                {
-                    //...Check for close and respond accordingly..
-                    if (con.State != ConnectionState.Closed)
-                    {
-                        con.Close();
-                    }
-
-                    //...Clean up...
-                    con.Dispose();
-                    cmdI.Dispose();
-                    trx.Dispose();
-                }
+               // TODO
 
                 return Removed;
             }

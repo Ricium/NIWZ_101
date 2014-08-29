@@ -19,7 +19,7 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_Services WHERE ServiceId =" + id, con);
+            cmdI = new SqlCommand("SELECT * FROM Services WHERE ServiceId =" + id, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -28,7 +28,7 @@ namespace Netintercom.Models
             {
                 while (drI.Read())
                 {
-                    ins.ServiceId = Convert.ToInt32(drI["ServicesID"]);
+                    ins.ServiceId = Convert.ToInt32(drI["ServiceId"]);
                     ins.Service = drI["Service"].ToString();
                     ins.Query = drI["Query"].ToString();
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
@@ -56,7 +56,7 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_Services WHERE Removed = '0'", con);
+            cmdI = new SqlCommand("SELECT * FROM Services", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -66,7 +66,7 @@ namespace Netintercom.Models
                 while (drI.Read())
                 {
                     ins = new Services();
-                    ins.ServiceId = Convert.ToInt32(drI["ServicesID"]);
+                    ins.ServiceId = Convert.ToInt32(drI["ServiceId"]);
                     ins.Service = drI["Service"].ToString();
                     ins.Query = drI["Query"].ToString();
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
@@ -98,7 +98,7 @@ namespace Netintercom.Models
             cmdI.Parameters.Clear();
             cmdI.CommandText = "f_Admin_Update_Services";
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
-            cmdI.Parameters.AddWithValue("@ServicesId", ins.ServiceId);
+            cmdI.Parameters.AddWithValue("@ServiceId", ins.ServiceId);
             cmdI.Parameters.AddWithValue("@ClientId", ins.ClientId);
             cmdI.Parameters.AddWithValue("@DeviceUserId", ins.DeviceUserId);
             cmdI.Parameters.AddWithValue("@Service", ins.Service);
@@ -169,63 +169,11 @@ namespace Netintercom.Models
             return ins;
         }
 
-
         public bool RemoveServices(int ServicesId)
         {
             bool Removed = true;
 
-            //...Get User and Date Data...
-            string strTrx = "Remove_Services";
-
-            //...Database Connection...
-            DataBaseConnection dbConn = new DataBaseConnection();
-            SqlConnection con = dbConn.SqlConn();
-            con.Open();
-
-            //...Command Interface...
-            SqlCommand cmdI = con.CreateCommand();
-            SqlTransaction trx;
-            trx = con.BeginTransaction(strTrx);
-            cmdI.Connection = con;
-            cmdI.Transaction = trx;
-
-            try
-            {
-                //...Insert Record...
-                cmdI.Parameters.Clear();
-                cmdI.CommandText = "f_Admin_Remove_Services";
-                //cmdI.Connection.Open();
-                cmdI.CommandType = System.Data.CommandType.StoredProcedure;
-                cmdI.Parameters.AddWithValue("@ServiceId", ServicesId);        // int
-
-                //...Return new ID...
-                int ret = (int)cmdI.ExecuteScalar();
-
-                //...Commit Transaction...
-                trx.Commit();
-                cmdI.Connection.Close();
-            }
-            catch (SqlException ex)
-            {
-                if (trx != null)
-                {
-                    trx.Rollback();
-                    Removed = false;
-                }
-            }
-            finally
-            {
-                //...Check for close and respond accordingly..
-                if (con.State != ConnectionState.Closed)
-                {
-                    con.Close();
-                }
-
-                //...Clean up...
-                con.Dispose();
-                cmdI.Dispose();
-                trx.Dispose();
-            }
+           // TODO
 
             return Removed;
         }

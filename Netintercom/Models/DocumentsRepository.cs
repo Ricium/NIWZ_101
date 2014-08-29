@@ -20,7 +20,7 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_Documents WHERE DocumentsID =" + id, con);
+            cmdI = new SqlCommand("SELECT * FROM Documents WHERE DocId =" + id, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -29,7 +29,7 @@ namespace Netintercom.Models
             {
                 while (drI.Read())
                 {
-                    ins.DocId = Convert.ToInt32(drI["DocumentsID"]);
+                    ins.DocId = Convert.ToInt32(drI["DocId"]);
                     ins.DocumentName = drI["DocumentName"].ToString();
                     ins.PathUrl = drI["PathUrl"].ToString();
 
@@ -52,7 +52,7 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_Documents WHERE Removed = '0'", con);
+            cmdI = new SqlCommand("SELECT * FROM Documents", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -62,7 +62,7 @@ namespace Netintercom.Models
                 while (drI.Read())
                 {
                     ins = new Documents();
-                    ins.DocId = Convert.ToInt32(drI["DocumentsID"]);
+                    ins.DocId = Convert.ToInt32(drI["DocId"]);
                     ins.DocumentName = drI["DocumentName"].ToString();
                     ins.PathUrl = drI["PathUrl"].ToString();
                     lsDocumentsList.Add(ins);
@@ -92,8 +92,8 @@ namespace Netintercom.Models
             cmdI.CommandText = "f_Admin_Update_Document";
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@DocId", ins.DocId);
-            cmdI.Parameters.AddWithValue("DocumentName", ins.DocumentName);
-            cmdI.Parameters.AddWithValue("PathUrl", ins.PathUrl);
+            cmdI.Parameters.AddWithValue("@DocumentName", ins.DocumentName);
+            cmdI.Parameters.AddWithValue("@PathUrl", ins.PathUrl);
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();
 
@@ -125,8 +125,8 @@ namespace Netintercom.Models
                 cmdI.CommandText = "f_Admin_Insert_Document";
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 cmdI.Parameters.AddWithValue("@DocId", ins.DocId);
-                cmdI.Parameters.AddWithValue("DocumentName", ins.DocumentName);
-                cmdI.Parameters.AddWithValue("PathUrl", ins.PathUrl);                                                              // int,
+                cmdI.Parameters.AddWithValue("@DocumentName", ins.DocumentName);
+                cmdI.Parameters.AddWithValue("@PathUrl", ins.PathUrl);                                                              // int,
                 // int
 
                 //...Return new ID
@@ -156,65 +156,13 @@ namespace Netintercom.Models
             }
             return ins;
         }
-
        
         public bool RemoveDocument(int DocId)
         {
             bool Removed = true;
 
-            //...Get User and Date Data...
-            string strTrx = "Remove_Doc";
-
-            //...Database Connection...
-            DataBaseConnection dbConn = new DataBaseConnection();
-            SqlConnection con = dbConn.SqlConn();
-            con.Open();
-
-            //...Command Interface...
-            SqlCommand cmdI = con.CreateCommand();
-            SqlTransaction trx;
-            trx = con.BeginTransaction(strTrx);
-            cmdI.Connection = con;
-            cmdI.Transaction = trx;
-
-            try
-            {
-                //...Insert Record...
-                cmdI.Parameters.Clear();
-                cmdI.CommandText = "f_Admin_Remove_Document";
-                //cmdI.Connection.Open();
-                cmdI.CommandType = System.Data.CommandType.StoredProcedure;
-                cmdI.Parameters.AddWithValue("@CategoryId", DocId);        // int
-
-                //...Return new ID...
-                int ret = (int)cmdI.ExecuteScalar();
-
-                //...Commit Transaction...
-                trx.Commit();
-                cmdI.Connection.Close();
-            }
-            catch (SqlException ex)
-            {
-                if (trx != null)
-                {
-                    trx.Rollback();
-                    Removed = false;
-                }
-            }
-            finally
-            {
-                //...Check for close and respond accordingly..
-                if (con.State != ConnectionState.Closed)
-                {
-                    con.Close();
-                }
-
-                //...Clean up...
-                con.Dispose();
-                cmdI.Dispose();
-                trx.Dispose();
-            }
-
+            // TODO
+            
             return Removed;
         }
     }
