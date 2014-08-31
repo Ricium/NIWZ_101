@@ -16,7 +16,7 @@
                 <%  Html.Telerik().Grid<Contact>()
                         .Name("Contact")
                         .DataKeys(keys => keys.Add(s => s.ContactId))
-                        .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(GridButtonType.ImageAndText).Text("Add New Contact Detail"))
+                        .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(Telerik.Web.Mvc.UI.GridButtonType.ImageAndText).Text("Add New Contact Detail"))
                         .Columns(columns =>
                         {
                                     //columns.Bound(m => m.ContactId).Title("Contact");
@@ -28,8 +28,8 @@
       
                             columns.Command(commands =>
                             {
-                                commands.Edit().ButtonType(GridButtonType.ImageAndText).Text("Update Contact");
-                                commands.Delete().ButtonType(GridButtonType.ImageAndText).Text("Remove Contact");
+                                commands.Edit().ButtonType(Telerik.Web.Mvc.UI.GridButtonType.ImageAndText).Text("Update Contact");
+                                commands.Delete().ButtonType(Telerik.Web.Mvc.UI.GridButtonType.ImageAndText).Text("Remove Contact");
 
                             }).Title("");
                         })
@@ -46,7 +46,7 @@
                         .Sortable()
                         .Scrollable(scrolling => scrolling.Height(250))
                         .Filterable()
-                        .Editable(editing => editing.Mode(GridEditMode.PopUp).InsertRowPosition(GridInsertRowPosition.Top))
+                        .Editable(editing => editing.Mode(Telerik.Web.Mvc.UI.GridEditMode.PopUp).InsertRowPosition(Telerik.Web.Mvc.UI.GridInsertRowPosition.Top))
                         .Render(); %>
             </td>
         </tr>

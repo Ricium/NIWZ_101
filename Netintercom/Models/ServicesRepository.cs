@@ -9,7 +9,7 @@ namespace Netintercom.Models
 {
     public class ServicesRepository
     {
-        public Services GetServices(int id)
+        public Services GetService(int id)
         {
             Services ins = new Services();
 
@@ -45,7 +45,7 @@ namespace Netintercom.Models
             return ins;
         }
 
-        public List<Services> GetServices()
+        public List<Services> GetServices(int ClientId)
         {
             List<Services> lsServicesList = new List<Services>();
             Services ins;
@@ -56,7 +56,7 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM Services", con);
+            cmdI = new SqlCommand("SELECT * FROM Services WHERE ClientId=" + ClientId, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -83,10 +83,6 @@ namespace Netintercom.Models
 
         public Services UpdateServices(Services ins)
         {
-            //...Get Date and Current User
-            string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            int UserId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
-
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
@@ -112,10 +108,7 @@ namespace Netintercom.Models
 
         public Services AddServices(Services ins)
         {
-            //...Get User and Date Data...
-            string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            int UserId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
-            string strTrx = "AddService" + UserId;
+            string strTrx = "AddService";
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();

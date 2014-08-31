@@ -7,9 +7,26 @@ using System.Drawing.Drawing2D;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using System.Net.Mail;
+using System.Net;
 
-namespace Netintercom.Models
+namespace Netintercom
 {
+    public class StoredProcedures
+    {
+        public static readonly string InsertAdvertisement = "f_Admin_Insert_Advertisement";
+        public static readonly string UpdateAdvertisement = "f_Admin_Update_Advertisement";
+        public static readonly string RemoveAdvertisement = "f_Admin_Remove_Advertisement";
+        public static readonly string RemoveAdvertisementPerClient = "f_Admin_Remove_Advertisement_Per_Client";
+
+
+    }
+
+    public class Constants
+    {
+        public static readonly string API_key = "AIzaSyDtmW1crR9S4UOUCa8uzGwiX7OfkRXxkY4";
+    }
+
     public class Functions
     {
         public Image ResizeImage(Image image, Size size, bool preserveAspectRatio = true)
@@ -118,6 +135,27 @@ namespace Netintercom.Models
         public void DeleteFile(string path)
         {
             File.Delete(path);
+        }
+
+        public void SendEmail(string Message, string Address, string Subject)
+        {
+            MailMessage message = new System.Net.Mail.MailMessage();
+            string fromEmail = "mailer@netintercom.co.za";
+            string fromPW = "N3t1t3rc0mM@1l3r";
+            string toEmail = Address;
+            message.From = new MailAddress(fromEmail);
+            message.To.Add(toEmail);
+            message.Subject = Subject;
+            message.Body = Message;
+            message.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
+
+            SmtpClient smtpClient = new SmtpClient("rocket.aserv.co.za", 465);
+            smtpClient.EnableSsl = true;
+            smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+            smtpClient.UseDefaultCredentials = false;
+            smtpClient.Credentials = new NetworkCredential(fromEmail, fromPW);
+
+            smtpClient.Send(message.From.ToString(), message.To.ToString(), message.Subject, message.Body);
         }
     }
 }

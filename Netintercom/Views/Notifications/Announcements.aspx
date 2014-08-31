@@ -16,7 +16,7 @@
  <%  Html.Telerik().Grid<Notifications>()
         .Name("Announcements")
         .DataKeys(keys => keys.Add(s => s.NotificationsId))
-        .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(GridButtonType.ImageAndText).Text("Add New Announcement"))
+        .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(Telerik.Web.Mvc.UI.GridButtonType.ImageAndText).Text("Add New Announcement"))
         .Columns(columns =>
         {
             //columns.Bound(m => m.NotificationsId).Title("Announcements");
@@ -25,7 +25,7 @@
             columns.Bound(m => m.PostDate);             
                             columns.Command(commands =>
                             {
-                                commands.Delete().ButtonType(GridButtonType.ImageAndText).Text("Remove Announcement");
+                                commands.Delete().ButtonType(Telerik.Web.Mvc.UI.GridButtonType.ImageAndText).Text("Remove Announcement");
                             }).Title("");
                         })
         .DataBinding(dataBinding => 
@@ -41,7 +41,7 @@
         .Sortable()
         .Scrollable(scrolling => scrolling.Height(250))
         .Filterable()
-        .Editable(editing => editing.Mode(GridEditMode.PopUp).InsertRowPosition(GridInsertRowPosition.Top))
+        .Editable(editing => editing.Mode(Telerik.Web.Mvc.UI.GridEditMode.PopUp).InsertRowPosition(Telerik.Web.Mvc.UI.GridInsertRowPosition.Top))
         .Render(); %>
             </td>
         </tr>

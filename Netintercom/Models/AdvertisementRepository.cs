@@ -18,7 +18,6 @@ namespace Netintercom.Models
         public Advertisement GetAdvertisement(int AdvertisementId)
         {
             //...Get Advertisement based on AdvertisementId...//
-
             Advertisement ins = new Advertisement();
 
             //...Database Connection...
@@ -46,9 +45,12 @@ namespace Netintercom.Models
                     ins.ClientId = Convert.ToInt32(drI["ClientId"]);
                 }
             }
+
+            //...Clean Up...
             drI.Close();
             con.Close();
 
+            //...Return...
             return ins;
         }
 
@@ -75,7 +77,7 @@ namespace Netintercom.Models
             {
                 //...Insert Record...
                 cmdI.Parameters.Clear();
-                cmdI.CommandText = "f_Admin_Insert_Advertisement";
+                cmdI.CommandText = StoredProcedures.InsertAdvertisement;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 cmdI.Parameters.AddWithValue("@PictureId", ins.PictureId);
                 cmdI.Parameters.AddWithValue("@Title", ins.Title);
@@ -129,7 +131,7 @@ namespace Netintercom.Models
 
             //...Update Record...
             cmdI.Parameters.Clear();
-            cmdI.CommandText = "f_Admin_Update_Advertisement";
+            cmdI.CommandText = StoredProcedures.UpdateAdvertisement;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@AdvertisementId", ins.AdvertisementId);
             cmdI.Parameters.AddWithValue("@PictureId", ins.PictureId);
@@ -237,6 +239,59 @@ namespace Netintercom.Models
             return list;
         }
 
+        public List<Advertisement> GetListAdvertisement(int ClientId, int LastId)
+        {
+            //...Gets Advertisments based on School in Database...//
+
+            List<Advertisement> list = new List<Advertisement>();
+            Advertisement ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM Advertisement WHERE ClientId = " + ClientId + " AND AdvertisementId > " + LastId, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new Advertisement();
+                    ins.AdvertisementId = Convert.ToInt32(drI["AdvertisementId"]);
+                    ins.PictureId = Convert.ToInt32(drI["PictureId"]);
+                    ins.Title = drI["Title"].ToString();
+                    ins.Body = drI["Body"].ToString();
+                    ins.Number = drI["Number"].ToString();
+                    ins.Email = drI["Email"].ToString();
+                    ins.WebSiteUrl = drI["WebSiteUrl"].ToString();
+                    ins.ClientId = Convert.ToInt32(drI["ClientId"]);
+                    list.Add(ins);
+                }
+            }
+            drI.Close();
+            con.Close();
+
+            PictureRepository picRep = new PictureRepository();
+
+            foreach (Advertisement item in list)
+            {
+                if (item.PictureId != 0)
+                {
+                    item.PicUrl = picRep.GetPicture(item.PictureId).PicUrl;
+                    string path = item.PicUrl.Substring(item.PicUrl.IndexOf("/Images/"));
+                    path = path.Replace('/', '\\');
+                    item.PicUrl = path;
+                }
+            }
+
+            return list;
+        }
+
         public bool RemoveAdvertisement(int AdvertisementId)
         {
             //...Removes Spesific Advertisment...//
@@ -261,7 +316,7 @@ namespace Netintercom.Models
             try
             {
                 cmdI.Parameters.Clear();
-                cmdI.CommandText = "f_Admin_Remove_Advertisement";
+                cmdI.CommandText = StoredProcedures.RemoveAdvertisement;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 cmdI.Parameters.AddWithValue("@AdvertisementId", AdvertisementId);        // int
 
@@ -297,7 +352,7 @@ namespace Netintercom.Models
             return Removed;
         }
 
-        public bool RemoveSchoolAdvertisement(int ClientId)
+        public bool RemoveClientAdvertisement(int ClientId)
         {
             //...Remove All Advertisements of School...//
 
@@ -322,7 +377,7 @@ namespace Netintercom.Models
             {
                 //...Insert Record...
                 cmdI.Parameters.Clear();
-                cmdI.CommandText = "f_News_Remove_Advertisement_Per_School";
+                cmdI.CommandText = StoredProcedures.RemoveAdvertisementPerClient;
                 //cmdI.Connection.Open();
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 cmdI.Parameters.AddWithValue("@ClientId", ClientId);        // int

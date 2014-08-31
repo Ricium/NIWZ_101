@@ -16,7 +16,7 @@
  <% Html.Telerik().Grid<Client>()
         .Name("Client")
         .DataKeys(keys => keys.Add(s => s.ClientId))
-        .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(GridButtonType.ImageAndText))
+        .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(Telerik.Web.Mvc.UI.GridButtonType.ImageAndText))
         .Columns(columns =>
         {
             columns.Bound(m => m.ClientId).Title("SchoolReg");
@@ -24,8 +24,8 @@
                 
                             columns.Command(commands =>
                             {
-                                commands.Edit().ButtonType(GridButtonType.ImageAndText);
-                                commands.Delete().ButtonType(GridButtonType.ImageAndText);
+                                commands.Edit().ButtonType(Telerik.Web.Mvc.UI.GridButtonType.ImageAndText);
+                                commands.Delete().ButtonType(Telerik.Web.Mvc.UI.GridButtonType.ImageAndText);
                             }).Title("Commands");
                         })
         .DataBinding(dataBinding => 
@@ -41,7 +41,7 @@
         .Sortable()
         .Scrollable(scrolling => scrolling.Height(250))
         .Filterable()
-        .Editable(editing => editing.Mode(GridEditMode.PopUp).InsertRowPosition(GridInsertRowPosition.Top))
+        .Editable(editing => editing.Mode(Telerik.Web.Mvc.UI.GridEditMode.PopUp).InsertRowPosition(Telerik.Web.Mvc.UI.GridInsertRowPosition.Top))
         .Render(); %>
             </td>
         </tr>

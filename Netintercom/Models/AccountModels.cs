@@ -87,6 +87,8 @@ namespace Netintercom.Models
 
         public string roleName { get; set; }
 
+        public IEnumerable<int> x { get; set; }
+
         [Required]
         [DisplayName("School Link")]
         public int ClientId { get; set; }

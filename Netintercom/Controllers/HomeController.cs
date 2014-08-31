@@ -23,8 +23,7 @@ namespace Netintercom.Controllers
         public ActionResult Index()
         {
             if (HttpContext.Session["UserID"] != null)
-            {
-                AppRequestRepository app = new AppRequestRepository();
+            {             
                 return View();
             }
             else

@@ -27,7 +27,7 @@ namespace Netintercom.Models
           this.DeviceId = DeviceId;
           //...Split Name and Surname
           this.Name = NameSurname.Substring(0, NameSurname.IndexOf(' '));
-          this.Surname = NameSurname.Substring(NameSurname.IndexOf(' ') + 1, NameSurname.Length - NameSurname.IndexOf(' '));
+          this.Surname = NameSurname.Substring(NameSurname.IndexOf(' ') + 1);
 
           this.Phone = Phone;
           this.Email = Email;

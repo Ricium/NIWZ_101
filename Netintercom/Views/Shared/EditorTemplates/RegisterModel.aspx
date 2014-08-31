@@ -84,12 +84,13 @@
                 <%: Html.ValidationMessageFor(m => m.ClientId) %>
             </td>
         </tr>
-        <tr>
+        <tr>           
             <td>
                 <%: Html.LabelFor(m => m.roleName) %>
             </td>
             <td>
-                <%: Html.Telerik().DropDownListFor(m => m.roleName).BindTo((IEnumerable<SelectListItem>)ViewData["roleNames"]) %>
+              <%: Html.ListBoxFor(m => m.x, (IEnumerable<SelectListItem>)ViewData["roleNames"]) %>
+                                 
                 <%: Html.ValidationMessageFor(m => m.roleName) %>
             </td>
         </tr>

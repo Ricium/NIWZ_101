@@ -130,22 +130,65 @@ namespace Netintercom.Controllers
         }
 
         [HttpPost]
-        public JsonResult RegisterUser(int ClientId, string DeviceId, string NameSurname, string Phone, string Email, string Password)
+        public JsonResult RegisterUser(int ClientId, string NameSurname, string Email, string Password, string Phone, string DeviceId)
         {
             DeviceUser newUser = new DeviceUser(ClientId, DeviceId, NameSurname, Phone, Email, Password);
             DeviceUser insertedUser = appRep.AddDeviceUser(newUser);
 
-            //* In app, check if the DeviceUserId field != 1 for a successfull registration *//
+            //* In app, check if the DeviceUserId field != 0 for a successfull registration *//
 
             var j = this.Json(insertedUser);
             return Json(j, JsonRequestBehavior.AllowGet);
-
         }
 
         [HttpPost]
         public ActionResult LoginDeviceUser(int DeviceUserId, string Password)
         {
             return Content(appRep.CheckDeviceUserLogin(DeviceUserId, Password).ToString(), "text/html");
+        }
+
+        [HttpPost]
+        public JsonResult GetDocuments(int ClientId, int LastId)
+        {
+            DocumentsRepository DocRep = new DocumentsRepository();
+            //...Query DB....
+            List<Documents> list = new List<Documents>();
+            list = DocRep.GetDocuments(ClientId, LastId);
+
+            var j = this.Json(list);
+            return Json(j, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult RequestService(int DeviceUserId, string ServiceRequest, string Query)
+        {
+            DeviceUserRepository DevURep = new DeviceUserRepository();
+            ServicesRepository ServRep = new ServicesRepository();
+
+            Services service = new Services();
+            DeviceUser user = DevURep.GetDeviceUser(DeviceUserId);
+
+            service.ClientId = user.ClientId;
+            service.DeviceUserId = DeviceUserId;
+            service.Service = ServiceRequest;
+            service.Query = Query;
+            service.ModifiedDate = DateTime.Now;
+
+            Services ins = ServRep.AddServices(service);
+
+            if (ins.ServiceId != 0)
+            {
+                //Send email
+                Functions f = new Functions();
+                f.SendEmail(service.Query, "rm.awsum@gmail.com", service.Service);
+                return Content("Success", "text/html");
+            }
+            else
+            {
+                return Content("Fail", "text/html");
+            }
+
+            
         }
     }
 }

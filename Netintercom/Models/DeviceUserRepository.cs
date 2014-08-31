@@ -197,7 +197,7 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM DeviceUsers WHERE ClientId = " + ClientId, con);
+            cmdI = new SqlCommand("SELECT * FROM DeviceUsers WHERE ClientId = " + ClientId + " ORDER BY Approved, Surname, Name", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -220,7 +220,7 @@ namespace Netintercom.Models
                 }
             }
             drI.Close();
-            con.Close();
+            con.Close();            
             return list;
         }
 

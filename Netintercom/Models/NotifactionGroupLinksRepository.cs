@@ -74,7 +74,7 @@ namespace Netintercom.Models
                 return lsNotifactionGroupLinksList;
             }
 
-            public List<NotifactionGroupLinks> GetNotifactionGroupLinks(int ClientId)
+            public List<NotifactionGroupLinks> GetNotifactionGroupLink(int ClientId)
             {
                 List<NotifactionGroupLinks> lsNotifactionGroupLinksList = new List<NotifactionGroupLinks>();
                 NotifactionGroupLinks ins;

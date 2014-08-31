@@ -625,5 +625,39 @@ namespace Netintercom.Models
                  return 2; //... Not Approved
              }
         }
+
+        public List<Documents> GetDocuments(int ClientId, int LastId)
+        {
+            List<Documents> lsDocumentsList = new List<Documents>();
+            Documents ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM Documents WHERE ClientId =" + ClientId + " AND DocId > " + LastId, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new Documents();
+                    ins.DocId = Convert.ToInt32(drI["DocId"]);
+                    ins.DocumentName = drI["DocumentName"].ToString();
+                    ins.PathUrl = drI["PathUrl"].ToString();
+                    ins.ClientId = Convert.ToInt32(drI["ClientId"]);
+                    lsDocumentsList.Add(ins);
+                }
+            }
+            drI.Close();
+            con.Close();
+
+            return lsDocumentsList;
+        }
     }
 }

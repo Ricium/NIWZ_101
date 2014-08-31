@@ -16,7 +16,7 @@
      <% Html.Telerik().Grid<RegisterModel>()
         .Name("Users")
         .DataKeys(keys => keys.Add(s => s.ClientId))
-        .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(GridButtonType.ImageAndText))
+        .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(Telerik.Web.Mvc.UI.GridButtonType.ImageAndText))
         .Columns(columns =>
         {
             columns.Bound(m => m.UserId);
@@ -37,7 +37,7 @@
         .Sortable()
         .Scrollable(scrolling => scrolling.Height(250))
         .Filterable()
-        .Editable(editing => editing.Mode(GridEditMode.PopUp).InsertRowPosition(GridInsertRowPosition.Top))
+        .Editable(editing => editing.Mode(Telerik.Web.Mvc.UI.GridEditMode.PopUp).InsertRowPosition(Telerik.Web.Mvc.UI.GridInsertRowPosition.Top))
         .Render(); %>
             </td>
         </tr>

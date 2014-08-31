@@ -12,5 +12,6 @@ namespace Netintercom.Models
         public int DocId { get; set; }
         public string DocumentName { get; set; }
         public string PathUrl { get; set; }
+        public int ClientId { get; set; }
     }
 }

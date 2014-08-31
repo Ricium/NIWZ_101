@@ -41,7 +41,7 @@ namespace Netintercom.Models
             return ins;
         }
 
-        public List<Documents> GetDocument()
+        public List<Documents> GetDocuments(int ClientId)
         {
             List<Documents> lsDocumentsList = new List<Documents>();
             Documents ins;
@@ -52,7 +52,7 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM Documents", con);
+            cmdI = new SqlCommand("SELECT * FROM Documents WHERE ClientId ="+ClientId, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -65,6 +65,41 @@ namespace Netintercom.Models
                     ins.DocId = Convert.ToInt32(drI["DocId"]);
                     ins.DocumentName = drI["DocumentName"].ToString();
                     ins.PathUrl = drI["PathUrl"].ToString();
+                    ins.ClientId = Convert.ToInt32(drI["ClientId"]);
+                    lsDocumentsList.Add(ins);
+                }
+            }
+            drI.Close();
+            con.Close();
+
+            return lsDocumentsList;
+        }
+
+        public List<Documents> GetDocuments(int ClientId, int LastId)
+        {
+            List<Documents> lsDocumentsList = new List<Documents>();
+            Documents ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM Documents WHERE ClientId =" + ClientId + " AND DocId > " + LastId, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new Documents();
+                    ins.DocId = Convert.ToInt32(drI["DocId"]);
+                    ins.DocumentName = drI["DocumentName"].ToString();
+                    ins.PathUrl = drI["PathUrl"].ToString();
+                    ins.ClientId = Convert.ToInt32(drI["ClientId"]);
                     lsDocumentsList.Add(ins);
                 }
             }
@@ -76,10 +111,6 @@ namespace Netintercom.Models
 
         public Documents UpdateDocument(Documents ins)
         {
-            //...Get Date and Current User
-            string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            int UserId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
-
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
@@ -102,10 +133,8 @@ namespace Netintercom.Models
 
         public Documents AddDocument(Documents ins)
         {
-            //...Get User and Date Data...
-            string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            int UserId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
-            string strTrx = "AddVehicle_" + UserId;
+            //...Transaction...
+            string strTrx = "Insert_Advertisement";
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -124,10 +153,9 @@ namespace Netintercom.Models
                 //...Insert Record...
                 cmdI.CommandText = "f_Admin_Insert_Document";
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
-                cmdI.Parameters.AddWithValue("@DocId", ins.DocId);
                 cmdI.Parameters.AddWithValue("@DocumentName", ins.DocumentName);
-                cmdI.Parameters.AddWithValue("@PathUrl", ins.PathUrl);                                                              // int,
-                // int
+                cmdI.Parameters.AddWithValue("@PathUrl", ins.PathUrl);
+                cmdI.Parameters.AddWithValue("@ClientId", ins.ClientId);                       
 
                 //...Return new ID
                 ins.DocId = (int)cmdI.ExecuteScalar();
@@ -161,9 +189,50 @@ namespace Netintercom.Models
         {
             bool Removed = true;
 
-            // TODO
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("DELETE FROM Documents WHERE DocId = " + DocId, con);
+            cmdI.Connection.Open();
+            cmdI.ExecuteNonQuery();
+            con.Close();
             
             return Removed;
         }
+
+        public void DocumentFix()
+        {
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("ALTER TABLE Documents ADD ClientId int", con);
+            cmdI.Connection.Open();
+            cmdI.ExecuteNonQuery();
+            con.Close();
+
+        }
+
+        public void DocumentFix2()
+        {
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("ALTER PROCEDURE [dbo].[f_Admin_Insert_Document] @DocumentName varchar(100),@PathUrl varchar(250)" 
+		   +",@ClientId int AS INSERT INTO [dbo].[Documents] ([DocumentName],[PathUrl],[ClientId]) VALUES (@DocumentName,@PathUrl,@ClientId) SELECT CAST(SCOPE_IDENTITY() AS int); SET NOCOUNT ON "
+            +"RETURN", con);
+            cmdI.Connection.Open();
+            cmdI.ExecuteNonQuery();
+            con.Close();
+        }
+
     }
 }

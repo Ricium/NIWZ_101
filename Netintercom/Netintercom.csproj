@@ -40,9 +40,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Elmah">
-      <HintPath>..\packages\elmah.corelibrary.1.2.1\lib\Elmah.dll</HintPath>
+      <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
     </Reference>
-    <Reference Include="Elmah.Mvc">
+    <Reference Include="Elmah.Mvc, Version=2.0.0.29988, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Elmah.MVC.2.1.1\lib\net40\Elmah.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="IronRuby">
@@ -56,6 +57,9 @@
     </Reference>
     <Reference Include="Jurassic">
       <HintPath>..\packages\SassAndCoffee.0.5.1\lib\net40\Jurassic.dll</HintPath>
+    </Reference>
+    <Reference Include="Kendo.Mvc">
+      <HintPath>..\..\..\..\Programs\Telerik\UI for ASP.NET MVC Q2 2014\wrappers\aspnetmvc\Binaries\Mvc4\Kendo.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Dynamic">
@@ -214,7 +218,7 @@
   <ItemGroup>
     <Compile Include="App_Code_\AutoLogOffActionFilterAttribute.cs" />
     <Compile Include="App_Code_\DatabaseConnection.cs" />
-    <Compile Include="App_Code_\StoredProcedures.cs" />
+    <Compile Include="App_Code_\ConstantFunctions.cs" />
     <Compile Include="App_GlobalResources\EditorLocalization.bg-BG.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -410,11 +414,13 @@
     <Compile Include="Controllers\AdvertisementController.cs" />
     <Compile Include="Controllers\AppRequestsController.cs" />
     <Compile Include="Controllers\DeviceUserController.cs" />
+    <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\NotesController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
+    <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -435,7 +441,6 @@
     <Compile Include="Models\DocumentsRepository.cs" />
     <Compile Include="Models\Events.cs" />
     <Compile Include="Models\EventsRepository.cs" />
-    <Compile Include="Models\Functions.cs" />
     <Compile Include="Models\News.cs" />
     <Compile Include="Models\NewsRepository.cs" />
     <Compile Include="Models\NotifactionGroupLinks.cs" />
@@ -456,6 +461,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Content\2013.2.611\Black\editor.png" />
     <Content Include="Content\2013.2.611\Black\imagebrowser.png" />
     <Content Include="Content\2013.2.611\Black\loading.gif" />
@@ -1364,6 +1370,7 @@
     <Content Include="Views\Admin\RegisterUser.aspx" />
     <Content Include="Views\Advertisement\Advertisement.aspx" />
     <Content Include="Views\DeviceUser\DeviceUsers.aspx" />
+    <Content Include="Views\Document\Documents.aspx" />
     <Content Include="Views\Events\Events.aspx" />
     <Content Include="Views\Home\About.aspx" />
     <Content Include="Views\Home\Contact.aspx" />
@@ -1371,8 +1378,10 @@
     <Content Include="Views\News\News.aspx" />
     <Content Include="Views\Notes\Notes.aspx" />
     <Content Include="Views\Notifications\Announcements.aspx" />
+    <Content Include="Views\Services\Services.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Advertisement.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Contact.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\Documents.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Event.aspx" />
     <Content Include="Views\Shared\EditorTemplates\News.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Notifications.aspx" />

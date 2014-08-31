@@ -16,7 +16,7 @@
  <% Html.Telerik().Grid<News>()
         .Name("News")
         .DataKeys(keys => keys.Add(s => s.NewsId))
-        .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(GridButtonType.ImageAndText).Text("Add New News"))
+        .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(Telerik.Web.Mvc.UI.GridButtonType.ImageAndText).Text("Add New News"))
         .Columns(columns =>
         {
             //columns.Bound(m => m.NewsId).Title("News");
@@ -30,8 +30,8 @@
                  .Title("Picture");
                             columns.Command(commands =>
                             {   
-                                commands.Edit().ButtonType(GridButtonType.ImageAndText).Text("Update News");
-                                commands.Delete().ButtonType(GridButtonType.ImageAndText).Text("Remove News");
+                                commands.Edit().ButtonType(Telerik.Web.Mvc.UI.GridButtonType.ImageAndText).Text("Update News");
+                                commands.Delete().ButtonType(Telerik.Web.Mvc.UI.GridButtonType.ImageAndText).Text("Remove News");
                             }).Title("");
                         })
         .DataBinding(dataBinding => 
@@ -47,7 +47,7 @@
         .Sortable()
         .Scrollable(scrolling => scrolling.Height(250))
         .Filterable()
-        .Editable(editing => editing.Mode(GridEditMode.PopUp).InsertRowPosition(GridInsertRowPosition.Top))
+        .Editable(editing => editing.Mode(Telerik.Web.Mvc.UI.GridEditMode.PopUp).InsertRowPosition(Telerik.Web.Mvc.UI.GridInsertRowPosition.Top))
         .Render(); %>
             </td>
         </tr>

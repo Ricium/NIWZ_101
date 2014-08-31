@@ -22,16 +22,14 @@
             columns.Bound(m => m.Surname);
             columns.Bound(m => m.Phone);
             columns.Bound(m => m.Email);
-            columns.Command(commands =>
-            {   
-               commands.Delete().ButtonType(GridButtonType.Text).Text("Approve User");
-            }).Title("");
+            columns.Add(c => c.Approved);
+            columns.Command(command => command.Custom("ApproveUser").Action("_ApproveUser", "DeviceUser").ButtonType(Telerik.Web.Mvc.UI.GridButtonType.Text).Text("Approve User"));          
+            
         })
         .DataBinding(dataBinding => 
         {
             dataBinding.Ajax()
-                       .Select("_ListDeviceUsers", "DeviceUser")
-                       .Delete("_ApproveUser", "DeviceUser"); 
+                       .Select("_ListDeviceUsers", "DeviceUser"); 
         })
        
         .Pageable(paging => paging.PageSize(50))

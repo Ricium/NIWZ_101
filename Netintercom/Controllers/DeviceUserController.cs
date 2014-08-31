@@ -35,20 +35,20 @@ namespace Netintercom.Controllers
             return View(new GridModel(lst));
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
-        [GridAction]
         public ActionResult _ApproveUser(int id)
         {
             DeviceUser toUpdate = DevURep.GetDeviceUser(id);
             toUpdate.Approved = true;
             DeviceUser Updated = DevURep.UpdateDeviceUser(toUpdate);
 
-            //...Repopulate Grid...
-            List<DeviceUser> lst = new List<DeviceUser>();
-            //...Populate List...
-            lst = DevURep.GetListDeviceUser(Convert.ToInt32(HttpContext.Session["ClientId"]));
-            //...Return List to Grid...
-            return View(new GridModel(lst));
+            return RedirectToAction("DeviceUsers");
+
+            ////...Repopulate Grid...
+            //List<DeviceUser> lst = new List<DeviceUser>();
+            ////...Populate List...
+            //lst = DevURep.GetListDeviceUser(Convert.ToInt32(HttpContext.Session["ClientId"]));
+            ////...Return List to Grid...
+            //return View(new GridModel(lst));
         }
     }
 }

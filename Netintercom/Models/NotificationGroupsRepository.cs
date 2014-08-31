@@ -8,7 +8,7 @@ namespace Netintercom.Models
 {
     public class NotificationGroupsRepository
     {
-        public NotificationGroups GetNotificationGroups(int id)
+        public NotificationGroups GetNotificationGroup(int id)
         {
             NotificationGroups ins = new NotificationGroups();
 

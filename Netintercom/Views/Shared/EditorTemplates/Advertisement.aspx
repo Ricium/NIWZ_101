@@ -75,8 +75,8 @@
 <%= Html.Telerik().Upload()
             .Name("attachments")
             .Async(async => async
-                .Save("SaveAD", "Events")
-                .Remove("RemoveAD", "Events")              
+                .Save("Save", "Advertisement")
+                .Remove("Remove", "Advertisement")              
             ).ClientEvents(c => c
                 .OnSuccess("onSuccess")
             )

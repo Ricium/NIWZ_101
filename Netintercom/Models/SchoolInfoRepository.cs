@@ -258,7 +258,7 @@ namespace Netintercom.Models
             erep.RemoveSchoolEvents(ClientId);
 
             AdvertisementRepository arep = new AdvertisementRepository();
-            arep.RemoveSchoolAdvertisement(ClientId);
+            arep.RemoveClientAdvertisement(ClientId);
 
             NewsRepository nerep = new NewsRepository();
             nerep.RemoveSchoolNewss(ClientId);

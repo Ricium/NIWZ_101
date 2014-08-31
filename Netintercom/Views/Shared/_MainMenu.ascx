@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<dynamic>" %>
-<% if (HttpContext.Current.User.IsInRole("client")) { %>
 <%  
     Html.Telerik()
         .Menu()
@@ -10,62 +9,89 @@
         })
         .Items(items =>
         {
-            items.Add()
-                 .Text("Home")
-                 .Url("~/Home/Index");
-            items.Add()
-                .Text("Users")
-                .Url("~/DeviceUser/DeviceUsers");
-            items.Add()
-                  .Text("News")
-                  .Url("~/News/News");
-            items.Add()
-                 .Text("Events")
-                 .Url("~/Events/Events");
-            items.Add()
-                   .Text("Announcements")
-                   .Url("~/Notifications/Announcements");
-            items.Add()
-                     .Text("Advertisements")
-                     .Url("~/Advertisement/Advertisement");
-            items.Add()
-                 .Text("Contact Details")
-                 .Url("~/Home/Contact");
+            if (HttpContext.Current.User.IsInRole("client")) {
+                items.Add()
+                     .Text("Home")
+                     .Url("~/Home/Index");
+            }
+            
+            if (HttpContext.Current.User.IsInRole("admin"))
+            {
+                items.Add()
+                    .Text("Admin School")
+                    .Url("~/Admin/RegisterSchool");
+                items.Add()
+                         .Text("Admin School")
+                         .Url("~/Admin/RegisterSchool");
+                items.Add()
+                         .Text("Admin User")
+                         .Url("~/Admin/RegisterUser");
+                items.Add()
+                           .Text("Admin Device")
+                           .Url("~/Admin/Devices");
+                items.Add()
+                        .Text("Notes")
+                        .Url("Notes/Notes");
+            }
+
+            if (HttpContext.Current.User.IsInRole("deviceusers"))
+            {
+                items.Add()
+                    .Text("Users")
+                    .Url("~/DeviceUser/DeviceUsers");
+            }
+
+            if (HttpContext.Current.User.IsInRole("documents"))
+            {
+                items.Add()
+                    .Text("Documents")
+                    .Url("~/Document/Documents");
+            }
+
+            if (HttpContext.Current.User.IsInRole("services"))
+            {
+                items.Add()
+                    .Text("Services")
+                    .Url("~/Services/Services");
+            }
+
+            if (HttpContext.Current.User.IsInRole("news"))
+            {
+                items.Add()
+                      .Text("News")
+                      .Url("~/News/News");
+            }
+
+            if (HttpContext.Current.User.IsInRole("events"))
+            {
+                items.Add()
+                     .Text("Events")
+                     .Url("~/Events/Events");
+            }
+
+            if (HttpContext.Current.User.IsInRole("notifications"))
+            {
+                items.Add()
+                       .Text("Announcements")
+                       .Url("~/Notifications/Announcements");
+            }
+
+            if (HttpContext.Current.User.IsInRole("advertisements"))
+            {
+                items.Add()
+                         .Text("Advertisements")
+                         .Url("~/Advertisement/Advertisement");
+            }
+
+            if (HttpContext.Current.User.IsInRole("contacts"))
+            {
+                items.Add()
+                     .Text("Contact Details")
+                     .Url("~/Home/Contact");
+            }              
             items.Add()
                   .Text("Log Off")
                   .Url("~/Account/LogOff");          
         })
         .Render();
 %>
-<% }
-   else if (HttpContext.Current.User.IsInRole("admin"))
-   { %>
-<%  Html.Telerik()
-        .Menu()
-        .Name("Menu")
-        .Effects(fx =>
-        {
-            fx.Slide();
-        })
-        .Items(items =>
-        {
-            items.Add()
-                     .Text("Admin School")
-                     .Url("~/Admin/RegisterSchool");
-              items.Add()
-                       .Text("Admin User")
-                       .Url("~/Admin/RegisterUser");
-              items.Add()
-                         .Text("Admin Device")
-                         .Url("~/Admin/Devices");
-              items.Add()
-                      .Text("Notes")
-                      .Url("Notes/Notes");
-              items.Add()
-                    .Text("Log Off")
-                    .Url("~/Account/LogOff");  
-        })
-        .Render();
-%>
-    
-<% } %>

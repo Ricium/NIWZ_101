@@ -95,7 +95,7 @@ namespace Netintercom.Controllers
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
-            model.roleName = "School";
+           // model.roleName = "School";
             if (ModelState.IsValid)
             {
                 // Attempt to register the user

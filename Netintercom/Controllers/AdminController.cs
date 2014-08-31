@@ -126,6 +126,11 @@ namespace Netintercom.Controllers
         public ActionResult RegisterUser()
         {
             SelectList sl = new SelectList(Roles.GetAllRoles(), "roleNames");
+            //List<string> roles = new List<string>();
+            //foreach (SelectListItem item in sl)
+            //{
+            //    roles.Add(item.Text);
+            //}
             ViewData["roleNames"] = sl;
             ViewData["Clients"] = schReP.GetSchoolList();
 
@@ -147,9 +152,22 @@ namespace Netintercom.Controllers
 
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
-        public ActionResult _InsertUser(RegisterModel model)
+        public ActionResult _InsertUser(FormCollection form)// RegisterModel model)
         {
             ViewData["Clients"] = schReP.GetSchoolList();
+            string x = form["x[]"].ToString();
+
+            List<string> roles = x.Split(',').ToList();
+
+            RegisterModel model = new RegisterModel();
+            model.Approved = false;
+            model.FirstName = form["FirstName"].ToString();
+            model.Surname = form["Surname"].ToString();
+            model.UserName = form["UserName"].ToString();
+            model.Email = form["Email"].ToString();
+            model.Password = form["Password"].ToString();
+            model.ConfirmPassword = form["ConfirmPassword"].ToString();
+            model.ClientId = Convert.ToInt32(form["ClientId"]);
 
             //....Insert User...
             if (ModelState.IsValid)
@@ -160,7 +178,12 @@ namespace Netintercom.Controllers
                 if (createStatus == MembershipCreateStatus.Success)
                 {
                     //FormsService.SignIn(model.UserName, false /* createPersistentCookie */);
-                    Roles.AddUserToRole(model.UserName, model.roleName.ToString());
+                    //Roles.AddUserToRole(model.UserName, model.roleName.ToString());
+                    foreach (string role in roles)
+                    {
+                        Roles.AddUserToRole(model.UserName,  role);
+                    }
+
                     MembershipUser user = Membership.GetUser(model.UserName);
                     Guid guid = (Guid)user.ProviderUserKey;
                     if (model.FirstName == null) { model.FirstName = ""; }
