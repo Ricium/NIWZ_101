@@ -140,6 +140,10 @@ namespace Netintercom.Controllers
 
             DocRep.RemoveDocument(id);
 
+            //...Notify...
+            string regIds = AppRep.GetAllRegIds(Convert.ToInt32(HttpContext.Session["ClientId"]));
+            comrep.NewUpdateData(regIds, "CMD_DELDOC", id.ToString());
+
             //...Initialize List...
             List<Documents> lst = new List<Documents>();
             //...Populate List...

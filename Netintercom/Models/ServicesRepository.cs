@@ -56,7 +56,7 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM Services WHERE ClientId=" + ClientId, con);
+            cmdI = new SqlCommand("SELECT S.*, D.Name, D.Surname, D.Phone, D.Email FROM Services S INNER JOIN DeviceUsers D ON S.DeviceUserId = D.DeviceUserId WHERE S.ClientId=" + ClientId, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -72,6 +72,9 @@ namespace Netintercom.Models
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ClientId = Convert.ToInt32(drI["ClientId"]);
                     ins.DeviceUserId = Convert.ToInt32(drI["DeviceUserId"]);
+                    ins.UserName = drI["Name"].ToString() + " " + drI["Surname"].ToString();
+                    ins.Phone = drI["Phone"].ToString();
+                    ins.Email = drI["Email"].ToString();
                     lsServicesList.Add(ins);
                 }
             }
@@ -125,7 +128,7 @@ namespace Netintercom.Models
             try
             {
                 //...Insert Record...
-                cmdI.CommandText = "f_Admin_Insert_Services";
+                cmdI.CommandText = "f_Admin_Insert_Service";
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 cmdI.Parameters.AddWithValue("@ClientId", ins.ClientId);
                 cmdI.Parameters.AddWithValue("@DeviceUserId", ins.DeviceUserId);

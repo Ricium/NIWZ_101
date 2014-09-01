@@ -18,6 +18,9 @@
         .DataKeys(keys => keys.Add(s => s.ServiceId))
         .Columns(columns =>
         {
+            columns.Bound(m => m.UserName);
+            columns.Bound(m => m.Phone);
+            columns.Bound(m => m.Email);
             columns.Bound(m => m.Service);
             columns.Bound(m => m.Query);
             columns.Bound(m => m.ModifiedDate);         

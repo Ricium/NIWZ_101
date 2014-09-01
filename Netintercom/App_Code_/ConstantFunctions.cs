@@ -24,7 +24,9 @@ namespace Netintercom
 
     public class Constants
     {
-        public static readonly string API_key = "AIzaSyDtmW1crR9S4UOUCa8uzGwiX7OfkRXxkY4";
+        //public static readonly string API_key = "AIzaSyDtmW1crR9S4UOUCa8uzGwiX7OfkRXxkY4";
+        public static readonly string API_key = "AIzaSyDtz_XkZvkYv5DYinlbRba9-N5VmVqXGac";
+        public static readonly string MailerAddress = "rm.awsum@gmail.com";
     }
 
     public class Functions
@@ -140,8 +142,8 @@ namespace Netintercom
         public void SendEmail(string Message, string Address, string Subject)
         {
             MailMessage message = new System.Net.Mail.MailMessage();
-            string fromEmail = "mailer@netintercom.co.za";
-            string fromPW = "N3t1t3rc0mM@1l3r";
+            string fromEmail = "netintercom.systems@gmail.com";
+            string fromPW = "Lekkereet1";
             string toEmail = Address;
             message.From = new MailAddress(fromEmail);
             message.To.Add(toEmail);
@@ -149,7 +151,7 @@ namespace Netintercom
             message.Body = Message;
             message.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
 
-            SmtpClient smtpClient = new SmtpClient("rocket.aserv.co.za", 465);
+            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
             smtpClient.EnableSsl = true;
             smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
             smtpClient.UseDefaultCredentials = false;

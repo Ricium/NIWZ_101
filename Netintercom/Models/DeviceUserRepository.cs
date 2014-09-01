@@ -47,6 +47,44 @@ namespace Netintercom.Models
             return ins;
         }
 
+        public DeviceUser GetDeviceUser(string DeviceId, string Phone, string Client)
+        {
+            //...Get DeviceUser based on DeviceUserId...//
+
+            DeviceUser ins = new DeviceUser();
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM DeviceUsers WHERE DeviceId ='" + DeviceId + "' AND Phone = '" + Phone + "' AND ClientId = " + Client, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins.DeviceUserId = Convert.ToInt32(drI["DeviceUserId"]);
+                    ins.ClientId = Convert.ToInt32(drI["ClientId"]);
+                    ins.DeviceId = drI["DeviceId"].ToString();
+                    ins.Name = drI["Name"].ToString();
+                    ins.Surname = drI["Surname"].ToString();
+                    ins.Phone = drI["Phone"].ToString();
+                    ins.Email = drI["Email"].ToString();
+                    ins.Password = drI["Password"].ToString();
+                    ins.Approved = Convert.ToBoolean(drI["Approved"]);
+                }
+            }
+            drI.Close();
+            con.Close();
+
+            return ins;
+        }
+
         public DeviceUser InsertDeviceUser(DeviceUser ins)
         {
             //...Insert DeviceUser into Database...//

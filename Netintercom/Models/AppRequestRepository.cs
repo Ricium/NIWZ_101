@@ -604,26 +604,44 @@ namespace Netintercom.Models
             return ins2;
         }
 
-        public int CheckDeviceUserLogin(int DeviceUserId, string Password)
+        public string CheckDeviceUserLogin(string DeviceId, string Phone, string Client, string Password)
         {
              DeviceUserRepository devurep = new DeviceUserRepository();
-             DeviceUser checkMe = devurep.GetDeviceUser(DeviceUserId);
+             DeviceUser checkMe = devurep.GetDeviceUser(DeviceId, Phone, Client);
+             StringBuilder w = new StringBuilder();
+                
 
              if (checkMe.Approved)
              {
                  if (checkMe.Password.Equals(Password))
                  {
-                     return 0; //... Success
+                     w.Append("0#").Append(checkMe.DeviceUserId);
+                     return w.ToString(); ; //... Success
                  }
                  else
                  {
-                     return 1; //... Incorrect Password
+                     return "1"; //... Incorrect Password
                  }
              }
              else
              {
-                 return 2; //... Not Approved
+                 return "2"; //... Not Approved
              }
+        }
+
+        public bool CheckDeviceUserRegistration(string DeviceId, string Phone, string Client, string Password)
+        {
+            DeviceUserRepository devurep = new DeviceUserRepository();
+            DeviceUser checkMe = devurep.GetDeviceUser(DeviceId, Phone, Client);
+
+            if (checkMe.DeviceUserId == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         public List<Documents> GetDocuments(int ClientId, int LastId)

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text;
 
 namespace Netintercom.Models
 {
@@ -85,6 +86,8 @@ namespace Netintercom.Models
             SqlConnection con = dbConn.SqlConn();
             SqlCommand cmdI;
 
+            StringBuilder w = new StringBuilder();
+
             //...SQL Commands...
             cmdI = new SqlCommand("SELECT * FROM Documents WHERE ClientId =" + ClientId + " AND DocId > " + LastId, con);
             cmdI.Connection.Open();
@@ -100,6 +103,13 @@ namespace Netintercom.Models
                     ins.DocumentName = drI["DocumentName"].ToString();
                     ins.PathUrl = drI["PathUrl"].ToString();
                     ins.ClientId = Convert.ToInt32(drI["ClientId"]);
+
+                    ins.PathUrl = ins.PathUrl.Substring(ins.PathUrl.IndexOf("Images"),ins.PathUrl.Length - ins.PathUrl.IndexOf("Images"));
+                    ins.PathUrl = ins.PathUrl.Replace('\\','/');
+                    w.Clear();
+                    w.Append("http://www.netintercom.co.za/").Append(ins.PathUrl);
+                    ins.PathUrl = w.ToString();
+
                     lsDocumentsList.Add(ins);
                 }
             }

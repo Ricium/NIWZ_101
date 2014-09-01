@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Netintercom.Models;
+using System.Text;
 
 namespace Netintercom.Controllers
 {
@@ -133,22 +134,30 @@ namespace Netintercom.Controllers
         public JsonResult RegisterUser(int ClientId, string NameSurname, string Email, string Password, string Phone, string DeviceId)
         {
             DeviceUser newUser = new DeviceUser(ClientId, DeviceId, NameSurname, Phone, Email, Password);
-            DeviceUser insertedUser = appRep.AddDeviceUser(newUser);
 
-            //* In app, check if the DeviceUserId field != 0 for a successfull registration *//
-
-            var j = this.Json(insertedUser);
-            return Json(j, JsonRequestBehavior.AllowGet);
+            if (appRep.CheckDeviceUserRegistration(DeviceId, Phone, ClientId.ToString(), Password))
+            {
+                newUser.DeviceUserId = -1;
+                var j = this.Json(newUser);
+                return Json(j, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                //* In app, check if the DeviceUserId field != 0 for a successfull registration *//
+                DeviceUser insertedUser = appRep.AddDeviceUser(newUser);
+                var j = this.Json(newUser);
+                return Json(j, JsonRequestBehavior.AllowGet);                
+            }         
         }
 
         [HttpPost]
-        public ActionResult LoginDeviceUser(int DeviceUserId, string Password)
+        public ActionResult LoginDeviceUser(string DeviceId, string Phone, string ClientId, string Password)
         {
-            return Content(appRep.CheckDeviceUserLogin(DeviceUserId, Password).ToString(), "text/html");
+            return Content(appRep.CheckDeviceUserLogin(DeviceId, Phone, ClientId, Password), "text/html");
         }
 
         [HttpPost]
-        public JsonResult GetDocuments(int ClientId, int LastId)
+        public JsonResult GetDocs(int ClientId, int LastId)
         {
             DocumentsRepository DocRep = new DocumentsRepository();
             //...Query DB....
@@ -168,11 +177,18 @@ namespace Netintercom.Controllers
             Services service = new Services();
             DeviceUser user = DevURep.GetDeviceUser(DeviceUserId);
 
+            
+
             service.ClientId = user.ClientId;
             service.DeviceUserId = DeviceUserId;
             service.Service = ServiceRequest;
             service.Query = Query;
             service.ModifiedDate = DateTime.Now;
+
+            StringBuilder w = new StringBuilder();
+
+            w.Append(user.Name).Append(" ").Append(user.Surname).Append(" Request: ").Append(service.Service);
+            w.Append("\n").Append(service.Query);
 
             Services ins = ServRep.AddServices(service);
 
@@ -180,7 +196,7 @@ namespace Netintercom.Controllers
             {
                 //Send email
                 Functions f = new Functions();
-                f.SendEmail(service.Query, "rm.awsum@gmail.com", service.Service);
+                f.SendEmail(w.ToString(), Constants.MailerAddress, service.Service);
                 return Content("Success", "text/html");
             }
             else

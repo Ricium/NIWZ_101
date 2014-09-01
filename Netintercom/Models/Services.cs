@@ -16,5 +16,9 @@ namespace Netintercom.Models
         public int DeviceUserId { get; set; }
         public DateTime ModifiedDate { get; set; }
 
+        public string UserName { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
+
     }
 }

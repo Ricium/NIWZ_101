@@ -144,6 +144,10 @@ namespace Netintercom.Controllers
             ins.ClientId = Convert.ToInt32(HttpContext.Session["ClientId"]);
 
             Advertisement ins2 = AdvertisementRep.UpdateAdvertisement(ins);
+            
+            //...Notify...
+            string regIds = AppRep.GetAllRegIds(ins.ClientId);
+            comrep.NewUpdateData(regIds, "CMD_EDITAD", ins2.AdvertisementId.ToString());
 
             //...Repopulate Grid...
             List<Advertisement> lst = new List<Advertisement>();
@@ -162,6 +166,10 @@ namespace Netintercom.Controllers
             func.DeleteFile(pic.PicUrl);
             
             bool ins2 = AdvertisementRep.RemoveAdvertisement(id);
+
+            //...Notify...
+            string regIds = AppRep.GetAllRegIds(Convert.ToInt32(HttpContext.Session["ClientId"]));
+            comrep.NewUpdateData(regIds, "CMD_DELAD", id.ToString());
 
             //...Repopulate Grid...
             List<Advertisement> lst = new List<Advertisement>();
