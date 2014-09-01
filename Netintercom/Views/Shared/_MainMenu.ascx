@@ -18,9 +18,6 @@
             if (HttpContext.Current.User.IsInRole("admin"))
             {
                 items.Add()
-                    .Text("Admin School")
-                    .Url("~/Admin/RegisterSchool");
-                items.Add()
                          .Text("Admin School")
                          .Url("~/Admin/RegisterSchool");
                 items.Add()
