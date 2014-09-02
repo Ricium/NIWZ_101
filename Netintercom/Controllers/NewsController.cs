@@ -147,7 +147,22 @@ namespace Netintercom.Controllers
 
             //...Notify...
             string regIds = AppRep.GetAllRegIds(ins.ClientId);
-            comrep.NewsyncData(regIds, "CMD_NEWNEWS");
+            if (!regIds.Equals(""))
+            {
+                comrep.NewsyncData(regIds, "CMD_NEWNEWS");
+            }
+
+            //...Facebook...
+            string access_token = FacebookPost.GetAccessToken(ins.ClientId);
+
+            if (!access_token.Equals(""))
+            {
+                string page_id = FacebookPost.GetPageId(ins.ClientId);
+                if (!page_id.Equals(""))
+                {
+                    FacebookPost.Post(access_token, page_id, "News Update: " + ins.Body);
+                }
+            }
 
             //...Repopulate Grid...
             List<News> lst = new List<News>();
@@ -164,7 +179,10 @@ namespace Netintercom.Controllers
 
             //...Notify...
             string regIds = AppRep.GetAllRegIds(ins.ClientId);
-            comrep.NewUpdateData(regIds, "CMD_EDITNEWS", ins2.NewsId.ToString());
+            if (!regIds.Equals(""))
+            {
+                comrep.NewUpdateData(regIds, "CMD_EDITNEWS", ins2.NewsId.ToString());
+            }
 
             //...Repopulate Grid...
             List<News> lst = new List<News>();
@@ -194,7 +212,10 @@ namespace Netintercom.Controllers
 
             //...Notify...
             string regIds = AppRep.GetAllRegIds(Convert.ToInt32(HttpContext.Session["ClientId"]));
-            comrep.NewUpdateData(regIds, "CMD_DELNEWS", id.ToString());
+            if (!regIds.Equals(""))
+            {
+                comrep.NewUpdateData(regIds, "CMD_DELNEWS", id.ToString());
+            }
 
             //...Repopulate Grid...
             List<News> lst = new List<News>();

@@ -61,7 +61,10 @@ namespace Netintercom.Controllers
 
             //...Notify...
             string regIds = AppRep.GetAllRegIds(ins.ClientId);
-            comrep.Notify(regIds, ins2.Body, ins2.NotificationsId.ToString());
+            if (!regIds.Equals(""))
+            {
+                comrep.Notify(regIds, ins2.Body, ins2.NotificationsId.ToString());
+            }
 
             //...Repopulate Grid...
             List<Notifications> lst = new List<Notifications>();

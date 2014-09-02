@@ -68,7 +68,10 @@ namespace Netintercom.Controllers
 
             //...Notify...
             string regIds = AppRep.GetAllRegIds(ins.ClientId);
-            comrep.NewsyncData(regIds, "CMD_NEWCONTACT");
+            if (!regIds.Equals(""))
+            {
+                comrep.NewsyncData(regIds, "CMD_NEWCONTACT");
+            }
 
             //...Repopulate Grid...
             List<Contact> lst = new List<Contact>();
@@ -86,7 +89,10 @@ namespace Netintercom.Controllers
 
             //...Notify...
             string regIds = AppRep.GetAllRegIds(ins.ClientId);
-            comrep.NewUpdateData(regIds, "CMD_EDITCONTACT", ins2.ContactId.ToString());
+            if (!regIds.Equals(""))
+            {
+                comrep.NewUpdateData(regIds, "CMD_EDITCONTACT", ins2.ContactId.ToString());
+            }
 
             //...Repopulate Grid...
             List<Contact> lst = new List<Contact>();
@@ -102,7 +108,10 @@ namespace Netintercom.Controllers
 
              //...Notify...
              string regIds = AppRep.GetAllRegIds(Convert.ToInt32(HttpContext.Session["ClientId"]));
-             comrep.NewUpdateData(regIds, "CMD_DELCONTACT", id.ToString());
+             if (!regIds.Equals(""))
+             {
+                 comrep.NewUpdateData(regIds, "CMD_DELCONTACT", id.ToString());
+             }
 
              //...Repopulate Grid...
              List<Contact> lst = new List<Contact>();

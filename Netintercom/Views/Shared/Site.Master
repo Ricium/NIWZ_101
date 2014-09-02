@@ -18,11 +18,9 @@
                         <table>
                             <tr>
                                 <td>
-                                    <img id="headerlogo"src="../../Images/logo.jpg" style="width:175px;height:100px;margin-left:5px;margin-top:5px;float:left"/>
+                                    <img id="headerlogo"src="../../Images/Banner.png" style="width:85%;height:100px;margin-left:-15px;margin-top:5px;float:left"/>
                                 </td>
-                                <td>
-                                     <h1 style="color:black" id="School-Heading">Netintercom</h1>
-                                </td>
+                               <td></td>
                             </tr>
                             <tr>
                                 <td colspan="2"></td>

@@ -121,7 +121,10 @@ namespace Netintercom.Controllers
 
             //...Notify...
             string regIds = AppRep.GetAllRegIds(ins.ClientId);
-            comrep.NewsyncData(regIds, "CMD_NEWDOC");
+            if (!regIds.Equals(""))
+            {
+                comrep.NewsyncData(regIds, "CMD_NEWDOC");
+            }
 
             //...Initialize List...
             List<Documents> lst = new List<Documents>();
@@ -143,7 +146,10 @@ namespace Netintercom.Controllers
 
             //...Notify...
             string regIds = AppRep.GetAllRegIds(Convert.ToInt32(HttpContext.Session["ClientId"]));
-            comrep.NewUpdateData(regIds, "CMD_DELDOC", id.ToString());
+            if (!regIds.Equals(""))
+            {
+                comrep.NewUpdateData(regIds, "CMD_DELDOC", id.ToString());
+            }
 
             //...Initialize List...
             List<Documents> lst = new List<Documents>();

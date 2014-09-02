@@ -88,7 +88,15 @@
                 items.Add()
                      .Text("Contact Details")
                      .Url("~/Home/Contact");
-            }              
+            }
+            
+            if (HttpContext.Current.User.IsInRole("facebook") || HttpContext.Current.User.IsInRole("email") || HttpContext.Current.User.IsInRole("twitter") || HttpContext.Current.User.IsInRole("sms"))
+            {
+                items.Add()
+                     .Text("My Settings")
+                     .Url("~/Settings/MySettings");
+            }  
+                    
             items.Add()
                   .Text("Log Off")
                   .Url("~/Account/LogOff");          

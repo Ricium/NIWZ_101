@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Net.Mail;
 using System.Net;
+using Facebook;
 
 namespace Netintercom
 {
@@ -30,6 +31,10 @@ namespace Netintercom
         public static readonly string API_key = "AIzaSyDtz_XkZvkYv5DYinlbRba9-N5VmVqXGac";
         public static readonly string MailerAddress = "netintercom.systems@gmail.com";
         public static readonly string MailerPw = "Lekkereet1";
+
+        public static readonly string FB_API_ID = "1558468101048319";
+        public static readonly string FB_Secret = "b49f1edbe495851318cef0faa812c98b";
+        public static readonly string FB_Scope = "manage_pages,publish_actions";
     }
 
     public class Functions
@@ -166,6 +171,74 @@ namespace Netintercom
 
             smtpClient.Send(message);
             //smtpClient.Send(message.From.ToString(), message.To.ToString(), message.Subject, message.Body);
+        }
+    }
+
+    public class FacebookPost
+    {
+        public static void Post(string access_token, string page_id, string post)
+        {
+            var client = new FacebookClient(access_token);
+
+            client.Post("/"+page_id+"/feed", new { message = post });
+        }
+
+        public static string GetAccessToken(int ClientId)
+        {
+            string returnValue = "";
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM Settings WHERE ClientId = " + ClientId + " AND Setting = 'facebook'", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    returnValue = drI["Value"].ToString();
+                }
+            }
+
+            drI.Close();
+            con.Close();
+
+            return returnValue;
+        }
+
+        public static string GetPageId(int ClientId)
+        {
+            string returnValue = "";
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM Settings WHERE ClientId = " + ClientId + " AND Setting = 'facebookpage'", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    returnValue = drI["Value"].ToString();
+                }
+            }
+
+            drI.Close();
+            con.Close();
+
+            return returnValue;
         }
     }
 }

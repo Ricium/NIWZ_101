@@ -252,5 +252,62 @@ namespace Netintercom.Models
 
             return lsSettingsList;
         }
+
+        public bool HasFacebookToken(int ClientId)
+        {
+            bool returnValue = false;
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM Settings WHERE ClientId = " + ClientId + " AND Setting = 'facebook'", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    returnValue = true;
+                }
+            }
+            
+            drI.Close();
+            con.Close();
+
+            return returnValue;
+        }
+
+        public string GetFacebookToken(int ClientId)
+        {
+            string returnValue = "";
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM Settings WHERE ClientId = " + ClientId + " AND Setting = 'facebook'", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    returnValue = drI["Value"].ToString();
+                }
+            }
+
+            drI.Close();
+            con.Close();
+
+            return returnValue;
+        }
     }
 }

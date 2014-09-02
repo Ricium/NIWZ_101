@@ -106,6 +106,7 @@ D:\dev\GitHub\NIWZ_101\Netintercom\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
 D:\dev\GitHub\NIWZ_101\Netintercom\bin\Elmah.dll
 D:\dev\GitHub\NIWZ_101\Netintercom\bin\Elmah.Mvc.dll
 D:\dev\GitHub\NIWZ_101\Netintercom\bin\EntityFramework.dll
+D:\dev\GitHub\NIWZ_101\Netintercom\bin\Facebook.dll
 D:\dev\GitHub\NIWZ_101\Netintercom\bin\IronRuby.dll
 D:\dev\GitHub\NIWZ_101\Netintercom\bin\IronRuby.Libraries.dll
 D:\dev\GitHub\NIWZ_101\Netintercom\bin\IronRuby.Libraries.Yaml.dll
@@ -138,6 +139,7 @@ D:\dev\GitHub\NIWZ_101\Netintercom\bin\Telerik.Web.Mvc.dll
 D:\dev\GitHub\NIWZ_101\Netintercom\bin\WebGrease.dll
 D:\dev\GitHub\NIWZ_101\Netintercom\bin\WebMatrix.Data.dll
 D:\dev\GitHub\NIWZ_101\Netintercom\bin\WebMatrix.WebData.dll
+D:\dev\GitHub\NIWZ_101\Netintercom\bin\Facebook.xml
 D:\dev\GitHub\NIWZ_101\Netintercom\bin\Kendo.Mvc.xml
 D:\dev\GitHub\NIWZ_101\Netintercom\bin\EntityFramework.xml
 D:\dev\GitHub\NIWZ_101\Netintercom\bin\Newtonsoft.Json.xml

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<Services>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<Settings>" %>
 <%@ Import Namespace="Netintercom"%>
 <%@ Import Namespace="Netintercom.Models"%>
 <%@ Import Namespace="Netintercom.Controllers"%>
