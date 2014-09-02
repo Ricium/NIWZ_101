@@ -10,6 +10,8 @@ using System.IO;
 using System.Net.Mail;
 using System.Net;
 using Facebook;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace Netintercom
 {
@@ -239,6 +241,26 @@ namespace Netintercom
             con.Close();
 
             return returnValue;
+        }
+    }
+
+    public class Crypto
+    {
+        private static string GetSHA256(string text)
+        {
+            UnicodeEncoding UE = new UnicodeEncoding();
+            byte[] hashValue;
+            byte[] message = UE.GetBytes(text);
+
+            SHA256Managed hashString = new SHA256Managed();
+            string hex = "";
+
+            hashValue = hashString.ComputeHash(message);
+            foreach (byte x in hashValue)
+            {
+                hex += String.Format("{0:x2}", x);
+            }
+            return hex;
         }
     }
 }

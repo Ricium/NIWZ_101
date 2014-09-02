@@ -10,6 +10,7 @@ using Telerik.Web.Mvc.Extensions;
 using System.Collections;
 using System.Text;
 using System.Web.UI.WebControls;
+using System.Security.Cryptography;
 
 namespace Netintercom.Controllers
 {
@@ -19,7 +20,7 @@ namespace Netintercom.Controllers
         private AppRequestRepository AppRep = new AppRequestRepository();
         private CommunicationRepository comrep = new CommunicationRepository();
         private ContactRepository conRep = new ContactRepository();
-        
+      
         public ActionResult Index()
         {
             if (HttpContext.Session["UserID"] != null)

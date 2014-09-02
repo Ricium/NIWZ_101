@@ -132,9 +132,12 @@ namespace Netintercom.Controllers
         }
 
         [HttpPost]
-        public JsonResult RegisterUser(int ClientId, string NameSurname, string Email, string Password, string Phone, string DeviceId)
+        public JsonResult RegisterUser(int ClientId, string NameSurname, string Email, string Password, string Phone, string DeviceId, string RawPW)
         {
             DeviceUser newUser = new DeviceUser(ClientId, DeviceId, NameSurname, Phone, Email, Password);
+            Client c = new Client();
+            ClientRepository cr = new ClientRepository();
+            c = cr.GetClient(Convert.ToInt32(ClientId));
 
             if (appRep.CheckDeviceUserRegistration(DeviceId, Phone, ClientId.ToString(), Password))
             {
@@ -146,6 +149,13 @@ namespace Netintercom.Controllers
             {
                 //* In app, check if the DeviceUserId field != 0 for a successfull registration *//
                 DeviceUser insertedUser = appRep.AddDeviceUser(newUser);
+
+                if (insertedUser.DeviceUserId != 0)
+                {
+                    Functions f = new Functions();
+                    f.SendEmail("You have been successfully registered. \n Registration details: \n Phone: " + Phone + " \n Password: " + RawPW + "\n\n Please keep this information safe, and do not delete this email.", Email, "Registration Details for: " + c.Name);
+                }
+
                 var j = this.Json(newUser);
                 return Json(j, JsonRequestBehavior.AllowGet);                
             }         
