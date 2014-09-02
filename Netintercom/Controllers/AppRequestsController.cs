@@ -11,6 +11,7 @@ namespace Netintercom.Controllers
     public class AppRequestsController : Controller
     {
         private AppRequestRepository appRep = new AppRequestRepository();
+        private SettingRepository setRep = new SettingRepository();
 
         [HttpPost]
         public JsonResult GetNews(int ClientId, int LastId)
@@ -185,21 +186,9 @@ namespace Netintercom.Controllers
             service.ModifiedDate = DateTime.Now;
 
             StringBuilder w = new StringBuilder();
+            w.Append(user.Name).Append(" ").Append(user.Surname).Append(" Request: ").Append(service.Service);
+            w.Append("\n").Append(service.Query);
 
-            //if (service.Service.Equals("Escort"))
-            //{
-            //    StringBuilder s = new StringBuilder();
-            //    s.Append("<iframe src=\"").Append(service.Query).Append("\"></iframe>");
-            //    w.Append("<html><body>");
-            //    w.Append(user.Name).Append(" ").Append(user.Surname).Append(" Request: ").Append(service.Service);
-            //    w.Append("<br>").Append(s.ToString());
-            //    w.Append("</body></html>");
-            //}
-            //else
-            //{
-                w.Append(user.Name).Append(" ").Append(user.Surname).Append(" Request: ").Append(service.Service);
-                w.Append("\n").Append(service.Query);
-            //}
 
             Services ins = ServRep.AddServices(service);
 
@@ -208,15 +197,21 @@ namespace Netintercom.Controllers
                 //Send email
                 Functions f = new Functions();
 
-                if (user.ClientId == 11)
+                //Get Client Service Mail List
+                List<Settings> mails = setRep.GetSettings("email", user.ClientId);
+                
+                if (mails.Count >= 1)
                 {
-                    f.SendEmail(w.ToString(), "alarms@gmail.com", service.Service);
-                }
-                else
-                {
-                    f.SendEmail(w.ToString(), Constants.MailerAddress, service.Service);
-                }
+                    StringBuilder maillist = new StringBuilder();
 
+                    foreach (Settings setting in mails)
+                    {
+                        maillist.Append(setting.Value).Append(",");
+                    }
+                    maillist.Remove(maillist.Length - 1, 1);
+
+                    f.SendEmail(w.ToString(), maillist.ToString(), service.Service);
+                }  
                 return Content("Success", "text/html");
             }
             else

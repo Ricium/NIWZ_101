@@ -29,6 +29,9 @@
                 items.Add()
                         .Text("Notes")
                         .Url("Notes/Notes");
+                items.Add()
+                        .Text("Client Settings")
+                        .Url("Settings/Settings");
             }
 
             if (HttpContext.Current.User.IsInRole("deviceusers"))

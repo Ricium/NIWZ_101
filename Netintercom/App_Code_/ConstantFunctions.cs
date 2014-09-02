@@ -19,6 +19,8 @@ namespace Netintercom
         public static readonly string RemoveAdvertisement = "f_Admin_Remove_Advertisement";
         public static readonly string RemoveAdvertisementPerClient = "f_Admin_Remove_Advertisement_Per_Client";
 
+        public static readonly string InsertSetting = "f_Admin_Insert_Setting";
+        public static readonly string UpdateSetting = "f_Admin_Update_Setting";
 
     }
 
@@ -26,7 +28,8 @@ namespace Netintercom
     {
         //public static readonly string API_key = "AIzaSyDtmW1crR9S4UOUCa8uzGwiX7OfkRXxkY4";
         public static readonly string API_key = "AIzaSyDtz_XkZvkYv5DYinlbRba9-N5VmVqXGac";
-        public static readonly string MailerAddress = "rm.awsum@gmail.com";
+        public static readonly string MailerAddress = "netintercom.systems@gmail.com";
+        public static readonly string MailerPw = "Lekkereet1";
     }
 
     public class Functions
@@ -141,13 +144,12 @@ namespace Netintercom
 
         public void SendEmail(string Message, string Address, string Subject)
         {
-            string fromEmail = "netintercom.systems@gmail.com";
-            string fromPW = "Lekkereet1";
+            string fromEmail = Constants.MailerAddress;
+            string fromPW = Constants.MailerPw;
             string toEmail = Address;
 
             MailMessage message = new System.Net.Mail.MailMessage(fromEmail,toEmail,Subject,Message);
             
-            message.IsBodyHtml = true;
             //message.From = new MailAddress(fromEmail);
             //message.To.Add(toEmail);
             //message.Subject = Subject;

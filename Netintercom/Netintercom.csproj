@@ -421,6 +421,7 @@
     <Compile Include="Controllers\NotesController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
+    <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -455,6 +456,8 @@
     <Compile Include="Models\SchoolInfoRepository.cs" />
     <Compile Include="Models\Services.cs" />
     <Compile Include="Models\ServicesRepository.cs" />
+    <Compile Include="Models\SettingRepository.cs" />
+    <Compile Include="Models\Settings.cs" />
     <Compile Include="Models\SubCategory.cs" />
     <Compile Include="Models\SubCategoryRepository.cs" />
     <Compile Include="Models\UserRepository.cs" />
@@ -1379,6 +1382,7 @@
     <Content Include="Views\Notes\Notes.aspx" />
     <Content Include="Views\Notifications\Announcements.aspx" />
     <Content Include="Views\Services\Services.aspx" />
+    <Content Include="Views\Settings\Settings.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Advertisement.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Contact.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Documents.aspx" />
