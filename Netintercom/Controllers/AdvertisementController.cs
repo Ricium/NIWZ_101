@@ -21,6 +21,7 @@ namespace Netintercom.Controllers
         private PictureRepository picRep = new PictureRepository();
         private Functions func = new Functions();
 
+        [Authorize(Roles = "advertisement")]
         public ActionResult Advertisement()
         {
             return View();

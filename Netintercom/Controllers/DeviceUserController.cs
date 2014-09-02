@@ -17,6 +17,7 @@ namespace Netintercom.Controllers
     {
         private DeviceUserRepository DevURep = new DeviceUserRepository();
 
+        [Authorize(Roles = "deviceusers")]
         public ActionResult DeviceUsers()
         {
             return View();
@@ -50,5 +51,24 @@ namespace Netintercom.Controllers
             ////...Return List to Grid...
             //return View(new GridModel(lst));
         }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult _RemoveDeviceUsers(int id)
+        {           
+
+            bool ins2 = DevURep.RemoveDeviceUser(id);
+
+            //...Repopulate Grid...
+            //...Initialize List...
+            List<DeviceUser> lst = new List<DeviceUser>();
+
+            //...Populate List...
+            lst = DevURep.GetListDeviceUser(Convert.ToInt32(HttpContext.Session["ClientId"]));
+
+            //...Return List to Grid...
+            return View(new GridModel(lst));
+        }
+        
     }
 }

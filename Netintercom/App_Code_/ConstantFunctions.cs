@@ -141,15 +141,20 @@ namespace Netintercom
 
         public void SendEmail(string Message, string Address, string Subject)
         {
-            MailMessage message = new System.Net.Mail.MailMessage();
             string fromEmail = "netintercom.systems@gmail.com";
             string fromPW = "Lekkereet1";
             string toEmail = Address;
-            message.From = new MailAddress(fromEmail);
-            message.To.Add(toEmail);
-            message.Subject = Subject;
-            message.Body = Message;
+
+            MailMessage message = new System.Net.Mail.MailMessage(fromEmail,toEmail,Subject,Message);
+            
+            message.IsBodyHtml = true;
+            //message.From = new MailAddress(fromEmail);
+            //message.To.Add(toEmail);
+            //message.Subject = Subject;
+            //message.Body = Message;
+            
             message.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
+            
 
             SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
             smtpClient.EnableSsl = true;
@@ -157,7 +162,8 @@ namespace Netintercom
             smtpClient.UseDefaultCredentials = false;
             smtpClient.Credentials = new NetworkCredential(fromEmail, fromPW);
 
-            smtpClient.Send(message.From.ToString(), message.To.ToString(), message.Subject, message.Body);
+            smtpClient.Send(message);
+            //smtpClient.Send(message.From.ToString(), message.To.ToString(), message.Subject, message.Body);
         }
     }
 }

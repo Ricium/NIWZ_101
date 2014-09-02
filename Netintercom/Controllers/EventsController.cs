@@ -108,7 +108,7 @@ namespace Netintercom.Controllers
             return Content("");
         }
 
-        
+        [Authorize(Roles = "events")]
         public ActionResult Events()
         {
             CategoryRepository CatRep = new CategoryRepository();

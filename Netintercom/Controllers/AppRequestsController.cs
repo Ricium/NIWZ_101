@@ -153,7 +153,7 @@ namespace Netintercom.Controllers
         [HttpPost]
         public ActionResult LoginDeviceUser(string DeviceId, string Phone, string ClientId, string Password)
         {
-            return Content(appRep.CheckDeviceUserLogin(DeviceId, Phone, ClientId, Password), "text/html");
+            return Content(appRep.CheckDeviceUserLogin(Phone, ClientId, Password), "text/html");
         }
 
         [HttpPost]
@@ -176,7 +176,6 @@ namespace Netintercom.Controllers
 
             Services service = new Services();
             DeviceUser user = DevURep.GetDeviceUser(DeviceUserId);
-
             
 
             service.ClientId = user.ClientId;
@@ -187,8 +186,20 @@ namespace Netintercom.Controllers
 
             StringBuilder w = new StringBuilder();
 
-            w.Append(user.Name).Append(" ").Append(user.Surname).Append(" Request: ").Append(service.Service);
-            w.Append("\n").Append(service.Query);
+            //if (service.Service.Equals("Escort"))
+            //{
+            //    StringBuilder s = new StringBuilder();
+            //    s.Append("<iframe src=\"").Append(service.Query).Append("\"></iframe>");
+            //    w.Append("<html><body>");
+            //    w.Append(user.Name).Append(" ").Append(user.Surname).Append(" Request: ").Append(service.Service);
+            //    w.Append("<br>").Append(s.ToString());
+            //    w.Append("</body></html>");
+            //}
+            //else
+            //{
+                w.Append(user.Name).Append(" ").Append(user.Surname).Append(" Request: ").Append(service.Service);
+                w.Append("\n").Append(service.Query);
+            //}
 
             Services ins = ServRep.AddServices(service);
 
@@ -196,7 +207,16 @@ namespace Netintercom.Controllers
             {
                 //Send email
                 Functions f = new Functions();
-                f.SendEmail(w.ToString(), Constants.MailerAddress, service.Service);
+
+                if (user.ClientId == 11)
+                {
+                    f.SendEmail(w.ToString(), "alarms@gmail.com", service.Service);
+                }
+                else
+                {
+                    f.SendEmail(w.ToString(), Constants.MailerAddress, service.Service);
+                }
+
                 return Content("Success", "text/html");
             }
             else

@@ -47,7 +47,7 @@ namespace Netintercom.Models
             return ins;
         }
 
-        public DeviceUser GetDeviceUser(string DeviceId, string Phone, string Client)
+        public DeviceUser GetDeviceUser(string Phone, string Client)
         {
             //...Get DeviceUser based on DeviceUserId...//
 
@@ -59,7 +59,7 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM DeviceUsers WHERE DeviceId ='" + DeviceId + "' AND Phone = '" + Phone + "' AND ClientId = " + Client, con);
+            cmdI = new SqlCommand("SELECT * FROM DeviceUsers WHERE Phone = '" + Phone + "' AND ClientId = " + Client, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -264,8 +264,18 @@ namespace Netintercom.Models
 
         public bool RemoveDeviceUser(int DeviceUserId)
         {
-            /// TODO 
-            return false;
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("DELETE FROM DeviceUsers WHERE DeviceUserId =" + DeviceUserId, con);
+            cmdI.Connection.Open();
+            cmdI.ExecuteNonQuery();            
+            con.Close();
+
+            return true;
         }
 
         public bool RemoveSchoolDeviceUser(int ClientId)

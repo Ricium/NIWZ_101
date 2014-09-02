@@ -27,6 +27,7 @@ namespace Netintercom.Controllers
             return Json(SubCategory);
         }
 
+        [Authorize(Roles = "notifications")]
         public ActionResult Announcements()
         {
             CategoryRepository CatRep = new CategoryRepository();

@@ -37,6 +37,7 @@ namespace Netintercom.Controllers
             return View();
         }
 
+        [Authorize(Roles = "contacts")]
         public ActionResult Contact()
         {
             return View();

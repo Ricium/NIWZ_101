@@ -114,6 +114,7 @@ namespace Netintercom.Controllers
             return Json(SubCategory);
         }
 
+        [Authorize(Roles = "news")]
         public ActionResult News()
         {
             CategoryRepository CatRep = new CategoryRepository();

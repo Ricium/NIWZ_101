@@ -604,10 +604,10 @@ namespace Netintercom.Models
             return ins2;
         }
 
-        public string CheckDeviceUserLogin(string DeviceId, string Phone, string Client, string Password)
+        public string CheckDeviceUserLogin(string Phone, string Client, string Password)
         {
              DeviceUserRepository devurep = new DeviceUserRepository();
-             DeviceUser checkMe = devurep.GetDeviceUser(DeviceId, Phone, Client);
+             DeviceUser checkMe = devurep.GetDeviceUser(Phone, Client);
              StringBuilder w = new StringBuilder();
                 
 
@@ -632,7 +632,7 @@ namespace Netintercom.Models
         public bool CheckDeviceUserRegistration(string DeviceId, string Phone, string Client, string Password)
         {
             DeviceUserRepository devurep = new DeviceUserRepository();
-            DeviceUser checkMe = devurep.GetDeviceUser(DeviceId, Phone, Client);
+            DeviceUser checkMe = devurep.GetDeviceUser(Phone, Client);
 
             if (checkMe.DeviceUserId == 0)
             {

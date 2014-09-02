@@ -19,6 +19,7 @@ namespace Netintercom.Controllers
         private CommunicationRepository comrep = new CommunicationRepository();
         private Functions func = new Functions();
 
+        [Authorize(Roles = "documents")]
         public ActionResult Documents()
         {
             return View();

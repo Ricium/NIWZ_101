@@ -17,6 +17,7 @@ namespace Netintercom.Controllers
     {
         private ServicesRepository ServRep = new ServicesRepository();
 
+        [Authorize(Roles = "services")]
         public ActionResult Services()
         {
             return View();
