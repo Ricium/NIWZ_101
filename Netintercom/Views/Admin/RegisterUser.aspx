@@ -15,7 +15,7 @@
             <td>
      <% Html.Telerik().Grid<RegisterModel>()
         .Name("Users")
-        .DataKeys(keys => keys.Add(s => s.ClientId))
+        .DataKeys(keys => keys.Add(s => s.UsersId))
         .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(Telerik.Web.Mvc.UI.GridButtonType.ImageAndText))
         .Columns(columns =>
         {
@@ -25,12 +25,18 @@
             columns.Bound(m => m.LastLogin);
             columns.Bound(m => m.Locked);
             columns.Bound(m => m.Approved);
+            columns.Bound(m => m.ClientId);
+            columns.Command(commands =>
+            {
+                commands.Delete().ButtonType(Telerik.Web.Mvc.UI.GridButtonType.ImageAndText).Text("Remove User");
+            });
         })
         .DataBinding(dataBinding => 
         {
             dataBinding.Ajax()
                         .Select("_ListUser", "Admin")
-                       .Insert("_InsertUser", "Admin"); 
+                       .Insert("_InsertUser", "Admin")
+                       .Delete("_DeleteUser", "Admin"); 
         })
        
         .Pageable(paging => paging.PageSize(50))

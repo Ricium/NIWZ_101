@@ -104,6 +104,8 @@ namespace Netintercom.Models
 
         [DisplayName("User Id")]
         public Guid UserId { get; set; }
+
+        public int UsersId { get; set; }
     }
 
     public class ResetPasswordModel
@@ -176,6 +178,11 @@ namespace Netintercom.Models
             MembershipCreateStatus status;
             _provider.CreateUser(userName, password, email, null, null, true, null, out status);
             return status;
+        }
+
+        public void DeleteUser(string userName)
+        {
+            _provider.DeleteUser(userName, true);
         }
 
         public bool ChangePassword(string userName, string oldPassword, string newPassword)

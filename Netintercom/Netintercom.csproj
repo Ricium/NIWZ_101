@@ -414,7 +414,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\AdvertisementController.cs" />
+    <Compile Include="Controllers\ProAdController.cs" />
     <Compile Include="Controllers\AppRequestsController.cs" />
     <Compile Include="Controllers\DeviceUserController.cs" />
     <Compile Include="Controllers\DocumentController.cs" />
@@ -461,6 +461,7 @@
     <Compile Include="Models\ServicesRepository.cs" />
     <Compile Include="Models\SettingRepository.cs" />
     <Compile Include="Models\Settings.cs" />
+    <Compile Include="Models\Skwladaptor.cs" />
     <Compile Include="Models\SubCategory.cs" />
     <Compile Include="Models\SubCategoryRepository.cs" />
     <Compile Include="Models\UserRepository.cs" />
@@ -1376,7 +1377,8 @@
     <Content Include="Views\Admin\Devices.aspx" />
     <Content Include="Views\Admin\RegisterSchool.aspx" />
     <Content Include="Views\Admin\RegisterUser.aspx" />
-    <Content Include="Views\Advertisement\Advertisement.aspx" />
+    <Content Include="Views\Admin\Skwladaptor.aspx" />
+    <Content Include="Views\ProAd\ProAd.aspx" />
     <Content Include="Views\DeviceUser\DeviceUsers.aspx" />
     <Content Include="Views\Document\Documents.aspx" />
     <Content Include="Views\Events\Events.aspx" />

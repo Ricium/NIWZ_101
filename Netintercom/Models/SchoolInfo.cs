@@ -9,11 +9,11 @@ namespace Netintercom.Models
 {
     public class Client
     {
-        [DisplayName("School Id")]
+        [DisplayName("Client Id")]
         public int ClientId { get; set; }
 
-        [DisplayName("School Name")]
-        [Required(ErrorMessage="School Name is Required")]
+        [DisplayName("Client Name")]
+        [Required(ErrorMessage = "Client Name is Required")]
         public string Name { get; set; }
 
         [DisplayName("Logo URL")]

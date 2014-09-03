@@ -33,7 +33,7 @@
                 <%: Html.LabelFor(m => m.Body) %>
             </td>
             <td title="Enter the body the Notifications">
-                <%: Html.TextAreaFor(m => m.Body) %>
+                <%: Html.TextAreaFor(m => m.Body, new { Cols = 50, Rows = 10 }) %>
                 <%: Html.ValidationMessageFor(m => m.Body) %>
             </td>
         </tr>

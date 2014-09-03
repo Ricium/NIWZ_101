@@ -179,7 +179,7 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM Notifications WHERE ClientId = " + ClientId, con);
+            cmdI = new SqlCommand("SELECT * FROM Notifications WHERE ClientId = " + ClientId + " ORDER BY NotificationsId DESC", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 

@@ -187,7 +187,7 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM News WHERE ClientId = " + ClientId + " ORDER BY PostDate DESC", con);
+            cmdI = new SqlCommand("SELECT * FROM News WHERE ClientId = " + ClientId + " ORDER BY NewsId DESC", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 

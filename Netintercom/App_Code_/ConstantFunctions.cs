@@ -37,6 +37,8 @@ namespace Netintercom
         public static readonly string FB_API_ID = "1558468101048319";
         public static readonly string FB_Secret = "b49f1edbe495851318cef0faa812c98b";
         public static readonly string FB_Scope = "manage_pages,publish_actions";
+
+        public static readonly string Locker = "N3t1nt3rc0m";
     }
 
     public class Functions

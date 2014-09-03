@@ -36,7 +36,7 @@
                 <%: Html.LabelFor(m => m.Body) %>
             </td>
             <td>
-                <%: Html.TextAreaFor(m => m.Body) %>
+                <%: Html.TextAreaFor(m => m.Body, new { Cols = 50, Rows = 10 }) %>
                 <%: Html.ValidationMessageFor(m => m.Body) %>
             </td>
         </tr>
@@ -75,8 +75,8 @@
 <%= Html.Telerik().Upload()
             .Name("attachments")
             .Async(async => async
-                .Save("Save", "Advertisement")
-                .Remove("Remove", "Advertisement")              
+                .Save("Save", "ProAd")
+                .Remove("Remove", "ProAd")              
             ).ClientEvents(c => c
                 .OnSuccess("onSuccess")
             )

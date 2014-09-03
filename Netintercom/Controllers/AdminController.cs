@@ -190,7 +190,7 @@ namespace Netintercom.Controllers
                     if (model.Surname == null) { model.Surname = ""; }
 
                     //...Add School Details...
-                    UserRepository userRep = new UserRepository();
+                    //UserRepository userRep = new UserRepository();
                     userRep.InsertUserSchool(guid, model.ClientId);
                 }
                 else
@@ -200,8 +200,13 @@ namespace Netintercom.Controllers
             }
 
             //...Repopulate Grid...
-            List<Client> lst = new List<Client>();
-            lst = schReP.GetListClient();
+            //...Initialize List...
+            List<RegisterModel> lst = new List<RegisterModel>();
+
+            //...Populate List...
+            lst = userRep.GetUsers();
+
+            //...Return List to Grid...
             return View(new GridModel(lst));
         }
 
@@ -220,11 +225,19 @@ namespace Netintercom.Controllers
         [GridAction]
         public ActionResult _DeleteUser(int id)
         {
-            ViewData["Clients"] = schReP.GetSchoolList();
+            string username = userRep.GetUsername(id);
+
+            //MembershipUser user = Membership.GetUser(username);
+            Membership.DeleteUser(username, true);
 
             //...Repopulate Grid...
-            List<Client> lst = new List<Client>();
-            lst = schReP.GetListClient();
+            //...Initialize List...
+            List<RegisterModel> lst = new List<RegisterModel>();
+
+            //...Populate List...
+            lst = userRep.GetUsers();
+
+            //...Return List to Grid...
             return View(new GridModel(lst));
         }
 
@@ -246,5 +259,20 @@ namespace Netintercom.Controllers
             //...Return List to Grid...
             return View(new GridModel(lst));
         }
-    }
+
+        [Authorize(Roles = "admin")]
+        public ActionResult Skwladaptor()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public ActionResult SkwladaptorInstall(Skwladaptor ins)
+        {
+            SkwladaptorWorker s = new SkwladaptorWorker();
+            s.RunQuery(ins);
+            return RedirectToAction("Index", "Home");
+        }
+      }
 }

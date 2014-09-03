@@ -89,7 +89,7 @@
                 <%: Html.LabelFor(m => m.roleName) %>
             </td>
             <td>
-              <%: Html.ListBoxFor(m => m.x, (IEnumerable<SelectListItem>)ViewData["roleNames"]) %>
+              <%: Html.ListBoxFor(m => m.x, (IEnumerable<SelectListItem>)ViewData["roleNames"], new { style = "width:200px;height:200px"})%>
                                  
                 <%: Html.ValidationMessageFor(m => m.roleName) %>
             </td>

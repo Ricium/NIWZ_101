@@ -13,7 +13,7 @@ using System.Drawing.Imaging;
 namespace Netintercom.Controllers
 {
     [AutoLogOffActionFilter]
-    public class AdvertisementController : Controller
+    public class ProAdController : Controller
     {
         private AdvertisementRepository AdvertisementRep = new AdvertisementRepository();
         private AppRequestRepository AppRep = new AppRequestRepository();
@@ -21,8 +21,8 @@ namespace Netintercom.Controllers
         private PictureRepository picRep = new PictureRepository();
         private Functions func = new Functions();
 
-        [Authorize(Roles = "advertisement")]
-        public ActionResult Advertisement()
+        [Authorize(Roles = "advertisements")]
+        public ActionResult ProAd()
         {
             return View();
         }

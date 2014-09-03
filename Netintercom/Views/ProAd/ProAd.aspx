@@ -40,10 +40,10 @@
         .DataBinding(dataBinding => 
         {
             dataBinding.Ajax()
-                       .Select("_ListAdvertisement", "Advertisement")
-                       .Insert("_InsertAdvertisement", "Advertisement")
-                       .Update("_UpdateAdvertisement", "Advertisement")
-                       .Delete("_DeleteAdvertisement", "Advertisement"); 
+                       .Select("_ListAdvertisement", "ProAd")
+                       .Insert("_InsertAdvertisement", "ProAd")
+                       .Update("_UpdateAdvertisement", "ProAd")
+                       .Delete("_DeleteAdvertisement", "ProAd"); 
         })
        
         .Pageable(paging => paging.PageSize(50))

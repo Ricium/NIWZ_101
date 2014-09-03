@@ -199,7 +199,7 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM Advertisement WHERE ClientId = " + ClientId, con);
+            cmdI = new SqlCommand("SELECT * FROM Advertisement WHERE ClientId = " + ClientId + " ORDER BY AdvertisementId DESC", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -252,7 +252,7 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM Advertisement WHERE ClientId = " + ClientId + " AND AdvertisementId > " + LastId, con);
+            cmdI = new SqlCommand("SELECT * FROM Advertisement WHERE ClientId = " + ClientId + " AND AdvertisementId > " + LastId + " ORDER BY AdvertisementId DESC", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 

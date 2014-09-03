@@ -3,12 +3,12 @@
 <%@ Import Namespace="Netintercom.Models"%>
 <%@ Import Namespace="Netintercom.Controllers"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    SchoolReg
+    Client Registration
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-<h2>SchoolReg</h2>
+<h2>Client Registration</h2>
 
     <table>
         <tr>
@@ -19,7 +19,7 @@
         .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(Telerik.Web.Mvc.UI.GridButtonType.ImageAndText))
         .Columns(columns =>
         {
-            columns.Bound(m => m.ClientId).Title("SchoolReg");
+            columns.Bound(m => m.ClientId).Title("Client");
             columns.Bound(m => m.Name);
                 
                             columns.Command(commands =>

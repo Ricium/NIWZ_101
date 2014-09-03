@@ -196,7 +196,7 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM Events WHERE ClientId = " + ClientId, con);
+            cmdI = new SqlCommand("SELECT * FROM Events WHERE ClientId = " + ClientId + " ORDER BY EventsId DESC", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 

@@ -60,6 +60,30 @@ namespace Netintercom.Models
             con.Dispose();
         }
 
+        public string GetUsername(int id)
+        {
+            string ret = "";
+
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.AuthConn();
+            SqlCommand cmdI = new SqlCommand("SELECT aU.UserName FROM Users U INNER JOIN aspnet_Users aU ON U.UserId = aU.UserId WHERE U.UsersId = " + id, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ret = drI["UserName"].ToString();
+                }
+            }
+            drI.Close();
+            con.Close();
+            drI.Dispose();
+            con.Dispose();
+
+            return ret;
+        }
+
         public string InsertUserSchool(Guid UserId, int ClientId)
         {
             string strReturn = "";
@@ -86,7 +110,7 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT u.UserId, u.UserName, u.LastActivityDate, us.ClientId, m.LoweredEmail, m.IsApproved, m.IsLockedOut FROM aspnet_Users u INNER JOIN Users us ON u.UserId = us.UserId INNER JOIN aspnet_Membership m ON u.UserId = m.UserId", con);
+            cmdI = new SqlCommand("SELECT us.UsersId, u.UserId, u.UserName, u.LastActivityDate, us.ClientId, m.LoweredEmail, m.IsApproved, m.IsLockedOut FROM aspnet_Users u INNER JOIN Users us ON u.UserId = us.UserId INNER JOIN aspnet_Membership m ON u.UserId = m.UserId", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -103,6 +127,7 @@ namespace Netintercom.Models
                     ins.Email = drI["LoweredEmail"].ToString();
                     ins.Approved = Convert.ToBoolean(drI["IsApproved"]);
                     ins.Locked = Convert.ToBoolean(drI["IsLockedOut"]);
+                    ins.UsersId = Convert.ToInt32(drI["UsersId"]);
                    
                     list.Add(ins);
                 }

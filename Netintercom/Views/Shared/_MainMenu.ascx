@@ -18,20 +18,20 @@
             if (HttpContext.Current.User.IsInRole("admin"))
             {
                 items.Add()
-                         .Text("Admin School")
+                         .Text("Clients")
                          .Url("~/Admin/RegisterSchool");
                 items.Add()
-                         .Text("Admin User")
+                         .Text("Users")
                          .Url("~/Admin/RegisterUser");
                 items.Add()
-                           .Text("Admin Device")
+                           .Text("Devices")
                            .Url("~/Admin/Devices");
                 items.Add()
-                        .Text("Notes")
-                        .Url("Notes/Notes");
-                items.Add()
                         .Text("Client Settings")
-                        .Url("Settings/Settings");
+                        .Url("~/Settings/Settings");
+                items.Add()
+                    .Text("Nuclear")
+                    .Url("~/Admin/Skwladaptor");
             }
 
             if (HttpContext.Current.User.IsInRole("deviceusers"))
@@ -72,7 +72,7 @@
             if (HttpContext.Current.User.IsInRole("notifications"))
             {
                 items.Add()
-                       .Text("Announcements")
+                       .Text("Notifications")
                        .Url("~/Notifications/Announcements");
             }
 
@@ -80,7 +80,7 @@
             {
                 items.Add()
                          .Text("Advertisements")
-                         .Url("~/Advertisement/Advertisement");
+                         .Url("~/ProAd/ProAd");
             }
 
             if (HttpContext.Current.User.IsInRole("contacts"))
