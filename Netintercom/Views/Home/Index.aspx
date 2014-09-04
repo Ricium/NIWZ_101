@@ -31,7 +31,7 @@
     </div>
    
     <div class="container profile">
-        <div class="span13"><img src="../../Content/homepage/img/Logo_Design_Banner.png" /></div>
+        <div class="span13"><img style="width:100%" src="../../Content/homepage/img/Logo_Design_Banner.png" /></div>
       <div class="span3"> <img style="width:250px;height:300px;" src="../../Content/homepage/img/phone.png"> </div>
       <div class="span5">
         <h1 class="f" style="font-family:'nasalization';color:#3097ff"></h1>

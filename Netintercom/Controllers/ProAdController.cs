@@ -179,10 +179,13 @@ namespace Netintercom.Controllers
         public ActionResult _DeleteAdvertisement(int id)
         {
             Advertisement ins = AdvertisementRep.GetAdvertisement(id);
-            Picture pic = picRep.GetPicture(ins.PictureId);
 
-            picRep.RemovePicture(pic.PictureId);
-            func.DeleteFile(pic.PicUrl);
+            if (ins.PictureId != 0)
+            {
+                Picture pic = picRep.GetPicture(ins.PictureId);
+                picRep.RemovePicture(pic.PictureId);
+                func.DeleteFile(pic.PicUrl);
+            }
             
             bool ins2 = AdvertisementRep.RemoveAdvertisement(id);
 
@@ -195,7 +198,7 @@ namespace Netintercom.Controllers
 
             //...Repopulate Grid...
             List<Advertisement> lst = new List<Advertisement>();
-            lst = AdvertisementRep.GetListAdvertisement(Convert.ToInt32(HttpContext.Session["ClientId"]));
+            lst = AdvertisementRep.GetListAdvertisement(ins.ClientId);//Convert.ToInt32(HttpContext.Session["ClientId"]));
             return View(new GridModel(lst));
         }
 

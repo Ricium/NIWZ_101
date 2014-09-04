@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="container profile">
-        <div class="span13"><img src="../../Content/homepage/img/Logo_Design_Banner.png" /></div>
+        <div class="span13"><img style="width:100%" src="../../Content/homepage/img/Logo_Design_Banner.png" /></div>
         <div class="Contacts" style="width:80%;height:400px;">
             <div style="float:left;width:20%;padding:30px">
             <img src="../../Content/homepage/img/app_icon.png" />
