@@ -33,6 +33,7 @@ namespace Netintercom
         public static readonly string API_key = "AIzaSyDtz_XkZvkYv5DYinlbRba9-N5VmVqXGac";
         public static readonly string MailerAddress = "netintercom.systems@gmail.com";
         public static readonly string MailerPw = "Lekkereet1";
+        public static readonly string ContactUsEmail = "netintercom.web@gmail.com";
 
         public static readonly string FB_API_ID = "1558468101048319";
         public static readonly string FB_Secret = "b49f1edbe495851318cef0faa812c98b";

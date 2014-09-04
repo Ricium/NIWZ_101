@@ -14,7 +14,7 @@ using System.Security.Cryptography;
 
 namespace Netintercom.Controllers
 {
-    [AutoLogOffActionFilter]
+    
     public class HomeController : Controller
     {
         private AppRequestRepository AppRep = new AppRequestRepository();
@@ -23,14 +23,19 @@ namespace Netintercom.Controllers
       
         public ActionResult Index()
         {
+            return View();
+        }
+
+        public ActionResult Home()
+        {
             if (HttpContext.Session["UserID"] != null)
-            {             
+            {
                 return View();
             }
             else
             {
                 return RedirectToAction("LogOn", "Account");
-            }    
+            } 
         }
 
         public ActionResult About()
@@ -38,6 +43,28 @@ namespace Netintercom.Controllers
             return View();
         }
 
+        public ActionResult ContactUs()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Mail(FormCollection form)
+        {
+            Functions f = new Functions();
+            string message = "Someone did something wrong";
+
+            if (form.AllKeys.Count() > 3)
+            {
+                message = "Name: " + form["name"].ToString() + "\nEmail: " + form["email"].ToString() + "\nWebsite: " + form["website"].ToString() + "\n\nMessage:\n" + form["message"].ToString();
+            }            
+
+            f.SendEmail(message, Constants.ContactUsEmail, "Netintercom [Web Request]");
+
+            return RedirectToAction("Index");
+        }
+
+        [AutoLogOffActionFilter]
         [Authorize(Roles = "contacts")]
         public ActionResult Contact()
         {

@@ -230,9 +230,13 @@ namespace Netintercom.Models
                 if (item.PictureId != 0)
                 {
                     item.PicUrl = picRep.GetPicture(item.PictureId).PicUrl;
-                    string path = item.PicUrl.Substring(item.PicUrl.IndexOf("/Images/"));
-                    path = path.Replace('/', '\\');
-                    item.PicUrl = path;
+
+                    if (item.PicUrl.Contains("\\Images\\"))
+                    {
+                        string path = item.PicUrl.Substring(item.PicUrl.IndexOf("\\Images\\"));
+                        path = path.Replace('\\', '/');
+                        item.PicUrl = "http://www.netintercom.co.za" + path;
+                    }
                 }
             }
 

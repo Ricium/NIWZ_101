@@ -60,7 +60,7 @@ namespace Netintercom.Controllers
                     {
                         userRep.GetUserID(model.UserName);
                         userRep.GetClientId(model.UserName);
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Home", "Home");
                     }
                 }
                 else
@@ -76,7 +76,8 @@ namespace Netintercom.Controllers
         public ActionResult LogOff()
         {
             FormsService.SignOut();
-            return RedirectToAction("LogOn", "Account");
+            HttpContext.Session["UserID"] = null;
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Register()

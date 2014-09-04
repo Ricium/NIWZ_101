@@ -669,6 +669,66 @@
     <Content Include="Content\2013.2.611\Windows7\slider-v.gif" />
     <Content Include="Content\2013.2.611\Windows7\sprite-vertical.png" />
     <Content Include="Content\2013.2.611\Windows7\sprite.png" />
+    <Content Include="Content\homepage\css\bootstrap.css" />
+    <Content Include="Content\homepage\css\bootstrap.min.css" />
+    <Content Include="Content\homepage\css\jquery.fancybox.css" />
+    <Content Include="Content\homepage\css\style-single-page.css" />
+    <Content Include="Content\homepage\css\style.css" />
+    <Content Include="Content\homepage\css\styleIE.css" />
+    <Content Include="Content\homepage\font\css\animation.css" />
+    <Content Include="Content\homepage\font\css\bootstrap.css" />
+    <Content Include="Content\homepage\font\css\bootstrap.min.css" />
+    <Content Include="Content\homepage\font\css\fontello-codes.css" />
+    <Content Include="Content\homepage\font\css\fontello-embedded.css" />
+    <Content Include="Content\homepage\font\css\fontello-ie7-codes.css" />
+    <Content Include="Content\homepage\font\css\fontello-ie7.css" />
+    <Content Include="Content\homepage\font\css\fontello.css" />
+    <Content Include="Content\homepage\font\css\jquery.fancybox.css" />
+    <Content Include="Content\homepage\font\css\nasalization.css" />
+    <Content Include="Content\homepage\font\css\style-single-page.css" />
+    <Content Include="Content\homepage\font\css\style.css" />
+    <Content Include="Content\homepage\font\css\styleIE.css" />
+    <Content Include="Content\homepage\font\font\fontello.svg" />
+    <Content Include="Content\homepage\img\1-thumb.jpg" />
+    <Content Include="Content\homepage\img\1.jpg" />
+    <Content Include="Content\homepage\img\2-thumb.jpg" />
+    <Content Include="Content\homepage\img\2.jpg" />
+    <Content Include="Content\homepage\img\3-thumb.jpg" />
+    <Content Include="Content\homepage\img\3.jpg" />
+    <Content Include="Content\homepage\img\4-thumb.jpg" />
+    <Content Include="Content\homepage\img\4.jpg" />
+    <Content Include="Content\homepage\img\5-thumb.jpg" />
+    <Content Include="Content\homepage\img\5.jpg" />
+    <Content Include="Content\homepage\img\6-thumb.jpg" />
+    <Content Include="Content\homepage\img\6.jpg" />
+    <Content Include="Content\homepage\img\app_icon.png" />
+    <Content Include="Content\homepage\img\call.jpg" />
+    <Content Include="Content\homepage\img\call.png" />
+    <Content Include="Content\homepage\img\Customization.png" />
+    <Content Include="Content\homepage\img\Customization_base Shadow.png" />
+    <Content Include="Content\homepage\img\dr.png" />
+    <Content Include="Content\homepage\img\dummy.png" />
+    <Content Include="Content\homepage\img\eye.png" />
+    <Content Include="Content\homepage\img\fancybox_sprite.png" />
+    <Content Include="Content\homepage\img\favicon.ico" />
+    <Content Include="Content\homepage\img\fb.png" />
+    <Content Include="Content\homepage\img\go.png" />
+    <Content Include="Content\homepage\img\Google Play store logo.png" />
+    <Content Include="Content\homepage\img\Logo.png" />
+    <Content Include="Content\homepage\img\Logo_Design_Banner.png" />
+    <Content Include="Content\homepage\img\Man_Silhouette.png" />
+    <Content Include="Content\homepage\img\mini.png" />
+    <Content Include="Content\homepage\img\Netintercom Demo QR.png" />
+    <Content Include="Content\homepage\img\phone.png" />
+    <Content Include="Content\homepage\img\pin.png" />
+    <Content Include="Content\homepage\img\st.png" />
+    <Content Include="Content\homepage\img\tw.png" />
+    <Content Include="Content\homepage\img\user-big.jpg" />
+    <Content Include="Content\homepage\img\user.jpg" />
+    <Content Include="Content\homepage\js\bootstrap.js" />
+    <Content Include="Content\homepage\js\bootstrap.min.js" />
+    <Content Include="Content\homepage\js\jquery-1.10.1.min.js" />
+    <Content Include="Content\homepage\js\jquery.fancybox.js" />
     <Content Include="Content\kendo\2014.1.318\Black\editor.png" />
     <Content Include="Content\kendo\2014.1.318\Black\imagebrowser.png" />
     <Content Include="Content\kendo\2014.1.318\Black\indeterminate.gif" />
@@ -893,6 +953,11 @@
     <Content Include="Global.asax" />
     <Content Include="Content\kendo\2014.1.318\images\kendoui.woff" />
     <Content Include="Content\kendo\2014.1.318\images\kendoui.ttf" />
+    <Content Include="Content\homepage\font\font\fontello.eot" />
+    <Content Include="Content\homepage\font\font\fontello.ttf" />
+    <Content Include="Content\homepage\font\font\fontello.woff" />
+    <Content Include="Content\homepage\font\font\nasalization.ttf" />
+    <Content Include="Content\homepage\img\mini.psd" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Images\Banner.png" />
     <Content Include="favicon.ico" />
@@ -1378,13 +1443,15 @@
     <Content Include="Views\Admin\RegisterSchool.aspx" />
     <Content Include="Views\Admin\RegisterUser.aspx" />
     <Content Include="Views\Admin\Skwladaptor.aspx" />
+    <Content Include="Views\Home\ContactUs.aspx" />
+    <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\ProAd\ProAd.aspx" />
     <Content Include="Views\DeviceUser\DeviceUsers.aspx" />
     <Content Include="Views\Document\Documents.aspx" />
     <Content Include="Views\Events\Events.aspx" />
     <Content Include="Views\Home\About.aspx" />
     <Content Include="Views\Home\Contact.aspx" />
-    <Content Include="Views\Home\Index.aspx" />
+    <Content Include="Views\Home\Home.aspx" />
     <Content Include="Views\News\News.aspx" />
     <Content Include="Views\Notes\Notes.aspx" />
     <Content Include="Views\Notifications\Announcements.aspx" />
@@ -1499,7 +1566,9 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\UploadLocalization.zh-CN.resx">
