@@ -51,6 +51,7 @@
                 </ul>
                 <p> A Facebook account can also be linked, which will automatically post content created on the web interface.<br />As a bonus, the Advertisements feature will allow you, our client, to generate a potential revenue by selling advertisement space to any third-party company.</p>
         </div>
+        <br />
         <div class="customization" style="width:50%">
         <h3 class="f" style="font-family:'nasalization'; font-size:30px;color:black">Customization</h3>
             <p>
@@ -63,7 +64,7 @@
         <div class="demoapp">
         <h3 class="f" style="font-family:'nasalization'; font-size:30px;color:black">Have a look</h3>
             <p>Try our example demo app now, and contact us for further information.</p>
-            <a href="https://play.google.com/store/apps/details?id=com.netintercom.demonstration" target="_blank"><img style="width:80px;height:80px" src="../../Content/homepage/img/app_icon.png" alt="google play"></a>
+            <a href="https://play.google.com/store/apps/details?id=com.netintercom.demonstration" target="_blank"><img style="width:150px;height:50px;" src="../../Content/homepage/img/Google Play store logo.png" alt="google play"></a>
             <!--<img style="width:150px;height:50px;" src="../../Content/homepage/img/Google Play store logo.png" />-->
             <img  style="width:80px;height:80px" src="../../Content/homepage/img/Netintercom Demo QR.png" />
         </div>  
