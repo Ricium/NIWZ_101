@@ -21,9 +21,11 @@ namespace Netintercom.Models
             httpWebRequest.Headers.Add(string.Format("Authorization: key={0}", API_key));
             httpWebRequest.ContentType = CONTENTTYPE;
 
+            string remessage = Message.Replace("\n", "\\n");
+
             using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
             {
-                string json = "{\"registration_ids\":[" + regId + "]," + "\"data\": { \"CMD\" : \"CMD_NOTIFY\", \"MSG\" : \"" + Message + "\", \"ID\" : \"" + Id + "\"}}";
+                string json = "{\"registration_ids\":[" + regId + "]," + "\"data\": { \"CMD\" : \"CMD_NOTIFY\", \"MSG\" : \"" + remessage + "\", \"ID\" : \"" + Id + "\"}}";
                 Console.WriteLine(json);
                 streamWriter.Write(json);
                 streamWriter.Flush();

@@ -12,7 +12,7 @@
             if (HttpContext.Current.User.IsInRole("client")) {
                 items.Add()
                      .Text("Home")
-                     .Url("~/Home/Index");
+                     .Url("~/Home/Home");
             }
             
             if (HttpContext.Current.User.IsInRole("admin"))

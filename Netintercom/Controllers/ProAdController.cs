@@ -67,7 +67,7 @@ namespace Netintercom.Controllers
 
                 //...Resize..
                 Image original = Image.FromStream(file.InputStream, true, true);
-                Image resized = functions.ResizeImage(original, new Size(100, 100));
+                Image resized = functions.ResizeImage(original, new Size(500, 500));
 
                 resized.Save(physicalPath, ImageFormat.Jpeg);
 

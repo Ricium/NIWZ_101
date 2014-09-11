@@ -462,6 +462,8 @@
     <Compile Include="Models\SettingRepository.cs" />
     <Compile Include="Models\Settings.cs" />
     <Compile Include="Models\Skwladaptor.cs" />
+    <Compile Include="Models\Stats.cs" />
+    <Compile Include="Models\StatsRepository.cs" />
     <Compile Include="Models\SubCategory.cs" />
     <Compile Include="Models\SubCategoryRepository.cs" />
     <Compile Include="Models\UserRepository.cs" />

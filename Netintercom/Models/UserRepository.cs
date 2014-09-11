@@ -84,6 +84,30 @@ namespace Netintercom.Models
             return ret;
         }
 
+        public string GetUsername(Guid UserId)
+        {
+            string ret = "";
+
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.AuthConn();
+            SqlCommand cmdI = new SqlCommand("SELECT aU.UserName FROM Users U INNER JOIN aspnet_Users aU WHERE UserId = '" + UserId.ToString() + "'", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ret = drI["UserName"].ToString();
+                }
+            }
+            drI.Close();
+            con.Close();
+            drI.Dispose();
+            con.Dispose();
+
+            return ret;
+        }
+
         public string InsertUserSchool(Guid UserId, int ClientId)
         {
             string strReturn = "";

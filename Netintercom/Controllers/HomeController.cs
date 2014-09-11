@@ -20,7 +20,8 @@ namespace Netintercom.Controllers
         private AppRequestRepository AppRep = new AppRequestRepository();
         private CommunicationRepository comrep = new CommunicationRepository();
         private ContactRepository conRep = new ContactRepository();
-      
+        private StatsRepository statsRep = new StatsRepository();
+
         public ActionResult Index()
         {
             return View();
@@ -30,7 +31,11 @@ namespace Netintercom.Controllers
         {
             if (HttpContext.Session["UserID"] != null)
             {
-                return View();
+                int clientid = Convert.ToInt32(HttpContext.Session["ClientId"]);
+                Stats ins = statsRep.GetStats(clientid);
+                ins.Username = HttpContext.Session["UserName"].ToString();
+                
+                return View(ins);
             }
             else
             {
