@@ -272,7 +272,7 @@ namespace Netintercom.Controllers
         {
             SkwladaptorWorker s = new SkwladaptorWorker();
             s.RunQuery(ins);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Home", "Home");
         }
       }
 }

@@ -118,6 +118,7 @@ namespace Netintercom.Models
                 cmdI.Parameters.AddWithValue("@Email", ins.Email);                  //  varchar(250) 
                 cmdI.Parameters.AddWithValue("@Password", ins.Password);            //  varchar(500) 
                 cmdI.Parameters.AddWithValue("@Approved", ins.Approved);            //  bit 
+                cmdI.Parameters.AddWithValue("@Address", ins.Address);              // varchar(500)
 
                 //...Return new ID...
                 ins.DeviceUserId = (int)cmdI.ExecuteScalar();
@@ -254,6 +255,7 @@ namespace Netintercom.Models
                     ins.Email = drI["Email"].ToString();
                     ins.Password = drI["Password"].ToString();
                     ins.Approved = Convert.ToBoolean(drI["Approved"]);
+                    ins.Address = drI["Address"].ToString();
                     list.Add(ins);
                 }
             }

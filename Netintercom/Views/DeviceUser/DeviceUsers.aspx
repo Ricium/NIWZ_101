@@ -22,6 +22,7 @@
             columns.Bound(m => m.Surname);
             columns.Bound(m => m.Phone);
             columns.Bound(m => m.Email);
+            columns.Bound(m => m.Address);
             columns.Add(c => c.Approved);
             columns.Command(commands =>
             {

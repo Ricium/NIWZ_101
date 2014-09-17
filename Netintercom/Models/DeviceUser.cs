@@ -16,12 +16,13 @@ namespace Netintercom.Models
       public string Email { get; set; }
       public string Password { get; set; }
       public bool Approved { get; set; }
+      public string Address { get; set; }
 
       public DeviceUser()
       {
       }
 
-      public DeviceUser(int ClientId, string DeviceId, string NameSurname, string Phone, string Email, string Password)
+      public DeviceUser(int ClientId, string DeviceId, string NameSurname, string Phone, string Email, string Password, string Address)
       {
           this.ClientId = ClientId;
           this.DeviceId = DeviceId;
@@ -32,6 +33,8 @@ namespace Netintercom.Models
           this.Phone = Phone;
           this.Email = Email;
           this.Password = Password;
+
+          this.Address = Address;
 
           this.DeviceUserId = 0;
           this.Approved = false;

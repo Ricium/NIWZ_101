@@ -31,11 +31,24 @@ namespace Netintercom.Controllers
         {
             if (HttpContext.Session["UserID"] != null)
             {
-                int clientid = Convert.ToInt32(HttpContext.Session["ClientId"]);
-                Stats ins = statsRep.GetStats(clientid);
-                ins.Username = HttpContext.Session["UserName"].ToString();
+                if (HttpContext.Session["ClientId"] != null)
+                {
+                    string sclientid = HttpContext.Session["ClientId"].ToString();
+                    int clientid = 0;
+
+                    if (!sclientid.Equals(""))
+                        clientid = Convert.ToInt32(sclientid);
+                    
+                    Stats ins = statsRep.GetStats(clientid);
+                    ins.Username = HttpContext.Session["UserName"].ToString();
+                    return View(ins);
+                }
+                else
+                {
+                    return View();
+                }
                 
-                return View(ins);
+                
             }
             else
             {

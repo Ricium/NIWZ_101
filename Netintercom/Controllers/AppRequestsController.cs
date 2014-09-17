@@ -132,9 +132,9 @@ namespace Netintercom.Controllers
         }
 
         [HttpPost]
-        public JsonResult RegisterUser(int ClientId, string NameSurname, string Email, string Password, string Phone, string DeviceId, string RawPW)
+        public JsonResult RegisterUser(int ClientId, string NameSurname, string Email, string Password, string Phone, string DeviceId, string RawPW, string Address)
         {
-            DeviceUser newUser = new DeviceUser(ClientId, DeviceId, NameSurname, Phone, Email, Password);
+            DeviceUser newUser = new DeviceUser(ClientId, DeviceId, NameSurname, Phone, Email, Password, Address);
             Client c = new Client();
             ClientRepository cr = new ClientRepository();
             c = cr.GetClient(Convert.ToInt32(ClientId));
@@ -196,7 +196,10 @@ namespace Netintercom.Controllers
             service.ModifiedDate = DateTime.Now;
 
             StringBuilder w = new StringBuilder();
-            w.Append(user.Name).Append(" ").Append(user.Surname).Append(" Request: ").Append(service.Service);
+            w.Append(user.Name).Append(" ").Append(user.Surname).Append("\n");
+            w.Append("Address: ").Append(user.Address).Append("\n");
+            w.Append("Contact Details: Phone - ").Append(user.Phone).Append(" Email - ").Append(user.Email).Append("\n");
+            w.Append("Request: ").Append(service.Service);
             w.Append("\n").Append(service.Query);
 
 
