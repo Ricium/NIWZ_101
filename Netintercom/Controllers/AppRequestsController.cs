@@ -154,6 +154,23 @@ namespace Netintercom.Controllers
                 {
                     Functions f = new Functions();
                     f.SendEmail("You have been successfully registered. \n Registration details: \n Phone: " + Phone + " \n Password: " + RawPW + "\n\n Please keep this information safe, and do not delete this email.", Email, "Registration Details for: " + c.Name);
+                    
+                    //...Send Email to Registrar
+                    //Get Client Service Mail List
+                    List<Settings> mails = setRep.GetSettings("registrar", ClientId);
+                    
+                    if (mails.Count >= 1)
+                    {
+                        StringBuilder maillist = new StringBuilder();
+
+                        foreach (Settings setting in mails)
+                        {
+                            maillist.Append(setting.Value).Append(",");
+                        }
+                        maillist.Remove(maillist.Length - 1, 1);
+
+                        f.SendEmail("Please Approve:\n"+NameSurname, maillist.ToString(), "Netintercom User Request's Approval");
+                    }  
                 }
 
                 var j = this.Json(newUser);
