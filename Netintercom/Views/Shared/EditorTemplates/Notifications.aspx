@@ -18,10 +18,10 @@
                
           
         <tr>
-            <td title="Enter the Title for the Notifications e.g. Rugby">
+            <td title="Enter the Title for the Notification">
                <b Class=asteriks>*</b> <%: Html.LabelFor(m => m.Title) %>
             </td>
-            <td title="Enter the Title for the Notifications e.g. Rugby">
+            <td title="Enter the Title for the Notification">
                 <%: Html.TextBoxFor(m => m.Title) %>
                 <%: Html.ValidationMessageFor(m => m.Title) %>
             </td>
@@ -29,30 +29,30 @@
   
 
         <tr>
-            <td title="Enter the body the Notifications">
-                <%: Html.LabelFor(m => m.Body) %>
+            <td title="Enter the body the Notification">
+                <b Class=asteriks>*</b> <%: Html.LabelFor(m => m.Body) %>
             </td>
-            <td title="Enter the body the Notifications">
+            <td title="Enter the body the Notification">
                 <%: Html.TextAreaFor(m => m.Body, new { Cols = 50, Rows = 10 }) %>
                 <%: Html.ValidationMessageFor(m => m.Body) %>
             </td>
         </tr>
         
         <tr>
-            <td title="Select Category for the Notifications e.g. Sport">
+            <td title="Select Category for the Notification">
                 <b Class=asteriks>*</b><%: Html.Label("Category") %>
             </td>
-            <td  title="Select Category for the Notifications e.g. Sport">
+            <td  title="Select Category for the Notification">
                 <%= Html.Telerik().DropDownListFor(c => c.CategoryId).BindTo((IEnumerable<SelectListItem>)ViewData["Category"])
                 .CascadeTo("SubCategoryId")%>
                 <%: Html.ValidationMessageFor(m => m.CategoryId) %>
             </td>
         </tr>
         <tr>
-            <td title="Select a subcategory for the announcement e.g. Rugby">
+            <td title="Select a Subcategory for the Notification">
                 <b Class=asteriks>*</b><%: Html.Label("Sub Category") %>
             </td>
-            <td title="Select a subcategory for the announcement e.g. Rugby">
+            <td title="Select a Subcategory for the Notification">
                 <%= Html.Telerik().DropDownListFor(c => c.SubCategoryId)
                 .DataBinding(binding => binding.Ajax().Select("_AsyncSubCategorys", "Notifications"))%>
                 <%: Html.ValidationMessageFor(m => m.SubCategoryId) %>

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Netintercom.Models
 {
@@ -36,11 +38,15 @@ namespace Netintercom.Models
                 {
                     result = streamReader.ReadToEnd();
                 }
+
+               
             }
         }
 
-        public void NewsyncData(string regId, string DataContent)
+        public void NewsyncData(string regId, string DataContent, List<string> idlist, int ClientId)
         {
+            AppRequestRepository apprep = new AppRequestRepository();
+
             var result = "";
             var API_key = Constants.API_key;
             var CONTENTTYPE = "application/json";
@@ -65,8 +71,42 @@ namespace Netintercom.Models
                     result = streamReader.ReadToEnd();
                 }
             }
+
+            //Do something with result
+            string res = result.ToString();
+            res.Replace("\"","'");
+
+            List<string> fields = JSONParseObject(res);
+
+            for (int i = 0; i < fields.Count; i++)
+            {
+                if (fields[i] != null)
+                {
+                    apprep.UpdateRegId(idlist[i], fields[i], ClientId);
+                }
+            }
+
+            apprep.DeleteDuplicateReg();
         }
 
+        public List<string> JSONParseObject(string jsonText)
+        {
+            JObject jResults = JObject.Parse(jsonText);
+            List<string> fields = new List<string>();
+            foreach (var field in jResults["results"])
+            {
+                try
+                {
+                    fields.Add((string)field["registration_id"]);
+                }
+                catch(Exception e)
+                {
+                    fields.Add("");
+                }
+            }
+            return fields;
+        }
+     
         public void NewUpdateData(string regId, string DataContent, string id)
         {
             var result = "";

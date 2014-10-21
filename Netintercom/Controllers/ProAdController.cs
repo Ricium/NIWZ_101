@@ -130,9 +130,10 @@ namespace Netintercom.Controllers
 
             //...Notify...
             string regIds = AppRep.GetAllRegIds(ins.ClientId);
+            List<string> reg = AppRep.GetAllRegIdsList(ins.ClientId);
             if (!regIds.Equals(""))
             {
-                comrep.NewsyncData(regIds, "CMD_NEWAD");
+                comrep.NewsyncData(regIds, "CMD_NEWAD", reg, ins.ClientId);
             }
 
             //...Facebook...

@@ -40,6 +40,8 @@ namespace Netintercom
         public static readonly string FB_Scope = "manage_pages,publish_actions";
 
         public static readonly string Locker = "N3t1nt3rc0m";
+
+        public static readonly string HTTPPath = "http://ni.4dtech.co.za/";
     }
 
     public class Functions

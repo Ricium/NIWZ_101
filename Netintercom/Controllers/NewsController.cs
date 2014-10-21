@@ -60,7 +60,7 @@ namespace Netintercom.Controllers
                 string finalpath = physicalPath.ToString();
                 finalpath = finalpath.Substring(finalpath.IndexOf("Images"));
                 finalpath = finalpath.Replace('\\', '/');
-                finalpath = "http://www.Netintercom.co.za/" + finalpath;
+                finalpath = "http://ni.4dtech.co.za/" + finalpath;
 
                 //...Save In DB...                
                 ins.PicUrl = finalpath;
@@ -147,9 +147,10 @@ namespace Netintercom.Controllers
 
             //...Notify...
             string regIds = AppRep.GetAllRegIds(ins.ClientId);
+            List<string> reg = AppRep.GetAllRegIdsList(ins.ClientId);
             if (!regIds.Equals(""))
             {
-                comrep.NewsyncData(regIds, "CMD_NEWNEWS");
+                comrep.NewsyncData(regIds, "CMD_NEWNEWS", reg, ins.ClientId);
             }
 
             //...Facebook...

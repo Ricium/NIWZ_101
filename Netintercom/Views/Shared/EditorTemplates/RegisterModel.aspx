@@ -27,7 +27,7 @@
 
         <tr>
             <td>
-                <%: Html.LabelFor(m => m.Surname) %>
+                <b Class=asteriks>*</b> <%: Html.LabelFor(m => m.Surname) %>
             </td>
             <td>
                 <%: Html.TextBoxFor(m => m.Surname) %>
@@ -37,7 +37,7 @@
         
         <tr>
             <td>
-                <%: Html.LabelFor(m => m.UserName) %>
+                <b Class=asteriks>*</b> <%: Html.LabelFor(m => m.UserName) %>
             </td>
             <td>
                 <%: Html.TextBoxFor(m => m.UserName) %>
@@ -47,7 +47,7 @@
 
         <tr>
             <td>
-                <%: Html.LabelFor(m => m.Email) %>
+                <b Class=asteriks>*</b> <%: Html.LabelFor(m => m.Email) %>
             </td>
             <td>
                 <%: Html.TextBoxFor(m => m.Email) %>
@@ -57,7 +57,7 @@
         
         <tr>
             <td>
-                <%: Html.LabelFor(m => m.Password) %>
+                <b Class=asteriks>*</b> <%: Html.LabelFor(m => m.Password) %>
             </td>
             <td>
                 <%: Html.PasswordFor(m => m.Password) %>
@@ -67,7 +67,7 @@
 
         <tr>
             <td>
-                <%: Html.LabelFor(m => m.ConfirmPassword) %>
+                <b Class=asteriks>*</b> <%: Html.LabelFor(m => m.ConfirmPassword) %>
             </td>
             <td>
                 <%: Html.PasswordFor(m => m.ConfirmPassword) %>
@@ -77,7 +77,7 @@
 
         <tr>
             <td>
-                <%: Html.LabelFor(m => m.ClientId) %>
+                <b Class=asteriks>*</b> <%: Html.LabelFor(m => m.ClientId) %>
             </td>
             <td>
                 <%: Html.Telerik().DropDownListFor(m => m.ClientId).BindTo((IEnumerable<SelectListItem>)ViewData["Clients"]) %>

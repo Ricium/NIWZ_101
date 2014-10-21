@@ -511,6 +511,70 @@ namespace Netintercom.Models
             return returnValue.ToString();
         }
 
+        public void UpdateRegId(string old_reg, string new_reg, int ClientId)
+        {
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("UPDATE Registration SET [DeviceReg] = '"+new_reg
+                                   +"' ,[ClientId] = " + ClientId
+                                   + " WHERE DeviceReg = '" + old_reg + "' AND ClientId = " + ClientId, con);
+            cmdI.Connection.Open();
+            cmdI.ExecuteNonQuery();
+                    
+            con.Close();
+
+        }
+
+        public void DeleteDuplicateReg()
+        {
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("WITH CTE AS(SELECT *, RN = ROW_NUMBER()OVER(PARTITION BY DeviceReg ORDER BY RegistrationId) "
+                                  +" FROM Registration) DELETE FROM CTE WHERE RN > 1", con);
+            cmdI.Connection.Open();
+            cmdI.ExecuteNonQuery();
+
+            con.Close();
+
+        }
+
+        public List<string> GetAllRegIdsList(int ClientId)
+        {
+            StringBuilder returnValue = new StringBuilder();
+            List<string> RegIds = new List<string>();
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT DISTINCT DeviceReg FROM Registration WHERE ClientId = " + ClientId, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    RegIds.Add(drI["DeviceReg"].ToString());
+                }
+            }
+            drI.Close();
+            con.Close();
+
+           return RegIds;
+        }
+
         public bool RegisterDevice(int ClientId, string RegId)
         {
             //...Get User and Date Data...

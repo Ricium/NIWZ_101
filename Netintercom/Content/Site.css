@@ -5,7 +5,7 @@ to use a different color start by replacing all instances of
 ----------------------------------------------------------*/
 body
 {
-	background-color: #e6e1d9;
+	background-color: #3097ff;
 	font-size: 68%;
 	font-family: Verdana, Tahoma, Arial, "Helvetica Neue", Helvetica, Sans-Serif;
 	margin: 0;
@@ -145,7 +145,7 @@ page width. Or, you can specify an exact pixel width. */
 #main
 {
 	padding: 110px 30px 15px 30px;
-	background-color: #fff;
+	background-color: gray;
 	margin-bottom: 30px;
 	min-height:350px;
 	_height: 1px; /* only IE6 applies CSS properties starting with an underscore */
@@ -153,7 +153,7 @@ page width. Or, you can specify an exact pixel width. */
 
 #footer
 {
-	color: #999;
+	color: white;
 	padding: 10px 0;
 	text-align: center;
 	line-height: normal;
@@ -340,7 +340,7 @@ table th
 	min-height:200px;
 	vertical-align:middle;
 	color:#000;
-	background:#ffffff;
+	background:#3097ff;
 }
 
 #logindisplay
@@ -355,7 +355,7 @@ table th
 }
 
 #logonpage .submit {
-	background: url("../images/Shared/ButtonIcons/signin.gif") no-repeat scroll 5px center;
+	background: no-repeat scroll 5px center;
 	border-top: 1;
 	border-right: 1;
 	border-bottom: 1;
@@ -367,9 +367,16 @@ table th
 	color:#000;
 }
 
+.loginTable {
+    background-color: gray;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+}
+
 .logonheader
 {
-	background: url("../images/Backend/Skins/XPRed/LoginHeader.jpg") #ffffff;
+	background: gray;
 	color: #fff;
 }
 
@@ -415,7 +422,7 @@ table th
 	display:block;
 	float:left;
 	text-align:left;
-	background: #fff;
+	background: #3097ff;
 	width:100%;
 	height: 90px;
 }

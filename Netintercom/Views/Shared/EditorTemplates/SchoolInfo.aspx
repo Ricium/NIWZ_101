@@ -24,10 +24,10 @@
                    
           </tr>
         <tr>
-            <td title="Enter the Title for the Client e.g. Rugby">
+            <td title="Enter the Title for the Client">
                <b Class=asteriks>*</b> <%: Html.LabelFor(m => m.Name) %>
             </td>
-            <td title="Enter the Title for the Client e.g. Rugby">
+            <td title="Enter the Title for the Client">
                 <%: Html.TextBoxFor(m => m.Name) %>
                 <%: Html.ValidationMessageFor(m => m.Name) %>
             </td>

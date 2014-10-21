@@ -114,9 +114,10 @@ namespace Netintercom.Controllers
 
             //...Notify...
             string regIds = AppRep.GetAllRegIds(ins.ClientId);
+            List<string> reg = AppRep.GetAllRegIdsList(ins.ClientId);
             if (!regIds.Equals(""))
             {
-                comrep.NewsyncData(regIds, "CMD_NEWCONTACT");
+                comrep.NewsyncData(regIds, "CMD_NEWCONTACT", reg, ins.ClientId);
             }
 
             //...Repopulate Grid...

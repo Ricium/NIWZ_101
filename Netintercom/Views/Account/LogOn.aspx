@@ -16,38 +16,39 @@
 
 <body>
 <script src="<%= Url.Content("~/Scripts/jquery-1.7.1.min.js")%>"  type="text/javascript"></script>  
-
+    <img id="headerlogo"src="../../Images/Banner.png" style="width:667px;height:100px;margin-left:auto;margin-right:auto;display:block"/>
     <div id="logonpage">
 
    
-<table width="400"><tr><td style="text-align:center;font-size:1.75em;color:red;"></td></tr>
+<table class="loginTable"><tr><td style="text-align:center;font-size:1.75em;color:red;"></td></tr>
 <tr class="logonheader"><td height="55px"><b>PLEASE LOGIN BELOW</b></td></tr>
 <tr><td>Please enter your username and password details into the respective textboxes, then click on the continue button to proceed.<br /><br />
     
 
-    <% using (Html.BeginForm()) { %>
-        <%: Html.ValidationSummary(true, "Login was unsuccessful. Please correct the errors and try again.") %>
+    <% using (Html.BeginForm())
+       { %>
+        <%: Html.ValidationSummary(true, "Login was unsuccessful. Please correct the errors and try again.")%>
         <div>
-            <table width="400"><tr>
+            <table class="loginTable"><tr>
                 <td>
-                    <%: Html.LabelFor(m => m.UserName) %>
+                    <%: Html.LabelFor(m => m.UserName)%>
                 </td>
                 <td>
-                    <%: Html.TextBoxFor(m => m.UserName) %><br />
-                    <%: Html.ValidationMessageFor(m => m.UserName) %>
-                </td>
-                </tr>
-                <tr>
-                <td>
-                    <%: Html.LabelFor(m => m.Password) %>
-                </td>
-                <td>
-                    <%: Html.PasswordFor(m => m.Password) %><br />
-                    <%: Html.ValidationMessageFor(m => m.Password) %>
+                    <%: Html.TextBoxFor(m => m.UserName)%><br />
+                    <%: Html.ValidationMessageFor(m => m.UserName)%>
                 </td>
                 </tr>
                 <tr>
-                <td><%: Html.ActionLink("Forgot Password","ResetPassword","Account") %></td>        
+                <td>
+                    <%: Html.LabelFor(m => m.Password)%>
+                </td>
+                <td>
+                    <%: Html.PasswordFor(m => m.Password)%><br />
+                    <%: Html.ValidationMessageFor(m => m.Password)%>
+                </td>
+                </tr>
+                <tr>
+                <td><%: Html.ActionLink("Forgot Password", "ResetPassword", "Account")%></td>        
                 <td>
                     <button type="submit">&nbsp Log In</button>
                 </td>

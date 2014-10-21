@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<Advertisement>" %>
+<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<Advertisement>" %>
 <%@ Import Namespace="Netintercom"%>
 <%@ Import Namespace="Netintercom.Models"%>
 <%@ Import Namespace="Netintercom.Controllers"%>
@@ -22,7 +22,7 @@
         <td> <%:Html.HiddenFor(m => m.AdvertisementId) %></td>
             <td> <%:Html.HiddenFor(m => m.ClientId) %> <%:Html.HiddenFor(m => m.PictureId) %></td>
         </tr>
-            <tr>
+        <tr>
             <td>
                <b Class=asteriks>*</b> <%: Html.LabelFor(m => m.Title) %>
             </td>
@@ -33,7 +33,7 @@
         </tr>
         <tr>
             <td>
-                <%: Html.LabelFor(m => m.Body) %>
+                <b Class=asteriks>*</b> <%: Html.LabelFor(m => m.Body) %>
             </td>
             <td>
                 <%: Html.TextAreaFor(m => m.Body, new { Cols = 50, Rows = 10 }) %>
@@ -42,7 +42,7 @@
         </tr>
          <tr>
             <td>
-               <%: Html.LabelFor(m => m.Number) %>
+               <b Class=asteriks>*</b> <%: Html.LabelFor(m => m.Number) %>
             </td>
             <td>
                 <%: Html.TextBoxFor(m => m.Number) %>
@@ -51,16 +51,16 @@
         </tr>
         <tr>
             <td>
-                <%: Html.LabelFor(m => m.Email) %>
+                <b Class=asteriks>*</b> <%: Html.LabelFor(m => m.Email) %>
             </td>
             <td>
                 <%: Html.TextBoxFor(m => m.Email) %>
                 <%: Html.ValidationMessageFor(m => m.Email) %>
             </td>
         </tr>
-           <tr>
+        <tr>
             <td>
-                <%: Html.LabelFor(m => m.WebSiteUrl) %>
+                <b Class=asteriks>*</b> <%: Html.LabelFor(m => m.WebSiteUrl) %>
             </td>
             <td>
                 <%: Html.TextBoxFor(m => m.WebSiteUrl) %>
@@ -68,9 +68,9 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td valign="top">
                 Photo Upload
-                </td>
+            </td>
             <td>          
 <%= Html.Telerik().Upload()
             .Name("attachments")
