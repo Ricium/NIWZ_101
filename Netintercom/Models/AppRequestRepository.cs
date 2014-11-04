@@ -355,12 +355,12 @@ namespace Netintercom.Models
                 {
                     item.PicUrl = picRep.GetPicture(Convert.ToInt32(item.PicUrl)).PicUrl;
 
-                    if (item.PicUrl.Contains("\\Images\\"))
+                    /*if (item.PicUrl.Contains("\\Images\\"))
                     {
                         string path = item.PicUrl.Substring(item.PicUrl.IndexOf("\\Images\\"));
                         path = path.Replace('\\', '/');
                         item.PicUrl = "http://www.netintercom.co.za" + path;
-                    }
+                    }*/
                 }
             }
 

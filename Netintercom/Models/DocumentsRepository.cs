@@ -104,11 +104,11 @@ namespace Netintercom.Models
                     ins.PathUrl = drI["PathUrl"].ToString();
                     ins.ClientId = Convert.ToInt32(drI["ClientId"]);
 
-                    ins.PathUrl = ins.PathUrl.Substring(ins.PathUrl.IndexOf("Images"),ins.PathUrl.Length - ins.PathUrl.IndexOf("Images"));
-                    ins.PathUrl = ins.PathUrl.Replace('\\','/');
-                    w.Clear();
-                    w.Append("http://www.netintercom.co.za/").Append(ins.PathUrl);
-                    ins.PathUrl = w.ToString();
+                    //ins.PathUrl = ins.PathUrl.Substring(ins.PathUrl.IndexOf("Images"),ins.PathUrl.Length - ins.PathUrl.IndexOf("Images"));
+                    //ins.PathUrl = ins.PathUrl.Replace('\\','/');
+                    //w.Clear();
+                    //w.Append("http://www.netintercom.co.za/").Append(ins.PathUrl);
+                    //ins.PathUrl = w.ToString();
 
                     lsDocumentsList.Add(ins);
                 }
