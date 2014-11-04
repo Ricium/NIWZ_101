@@ -157,8 +157,8 @@ C:\dev\GitHub\NIWZ_101\Netintercom\bin\WebGrease.dll
 C:\dev\GitHub\NIWZ_101\Netintercom\bin\WebMatrix.Data.dll
 C:\dev\GitHub\NIWZ_101\Netintercom\bin\WebMatrix.WebData.dll
 C:\dev\GitHub\NIWZ_101\Netintercom\bin\Facebook.xml
-C:\dev\GitHub\NIWZ_101\Netintercom\bin\EntityFramework.xml
 C:\dev\GitHub\NIWZ_101\Netintercom\bin\Newtonsoft.Json.xml
+C:\dev\GitHub\NIWZ_101\Netintercom\bin\EntityFramework.xml
 C:\dev\GitHub\NIWZ_101\Netintercom\bin\System.Web.Helpers.xml
 C:\dev\GitHub\NIWZ_101\Netintercom\bin\System.Web.Mvc.xml
 C:\dev\GitHub\NIWZ_101\Netintercom\bin\System.Web.Razor.xml
@@ -205,6 +205,5 @@ C:\dev\GitHub\NIWZ_101\Netintercom\bin\ko\System.Spatial.resources.dll
 C:\dev\GitHub\NIWZ_101\Netintercom\bin\ru\System.Spatial.resources.dll
 C:\dev\GitHub\NIWZ_101\Netintercom\bin\zh-Hans\System.Spatial.resources.dll
 C:\dev\GitHub\NIWZ_101\Netintercom\bin\zh-Hant\System.Spatial.resources.dll
-C:\dev\GitHub\NIWZ_101\Netintercom\obj\Release\Netintercom.csprojResolveAssemblyReference.cache
 C:\dev\GitHub\NIWZ_101\Netintercom\obj\Release\Netintercom.dll
 C:\dev\GitHub\NIWZ_101\Netintercom\obj\Release\Netintercom.pdb

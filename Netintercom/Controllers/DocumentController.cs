@@ -58,13 +58,16 @@ namespace Netintercom.Controllers
 
                 var physicalPath = Path.Combine(Server.MapPath("~/Images/Client/" + HttpContext.Session["ClientId"].ToString() + "/Docs"), fileName);
 
-
                 file.SaveAs(physicalPath);
 
+                string finalpath = physicalPath.ToString();
+                finalpath = finalpath.Substring(finalpath.IndexOf("Images"));
+                finalpath = finalpath.Replace('\\', '/');
+                
                 //...Save In DB... 
                 ins.DocumentName = fileName;
                 ins.ClientId = Convert.ToInt32(HttpContext.Session["ClientId"]);
-                ins.PathUrl = physicalPath;
+                ins.PathUrl = Constants.HTTPPath + finalpath;
 
                 ins = DocRep.AddDocument(ins);
             }
@@ -114,10 +117,12 @@ namespace Netintercom.Controllers
         public ActionResult _InsertDocument(Documents ins)
         {
             //...Fix...
-            ins.ClientId = Convert.ToInt32(HttpContext.Session["ClientId"]);
+            Documents getme = DocRep.GetDocument(ins.DocId);
+            getme.DocumentName = ins.DocumentName;
+            //ins.ClientId = Convert.ToInt32(HttpContext.Session["ClientId"]);
 
             //...Insert into Database...
-            Documents ins2 = DocRep.AddDocument(ins);
+            Documents ins2 = DocRep.UpdateDocument(getme);
 
             //...Notify...
             string regIds = AppRep.GetAllRegIds(ins.ClientId);

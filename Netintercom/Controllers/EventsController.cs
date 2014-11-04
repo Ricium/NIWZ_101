@@ -59,7 +59,6 @@ namespace Netintercom.Controllers
                 string finalpath = physicalPath.ToString();
                 finalpath = finalpath.Substring(finalpath.IndexOf("Images"));
                 finalpath = finalpath.Replace('\\', '/');
-                //finalpath = "http://ni.4dtech.co.za/" + finalpath;
 
                 //...Save In DB...                
                 ins.PicUrl = Constants.HTTPPath + finalpath;

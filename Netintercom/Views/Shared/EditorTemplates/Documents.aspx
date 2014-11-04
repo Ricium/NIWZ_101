@@ -10,7 +10,7 @@
     <title>Document</title>
     <script type="text/javascript">
         function onSuccess(e) {
-            $('#PictureId').attr('value', e.response.status);
+            $('#DocId').attr('value', e.response.status);
         }
     </script>
 </head>
@@ -40,7 +40,6 @@
                         .Name("attachments")
                         .Async(async => async
                             .Save("Save", "Document")
-                            .Remove("Remove", "Document")              
                         ).ClientEvents(c => c
                             .OnSuccess("onSuccess")
                         )

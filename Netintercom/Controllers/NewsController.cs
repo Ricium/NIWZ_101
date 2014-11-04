@@ -55,15 +55,14 @@ namespace Netintercom.Controllers
                 Image original = Image.FromStream(file.InputStream, true, true);
                 Image resized = functions.ResizeImage(original, new Size(100, 100));
 
-                resized.Save(physicalPath);
+                resized.Save(physicalPath, ImageFormat.Jpeg);
 
                 string finalpath = physicalPath.ToString();
                 finalpath = finalpath.Substring(finalpath.IndexOf("Images"));
                 finalpath = finalpath.Replace('\\', '/');
-                finalpath = "http://ni.4dtech.co.za/" + finalpath;
 
                 //...Save In DB...                
-                ins.PicUrl = finalpath;
+                ins.PicUrl = Constants.HTTPPath + finalpath;
                 ins.ClientId = Convert.ToInt32(HttpContext.Session["ClientId"]);
 
                 ins = picRep.InsertPicture(ins);

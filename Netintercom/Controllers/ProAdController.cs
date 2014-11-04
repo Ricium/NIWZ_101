@@ -71,8 +71,12 @@ namespace Netintercom.Controllers
 
                 resized.Save(physicalPath, ImageFormat.Jpeg);
 
+                string finalpath = physicalPath.ToString();
+                finalpath = finalpath.Substring(finalpath.IndexOf("Images"));
+                finalpath = finalpath.Replace('\\', '/');
+
                 //...Save In DB...                
-                ins.PicUrl = physicalPath;
+                ins.PicUrl = Constants.HTTPPath + finalpath;
                 ins.ClientId = Convert.ToInt32(HttpContext.Session["ClientId"]);
 
                 ins = picRep.InsertPicture(ins);
