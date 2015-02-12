@@ -18,12 +18,13 @@
         .DataKeys(keys => keys.Add(s => s.ServiceId))
         .Columns(columns =>
         {
-            columns.Bound(m => m.UserName);
-            columns.Bound(m => m.Phone);
-            columns.Bound(m => m.Email);
-            columns.Bound(m => m.Service);
-            columns.Bound(m => m.Query);
-            columns.Bound(m => m.ModifiedDate);         
+            columns.Bound(m => m.UserName).Width(100);
+            columns.Bound(m => m.Phone).Width(50);
+            columns.Bound(m => m.Email).Width(80);
+            columns.Bound(m => m.Service).Width(80);
+
+            columns.Bound(m => m.Query).Width(200).ClientTemplate("<a href='<#= Query #>' target=new><#= Query #></a>");
+            columns.Bound(m => m.ModifiedDate).Width(100);         
             
         })
         .DataBinding(dataBinding => 

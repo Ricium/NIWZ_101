@@ -39,6 +39,7 @@ namespace Netintercom.Models
                     ins.Email = drI["Email"].ToString();
                     ins.Password = drI["Password"].ToString();
                     ins.Approved = Convert.ToBoolean(drI["Approved"]);
+                    ins.Address = drI["Address"].ToString();
                 }
             }
             drI.Close();

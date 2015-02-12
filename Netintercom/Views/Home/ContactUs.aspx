@@ -22,7 +22,7 @@
             <li><a href="../Home/Index"><i class="icon-user"></i> Home</a></li>
             <li><a href="../Home/About"><i class="icon-trophy"></i> About</a></li>
             <li><a href="../Home/ContactUs" class="active"><i class="icon-mail"></i> Contact Us</a></li>
-            <li><a href="../Home/Home"><i class="icon-paper-plane"></i> Log In</a></li>    
+            <li><a href="http://ni.4dtech.co.za/Home/Home"><i class="icon-paper-plane"></i> Log In</a></li>    
           </ul>
           <div class="nav-collapse collapse">
           </div>

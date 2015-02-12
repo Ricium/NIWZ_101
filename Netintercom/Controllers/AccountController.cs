@@ -77,7 +77,8 @@ namespace Netintercom.Controllers
         {
             FormsService.SignOut();
             HttpContext.Session["UserID"] = null;
-            return RedirectToAction("Index", "Home");
+            return Redirect("http://www.netintercom.co.za");
+            //return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Register()
