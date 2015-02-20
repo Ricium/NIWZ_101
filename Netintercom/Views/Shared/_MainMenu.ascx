@@ -89,6 +89,23 @@
                      .Text("Contact Details")
                      .Url("~/Home/Contact");
             }
+            if (HttpContext.Current.User.IsInRole("contacts"))
+            {
+                items.Add()
+                     .Text("Fields")
+                     .Url("~/Match/Fields");
+            }
+            if (HttpContext.Current.User.IsInRole("contacts"))
+            {
+                items.Add()
+                     .Text("Match")
+                     .Url("~/Home/Contact")
+                     .Items(m =>
+                     {
+                         m.Add().Text("Fields").Url("~/Match/Fields");
+                     });
+            }
+            
             
             if (HttpContext.Current.User.IsInRole("facebook") || HttpContext.Current.User.IsInRole("email") || HttpContext.Current.User.IsInRole("twitter") || HttpContext.Current.User.IsInRole("sms"))
             {

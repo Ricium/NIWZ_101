@@ -236,12 +236,9 @@ C:\dev\GitHub\NIWZ_101\Netintercom\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
 C:\dev\GitHub\NIWZ_101\Netintercom\bin\Microsoft.Web.WebPages.OAuth.dll
 C:\dev\GitHub\NIWZ_101\Netintercom\bin\Newtonsoft.Json.dll
 C:\dev\GitHub\NIWZ_101\Netintercom\bin\SassAndCoffee.dll
-C:\dev\GitHub\NIWZ_101\Netintercom\bin\System.Net.Http.Formatting.dll
 C:\dev\GitHub\NIWZ_101\Netintercom\bin\System.Spatial.dll
 C:\dev\GitHub\NIWZ_101\Netintercom\bin\System.Web.Helpers.dll
-C:\dev\GitHub\NIWZ_101\Netintercom\bin\System.Web.Http.dll
 C:\dev\GitHub\NIWZ_101\Netintercom\bin\System.Web.Http.OData.dll
-C:\dev\GitHub\NIWZ_101\Netintercom\bin\System.Web.Http.WebHost.dll
 C:\dev\GitHub\NIWZ_101\Netintercom\bin\System.Web.Mvc.dll
 C:\dev\GitHub\NIWZ_101\Netintercom\bin\System.Web.Optimization.dll
 C:\dev\GitHub\NIWZ_101\Netintercom\bin\System.Web.Razor.dll
@@ -255,10 +252,7 @@ C:\dev\GitHub\NIWZ_101\Netintercom\bin\WebMatrix.Data.dll
 C:\dev\GitHub\NIWZ_101\Netintercom\bin\WebMatrix.WebData.dll
 C:\dev\GitHub\NIWZ_101\Netintercom\bin\EntityFramework.xml
 C:\dev\GitHub\NIWZ_101\Netintercom\bin\Newtonsoft.Json.xml
-C:\dev\GitHub\NIWZ_101\Netintercom\bin\System.Net.Http.Formatting.xml
 C:\dev\GitHub\NIWZ_101\Netintercom\bin\System.Web.Helpers.xml
-C:\dev\GitHub\NIWZ_101\Netintercom\bin\System.Web.Http.xml
-C:\dev\GitHub\NIWZ_101\Netintercom\bin\System.Web.Http.WebHost.xml
 C:\dev\GitHub\NIWZ_101\Netintercom\bin\System.Web.Mvc.xml
 C:\dev\GitHub\NIWZ_101\Netintercom\bin\System.Web.Razor.xml
 C:\dev\GitHub\NIWZ_101\Netintercom\bin\System.Web.WebPages.xml
@@ -307,3 +301,6 @@ C:\dev\GitHub\NIWZ_101\Netintercom\bin\zh-Hant\System.Spatial.resources.dll
 C:\dev\GitHub\NIWZ_101\Netintercom\obj\Debug\Netintercom.csprojResolveAssemblyReference.cache
 C:\dev\GitHub\NIWZ_101\Netintercom\obj\Debug\Netintercom.dll
 C:\dev\GitHub\NIWZ_101\Netintercom\obj\Debug\Netintercom.pdb
+C:\dev\GitHub\NIWZ_101\Netintercom\bin\Netintercom.dll.config
+C:\dev\GitHub\NIWZ_101\Netintercom\bin\Facebook.dll
+C:\dev\GitHub\NIWZ_101\Netintercom\bin\Facebook.xml
