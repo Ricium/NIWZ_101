@@ -15,5 +15,8 @@ namespace Netintercom.Models
         public int ClientId { get; set; }
         [DisplayName("FieldName")]
         public string FieldName { get; set; }
+        [DisplayName("Sport Category")]
+        public string sportcategory { get; set; }
+        public int SportCategoryID { get; set; }
     }
 }

@@ -31,7 +31,7 @@ namespace Netintercom.Models
                 {
                     ins.ResultsId = Convert.ToInt32(drI["ResultsId"]);
                     ins.ClientId = Convert.ToInt32(drI["ClientId"]);
-                    ins.FixturesID = Convert.ToInt32(drI["FixturesID"]);
+                    ins.FixturesID = Convert.ToInt32(drI["FixtureId"]);
                     ins.PointsA = drI["PointsA"].ToString();
                     ins.PointsB = drI["PointsB"].ToString();
                     ins.TimeInMatch = drI["TimeInMatch"].ToString();
@@ -74,7 +74,7 @@ namespace Netintercom.Models
                 cmdI.Parameters.AddWithValue("@ClientId", ins.ClientId);
                 cmdI.Parameters.AddWithValue("@PointsA", ins.PointsA);
                 cmdI.Parameters.AddWithValue("@PointsB", ins.PointsB);
-                cmdI.Parameters.AddWithValue("@FixturesID", ins.FixturesID);
+                cmdI.Parameters.AddWithValue("@FixtrureId", ins.FixturesID);
                 cmdI.Parameters.AddWithValue("@Comentry", ins.Comentry);
                 cmdI.Parameters.AddWithValue("@TimeInMatch", ins.TimeInMatch);
 
@@ -161,7 +161,7 @@ namespace Netintercom.Models
                     ins.ResultsId = Convert.ToInt32(drI["ResultsId"]);
                     ins.ClientId = Convert.ToInt32(drI["ClientId"]);
                     ins.FixturesID = Convert.ToInt32(drI["Fixtures"]);
-                    ins.fixtures = drI["teamA"].ToString()+drI["PiontsA"].ToString() + " VS " + drI["teamB"].ToString()+drI["PointsB"].ToString();
+                    ins.fixtures = drI["teamA"].ToString()+" "+drI["PiontsA"].ToString() + " VS " + drI["teamB"].ToString()+" "+drI["PointsB"].ToString();
                     ins.field = drI["FieldName"].ToString();
                     ins.PointsA = drI["PointsA"].ToString();
                     ins.PointsB = drI["PointsB"].ToString();
@@ -187,7 +187,7 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM Results WHERE ClientId = " + ClientId + " ORDER BY ResultsId DESC", con);
+            cmdI = new SqlCommand("select r.*,t.Name as HomeTeam,tb.Name as AwayTeam,fd.FieldName  from Results r inner join fixtures f on r.FixtureId = f.FixturesId inner join Teams t on f.TeamIdA = t.TeamsId inner join Teams tb on f.TeamIdB = tb.TeamsId inner join Fields fd on f.FieldsId = fd.FieldsId where r.ClientId ='" + ClientId + "' ORDER BY ResultsId DESC", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -199,8 +199,9 @@ namespace Netintercom.Models
                     ins = new Results();
                     ins.ResultsId = Convert.ToInt32(drI["ResultsId"]);
                     ins.ClientId = Convert.ToInt32(drI["ClientId"]);
-                    ins.FixturesID = Convert.ToInt32(drI["Fixtures"]);
-                    ins.fixtures = drI["teamA"].ToString() + " VS " + drI["teamB"].ToString();
+                    ins.fixtures = drI["HomeTeam"].ToString() + " VS " + drI["AwayTeam"].ToString();
+                    ins.TeamA = drI["HomeTeam"].ToString();
+                    ins.TeamB = drI["AwayTeam"].ToString();
                     ins.field = drI["FieldName"].ToString();
                     ins.PointsA = drI["PointsA"].ToString();
                     ins.PointsB = drI["PointsB"].ToString();
@@ -348,7 +349,7 @@ namespace Netintercom.Models
 
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
-            SqlCommand cmdI = new SqlCommand("SELECT f.*,t.Name as teamA ,b.Name as teamB FROM fixtures f inner join Teams t on f.TeamIdA =t.TeamsId inner join Teams b on f.TeamIdB = b.TeamsId ", con);
+            SqlCommand cmdI = new SqlCommand("select f.*,t.Name as teamA,tb.Name as teamB from fixtures f inner join Teams t on f.TeamIdA = t.TeamsId inner join Teams tb on f.TeamIdB=tb.TeamsId where f.FixturesId not in (select FixtureId from Results) ", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 

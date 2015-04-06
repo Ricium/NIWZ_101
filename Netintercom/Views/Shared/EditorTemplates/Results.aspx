@@ -17,7 +17,8 @@
                            <%: Html.LabelFor(m => m.FixturesID)%>
                         </td>
                         <td>
-                           <%: Html.Telerik().DropDownListFor(m => m.FixturesID).BindTo((IEnumerable<SelectListItem>) ViewData["FixturesID"]).HtmlAttributes(new { style = "width: 250px" })%>
+                           <%: Html.Telerik().DropDownListFor(m => m.FixturesID).BindTo((IEnumerable<SelectListItem>) ViewData["FixturesID"]).HtmlAttributes(new { style = "width: 500px" })
+                                                          .Placeholder("Please Select Fixture...")%>
                             <%: Html.ValidationMessageFor(model => model.FixturesID) %>
                         </td>
                     </tr> 

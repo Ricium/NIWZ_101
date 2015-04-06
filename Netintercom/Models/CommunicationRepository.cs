@@ -7,6 +7,10 @@ using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
+using System.Data;
+using System.Data.SqlClient;
+using System.Web.Mvc;
+
 namespace Netintercom.Models
 {
     public class CommunicationRepository
@@ -134,6 +138,8 @@ namespace Netintercom.Models
                 }
             }
         }
+
+      
 
         /* Email Functions To Add Here */
     }

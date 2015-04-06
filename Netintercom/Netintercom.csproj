@@ -472,6 +472,8 @@
     <Compile Include="Models\SettingRepository.cs" />
     <Compile Include="Models\Settings.cs" />
     <Compile Include="Models\Skwladaptor.cs" />
+    <Compile Include="Models\SportCategory.cs" />
+    <Compile Include="Models\SportCategoryRepository.cs" />
     <Compile Include="Models\Stats.cs" />
     <Compile Include="Models\StatsRepository.cs" />
     <Compile Include="Models\SubCategory.cs" />
@@ -1462,6 +1464,7 @@
     <Content Include="Views\Match\Fields.aspx" />
     <Content Include="Views\Match\Fixtures.aspx" />
     <Content Include="Views\Match\Results.aspx" />
+    <Content Include="Views\Match\SportCategory.aspx" />
     <Content Include="Views\Match\Teams.aspx" />
     <Content Include="Views\ProAd\ProAd.aspx" />
     <Content Include="Views\DeviceUser\DeviceUsers.aspx" />
@@ -1487,6 +1490,7 @@
     <Content Include="Views\Shared\EditorTemplates\RegisterModel.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Results.aspx" />
     <Content Include="Views\Shared\EditorTemplates\SchoolInfo.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\SportCategory.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Teams.aspx" />
     <Content Include="Views\Shared\Error.aspx" />
     <Content Include="Views\Shared\_LoginPartial.aspx" />

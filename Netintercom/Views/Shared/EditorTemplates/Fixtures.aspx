@@ -12,34 +12,58 @@
 <body>
     <%: Html.ValidationSummary(false) %>
     <table>
-                    <tr>
+        <tr><td><%: Html.HiddenFor(m => m.FixturesId) %></td></tr>
+               
+                                                                    <tr>
                         <td>
-                           <%: Html.LabelFor(m => m.FieldId)%>
+                            <b Class=asteriks>*</b> <%: Html.LabelFor(m => m.SportCategoryId)%>
                         </td>
                         <td>
-                           <%: Html.Telerik().DropDownListFor(m => m.FieldId).BindTo((IEnumerable<SelectListItem>) ViewData["FieldId"]).HtmlAttributes(new { style = "width: 250px" })%>
-                            <%: Html.ValidationMessageFor(model => model.FieldId) %>
+                            <%: Html.Telerik().DropDownListFor(m => m.SportCategoryId).BindTo((IEnumerable<SelectListItem>) ViewData["SportCategoryId"]).HtmlAttributes(new { style = "width: 250px" })
+                            .Placeholder("Please Select SportCategory....")    
+                            .CascadeTo("FieldId")
+                            
+                                %>
+                            <%: Html.ValidationMessageFor(model => model.SportCategoryId) %>
                         </td>
                     </tr> 
+                    <tr>
+                        <td>
+                            <b Class=asteriks>*</b> <%: Html.LabelFor(m => m.FieldId)%>
+                        </td>
+                        <td>
+                            <%= Html.Telerik().DropDownListFor(c => c.FieldId)
+                                 .DataBinding(binding => binding.Ajax().Select("_AsyncFields", "Match")).SelectedIndex(0).HtmlAttributes(new { style = "width: 250px" })
+                                 .Placeholder("Please Select a Field....")
+                                 .CascadeTo("TeamIdA")%>
+                            <%: Html.ValidationMessageFor(m => m.FieldId)%>
+                        </td>
+                    </tr>     
 
                     <tr>
                         <td>
-                           <%: Html.LabelFor(m => m.TeamIdA)%>
+                            <b Class=asteriks>*</b> <%: Html.LabelFor(m => m.TeamIdA)%>
                         </td>
                         <td>
-                           <%: Html.Telerik().DropDownListFor(m => m.TeamIdA).BindTo((IEnumerable<SelectListItem>) ViewData["TeamIdA"]).HtmlAttributes(new { style = "width: 250px" })%>
-                            <%: Html.ValidationMessageFor(model => model.TeamIdA) %>
+                            <%= Html.Telerik().DropDownListFor(c => c.TeamIdA)
+                                 .DataBinding(binding => binding.Ajax().Select("_AsyncTeams", "Match")).SelectedIndex(0).HtmlAttributes(new { style = "width: 250px" })
+                                 .Placeholder("Please select Home Team ....")
+                                 .CascadeTo("TeamIdB")%>
+                            <%: Html.ValidationMessageFor(m => m.TeamIdA)%>
                         </td>
                     </tr> 
-                            <tr>
+                    <tr>
                         <td>
-                           <%: Html.LabelFor(m => m.TeamIdB)%>
+                            <b Class=asteriks>*</b> <%: Html.LabelFor(m => m.TeamIdB)%>
                         </td>
                         <td>
-                           <%: Html.Telerik().DropDownListFor(m => m.TeamIdB).BindTo((IEnumerable<SelectListItem>) ViewData["TeamIdB"]).HtmlAttributes(new { style = "width: 250px" })%>
-                            <%: Html.ValidationMessageFor(model => model.TeamIdB) %>
+                            <%= Html.Telerik().DropDownListFor(c => c.TeamIdB)
+                                 .DataBinding(binding => binding.Ajax().Select("_AsyncTeamsB", "Match")).SelectedIndex(0).HtmlAttributes(new { style = "width: 250px" })
+                                 .Placeholder("Please select Away Team ....")
+                                 %>
+                            <%: Html.ValidationMessageFor(m => m.TeamIdB)%>
                         </td>
-                    </tr>
+                    </tr> 
 
 
                                         <tr>

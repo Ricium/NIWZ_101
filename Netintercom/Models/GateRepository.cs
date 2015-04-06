@@ -536,7 +536,7 @@ namespace Netintercom.Models
             return list;
         }
 
-        public bool RemoveRegisterClient(int RegisterClientId)
+        public bool RemoveRegisterClient1(int RegisterClientId)
         {
             bool Removed = true;
 
@@ -599,7 +599,7 @@ namespace Netintercom.Models
             return Removed;
         }
 
-        public bool RemoveSchoolRegisterClients(int ClientId)
+        public bool RemoveSchoolRegisterClients1(int ClientId)
         {
             bool Removed = true;
 

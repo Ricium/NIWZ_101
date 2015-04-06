@@ -89,12 +89,7 @@
                      .Text("Contact Details")
                      .Url("~/Home/Contact");
             }
-            if (HttpContext.Current.User.IsInRole("contacts"))
-            {
-                items.Add()
-                     .Text("Fields")
-                     .Url("~/Match/Fields");
-            }
+        
             if (HttpContext.Current.User.IsInRole("contacts"))
             {
                 items.Add()
@@ -102,7 +97,11 @@
                      .Url("~/Home/Contact")
                      .Items(m =>
                      {
+                         m.Add().Text("SportCategory").Url("~/Match/SportCategory");
                          m.Add().Text("Fields").Url("~/Match/Fields");
+                         m.Add().Text("Teams").Url("~/Match/Teams");
+                         m.Add().Text("Fixtures").Url("~/Match/Fixtures");
+                         m.Add().Text("Results").Url("~/Match/Results");
                      });
             }
             

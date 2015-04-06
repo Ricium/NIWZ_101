@@ -12,7 +12,19 @@
 <body>
     <%: Html.ValidationSummary(false) %>
     <table>
-        <tr>
+        <tr><td><%: Html.HiddenFor(m=>m.FieldsId) %></td></tr>
+               <tr>
+            <td>
+                <%: Html.LabelFor(m => m.sportcategory) %>
+            </td>
+         
+                     <td>
+                           <%: Html.Telerik().DropDownListFor(m => m.SportCategoryID).BindTo((IEnumerable<SelectListItem>) ViewData["SportCategoryID"]).HtmlAttributes(new { style = "width: 250px" })%>
+                            <%: Html.ValidationMessageFor(model => model.SportCategoryID) %>
+                        </td>
+           
+        </tr>
+         <tr>
             <td title="Enter the Field Name ">
                <b Class=asteriks>*</b> <%: Html.LabelFor(m => m.FieldName) %>
             </td>
@@ -21,6 +33,7 @@
                 <%: Html.ValidationMessageFor(m => m.FieldName) %>
             </td>
         </tr>
+
   
 
         </table>

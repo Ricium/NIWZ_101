@@ -16,5 +16,12 @@ namespace Netintercom.Models
         [DisplayName("Team Rank In Age Category")]
         public string Ranks { get; set; }
         public int ClientId { get; set; }
+        [DisplayName("Sport Category")]
+        public string sportcategory { get; set; }
+        public int SportCategoryID { get; set; }
+        
+        [DisplayName("Picture Id")]
+        public int PictureId { get; set; }
+        public string PicUrl { get; set; }
     }
 }

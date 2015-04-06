@@ -22,6 +22,7 @@
             //columns.Bound(m => m.FieldsId).Title("Fields");
             columns.Bound(m => m.FieldsId);
             columns.Bound(m => m.FieldName);
+            columns.Bound(m => m.sportcategory);
                             columns.Command(commands =>
                             {   
                                 commands.Edit().ButtonType(Telerik.Web.Mvc.UI.GridButtonType.ImageAndText).Text("Update Fields");
@@ -31,10 +32,10 @@
         .DataBinding(dataBinding => 
         {
             dataBinding.Ajax()
-                       .Select("_ListFields", "Fields")
-                       .Insert("_InsertFields", "Fields")
-                       .Update("_UpdateFields", "Fields")
-                       .Delete("_DeleteFields", "Fields"); 
+                       .Select("_ListFields", "Match")
+                       .Insert("_InsertFields", "Match")
+                       .Update("_UpdateFields", "Match")
+                       .Delete("_DeleteFields", "Match"); 
         })
        
         .Pageable(paging => paging.PageSize(50))

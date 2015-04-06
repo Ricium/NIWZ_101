@@ -22,9 +22,10 @@
             //columns.Bound(m => m.FixturesId).Title("Fixtures");
             columns.Bound(m => m.FixturesId);
             columns.Bound(m => m.field);
-            columns.Bound(m => m.TeamIdA);
-            columns.Bound(m => m.TeamIdB);
+            columns.Bound(m => m.hometeam);
+            columns.Bound(m => m.awayteam);
             columns.Bound(m => m.StartTime);
+            columns.Bound(m => m.sportcategory);
                             columns.Command(commands =>
                             {   
                                 commands.Edit().ButtonType(Telerik.Web.Mvc.UI.GridButtonType.ImageAndText).Text("Update Fixtures");
@@ -34,10 +35,10 @@
         .DataBinding(dataBinding => 
         {
             dataBinding.Ajax()
-                       .Select("_ListFixtures", "Fixtures")
-                       .Insert("_InsertFixtures", "Fixtures")
-                       .Update("_UpdateFixtures", "Fixtures")
-                       .Delete("_DeleteFixtures", "Fixtures"); 
+                       .Select("_ListFixtures", "Match")
+                       .Insert("_InsertFixtures", "Match")
+                       .Update("_UpdateFixtures", "Match")
+                       .Delete("_DeleteFixtures", "Match"); 
         })
        
         .Pageable(paging => paging.PageSize(50))

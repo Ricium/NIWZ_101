@@ -24,6 +24,10 @@
             columns.Bound(m => m.field);
             columns.Bound(m => m.fixtures);
             columns.Bound(m => m.TimeInMatch);
+            columns.Bound(m => m.TeamA);
+            columns.Bound(m => m.PointsA);
+            columns.Bound(m => m.TeamB);
+            columns.Bound(m => m.PointsB);
            
                             columns.Command(commands =>
                             {   
@@ -34,10 +38,10 @@
         .DataBinding(dataBinding => 
         {
             dataBinding.Ajax()
-                       .Select("_ListResults", "Results")
-                       .Insert("_InsertResults", "Results")
-                       .Update("_UpdateResults", "Results")
-                       .Delete("_DeleteResults", "Results"); 
+                       .Select("_ListResults", "Match")
+                       .Insert("_InsertResults", "Match")
+                       .Update("_UpdateResults", "Match")
+                       .Delete("_DeleteResults", "Match"); 
         })
        
         .Pageable(paging => paging.PageSize(50))

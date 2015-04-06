@@ -24,6 +24,12 @@
             columns.Bound(m => m.Name);
             columns.Bound(m => m.Age);
             columns.Bound(m => m.Ranks);
+            columns.Bound(m => m.sportcategory);
+            columns.Bound(c => c.PictureId)
+                .ClientTemplate("<# if (PictureId == 0) { #> No Picture <# } else { #> <img alt='<#= PictureId #>' src='"
+                    + Url.Content("<#= PicUrl #>")
+                    + "' width='50px' height='50px'/> <# } #>")
+                .Title("Picture");
             
                             columns.Command(commands =>
                             {   
@@ -34,10 +40,10 @@
         .DataBinding(dataBinding => 
         {
             dataBinding.Ajax()
-                       .Select("_ListTeams", "Teams")
-                       .Insert("_InsertTeams", "Teams")
-                       .Update("_UpdateTeams", "Teams")
-                       .Delete("_DeleteTeams", "Teams"); 
+                       .Select("_ListTeams", "Match")
+                       .Insert("_InsertTeams", "Match")
+                       .Update("_UpdateTeams", "Match")
+                       .Delete("_DeleteTeams", "Match"); 
         })
        
         .Pageable(paging => paging.PageSize(50))

@@ -9,6 +9,8 @@ namespace Netintercom.Models
 {
     public class FieldRepository
     {
+
+       
         public Fields GetFields(int FieldsId)
         {
             Fields ins = new Fields();
@@ -31,6 +33,7 @@ namespace Netintercom.Models
                     ins.FieldsId = Convert.ToInt32(drI["FieldsId"]);
                     ins.ClientId = Convert.ToInt32(drI["ClientId"]);
                     ins.FieldName = drI["FieldName"].ToString();
+                    ins.SportCategoryID = Convert.ToInt32(drI["SportCategoryID"]);
                  
                 }
             }
@@ -67,7 +70,8 @@ namespace Netintercom.Models
                 //cmdI.Connection.Open();
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 cmdI.Parameters.AddWithValue("@ClientId", ins.ClientId);
-                cmdI.Parameters.AddWithValue("@FielsName", ins.FieldName);
+                cmdI.Parameters.AddWithValue("@FieldName", ins.FieldName);
+                cmdI.Parameters.AddWithValue("@SportCategoryID", ins.SportCategoryID);
 
                 //...Return new ID...
                 ins.FieldsId = (int)cmdI.ExecuteScalar();
@@ -117,7 +121,8 @@ namespace Netintercom.Models
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@FieldsId", ins.FieldsId);
             cmdI.Parameters.AddWithValue("@ClientId", ins.ClientId);
-            cmdI.Parameters.AddWithValue("@FielsName", ins.FieldName);
+            cmdI.Parameters.AddWithValue("@FieldName", ins.FieldName);
+            cmdI.Parameters.AddWithValue("@SportCategoryID", ins.SportCategoryID);
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();
 
@@ -135,7 +140,7 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM Fields", con);
+            cmdI = new SqlCommand("SELECT f.*,sc.CategoryName FROM Fields f inner join SportCategory sc on f.SportCategoryID =sc.SportCategoryID", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -147,8 +152,9 @@ namespace Netintercom.Models
                     ins = new Fields();
                     ins.FieldsId = Convert.ToInt32(drI["FieldsId"]);
                     ins.ClientId = Convert.ToInt32(drI["ClientId"]);
-
+                    ins.SportCategoryID = Convert.ToInt32(drI["SportCategoryID"]);
                     ins.FieldName = drI["FieldName"].ToString();
+                    ins.sportcategory = drI["CategoryName"].ToString();
 
                     list.Add(ins);
                 }
@@ -170,7 +176,7 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM Fields WHERE ClientId = " + ClientId + " ORDER BY FieldsId DESC", con);
+            cmdI = new SqlCommand("SELECT f.*,sc.CategoryName  FROM Fields f inner join SportCategory sc on f.SportCategoryID =sc.SportCategoryID  WHERE f.ClientId = " + ClientId + " ORDER BY FieldsId DESC", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -183,6 +189,8 @@ namespace Netintercom.Models
                     ins.FieldsId = Convert.ToInt32(drI["FieldsId"]);
                     ins.ClientId = Convert.ToInt32(drI["ClientId"]);
                     ins.FieldName = drI["FieldName"].ToString();
+                    ins.SportCategoryID = Convert.ToInt32(drI["SportCategoryID"]);
+                    ins.sportcategory = drI["CategoryName"].ToString();
                     list.Add(ins);
                 }
             }
@@ -318,5 +326,34 @@ namespace Netintercom.Models
 
             return Removed;
         }
+
+        #region DropDowns
+        public List<SelectListItem> GetFieldsPerSC(int? SportCategory)
+        {
+            List<SelectListItem> obj = new List<SelectListItem>();
+
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI = new SqlCommand("SELECT f.*,sc.CategoryName FROM Fields f inner join SportCategory sc on f.SportCategoryID =sc.SportCategoryId where f.SportCategoryID ='" + SportCategory+"'", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    var result = new SelectListItem();
+                    result.Text = drI["FieldName"].ToString();
+                    result.Value = drI["FieldsId"].ToString();
+                    obj.Add(result);
+                }
+            }
+            drI.Close();
+            con.Close();
+            con.Dispose();
+
+            return obj;
+        }
+        #endregion
     }
 }
