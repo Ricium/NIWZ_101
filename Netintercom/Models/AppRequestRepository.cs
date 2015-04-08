@@ -59,6 +59,160 @@ namespace Netintercom.Models
             return list;
         }
 
+        public List<FixturesRequest> GetFixtures(int ClientId, int LastId)
+        {
+            //...Get Data for App, based on the School Requesting the data, and the LastId of the data currently in the App...//
+
+            List<FixturesRequest> list = new List<FixturesRequest>();
+            FixturesRequest ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT f.FixturesId,f.StartTime,t.PictureId As HomePic,t.Name as HomeTeam,tb.PictureId as AwayPic,tb.Name as AwayTeam,fd.FieldName,sc.CategoryName FROM fixtures f inner join Teams t on f.TeamIdA = t.TeamsId inner join Teams tb on f.TeamIdB=tb.TeamsId inner join Fields fd on f.FieldsId = fd.FieldsId inner join SportCategory sc on f.SportCategoryId=sc.SportCategoryId   WHERE f.ClientId='" + ClientId + "' AND f.FixturesId >'" + LastId + "'", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new FixturesRequest();
+                    ins.FixturesId = Convert.ToInt32(drI["FixturesId"]);
+                    ins.StartTime = Convert.ToDateTime(drI["StartTime"]);
+                    ins.HomeTeam = drI["HomeTeam"].ToString();
+                    ins.HomePic = drI["HomePic"].ToString();
+                    ins.AwayTeam = drI["AwayTeam"].ToString();
+                    ins.AwayPic = drI["AwayPic"].ToString();
+                    ins.FieldName = drI["FieldName"].ToString();
+                    ins.SportCategory = drI["CategoryName"].ToString();
+
+                    list.Add(ins);
+                }
+            }
+            drI.Close();
+            con.Close();
+
+            foreach (FixturesRequest item in list)
+            {
+                if (!item.HomePic.Equals("0"))
+                {
+                    int id = Convert.ToInt32(item.HomePic);
+                    item.HomePic = picRep.GetPicture(id).PicUrl;
+                }
+
+                if (!item.AwayPic.Equals("0"))
+                {
+                    int id = Convert.ToInt32(item.AwayPic);
+                    item.AwayPic = picRep.GetPicture(id).PicUrl;
+                }
+            }
+
+            return list;
+        }
+
+        public List<ResultRequest> GetResults(int ClientId, int LastId)
+        {
+            //...Get Data for App, based on the School Requesting the data, and the LastId of the data currently in the App...//
+
+            List<ResultRequest> list = new List<ResultRequest>();
+            ResultRequest ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT r.ResultsId,f.StartTime,r.PointsA,r.PointsB,r.TimeInMatch,r.Comentry,t.Name as HomeTeam,tb.Name as AwayTeam,fd.FieldName,sc.CategoryName FROM Results r inner join fixtures f on r.FixtureId = f.FixturesId inner join Teams t on f.TeamIdA = t.TeamsId inner join Teams tb on f.TeamIdB=tb.TeamsId inner join Fields fd on f.FieldsId = fd.FieldsId inner join SportCategory sc on f.SportCategoryId=sc.SportCategoryId WHERE r.ClientId='" + ClientId + "' AND r.FixturesId >'" + LastId + "'", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new ResultRequest();
+
+                    ins.ResultId = Convert.ToInt32(drI["ResultsId"]);
+                    ins.HomeTeam = drI["HomeTeam"].ToString();
+                    ins.HomePic = drI["HomePic"].ToString();
+                    ins.AwayTeam = drI["AwayTeam"].ToString();
+                    ins.AwayPic = drI["AwayPic"].ToString();
+                    ins.FieldName = drI["FieldName"].ToString();
+                    ins.SportCategory = drI["CategoryName"].ToString();
+                    ins.HomePoints = drI["PointsA"].ToString();
+                    ins.AwayPoints = drI["PointsB"].ToString();
+                    ins.Commentary = drI["Comentry"].ToString();
+                    ins.TimeInMatch = drI["TimeInMatch"].ToString();
+                    ins.StartTime = Convert.ToDateTime(drI["StartTime"]);
+
+                    list.Add(ins);
+                }
+            }
+            drI.Close();
+            con.Close();
+
+            foreach (ResultRequest item in list)
+            {
+                if (!item.HomePic.Equals("0"))
+                {
+                    int id = Convert.ToInt32(item.HomePic);
+                    item.HomePic = picRep.GetPicture(id).PicUrl;
+                }
+
+                if (!item.AwayPic.Equals("0"))
+                {
+                    int id = Convert.ToInt32(item.AwayPic);
+                    item.AwayPic = picRep.GetPicture(id).PicUrl;
+                }
+            }
+
+            return list;
+        }
+
+        public List<SportCategoryRequest> GetSportCategory(int ClientId, int LastId)
+        {
+            //...Get Data for App, based on the School Requesting the data, and the LastId of the data currently in the App...//
+
+            List<SportCategoryRequest> list = new List<SportCategoryRequest>();
+            SportCategoryRequest ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand(" Select * From SportCategory Where ClientId='" + ClientId + "' AND SportCategoryId >'" + LastId + "'", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new SportCategoryRequest();
+
+                    ins.SportCategoryId = Convert.ToInt32(drI["SportCategoryId"]);
+                    ins.CategoryName = drI["HomeTeam"].ToString();
+                    list.Add(ins);
+                }
+            }
+            drI.Close();
+            con.Close();
+
+
+
+            return list;
+        }
+
         public List<Notifications> GetNotifications(int ClientId, int LastId)
         {
             //...Get Data for App, based on the School Requesting the data, and the LastId of the data currently in the App...//
@@ -141,6 +295,157 @@ namespace Netintercom.Models
                     item.PicUrl = picRep.GetPicture(id).PicUrl;
                 }
             }
+
+            return list;
+        }
+
+        public List<FixturesRequest> GetEditFixtures(int ClientId, int EditId)
+        {
+            //...Get Data for App, based on the School Requesting the data, and the Edit of the News Requestes...//
+
+            List<FixturesRequest> list = new List<FixturesRequest>();
+            FixturesRequest ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT f.FixturesId,f.StartTime,t.PictureId As HomePic,t.Name as HomeTeam,tb.PictureId as AwayPic,tb.Name as AwayTeam,fd.FieldName,sc.CategoryName FROM fixtures f inner join Teams t on f.TeamIdA = t.TeamsId inner join Teams tb on f.TeamIdB=tb.TeamsId inner join Fields fd on f.FieldsId = fd.FieldsId inner join SportCategory sc on f.SportCategoryId=sc.SportCategoryId   WHERE f.ClientId='" + ClientId + "' AND f.FixturesId ='" + EditId + "'", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new FixturesRequest();
+                    ins.FixturesId = Convert.ToInt32(drI["FixturesId"]);
+                    ins.StartTime = Convert.ToDateTime(drI["StartTime"]);
+                    ins.HomeTeam = drI["HomeTeam"].ToString();
+                    ins.HomePic = drI["HomePic"].ToString();
+                    ins.AwayTeam = drI["AwayTeam"].ToString();
+                    ins.AwayPic = drI["AwayPic"].ToString();
+                    ins.FieldName = drI["FieldName"].ToString();
+                    ins.SportCategory = drI["CategoryName"].ToString();
+                    list.Add(ins);
+                }
+            }
+            drI.Close();
+            con.Close();
+
+            foreach (FixturesRequest item in list)
+            {
+                if (!item.HomePic.Equals("0"))
+                {
+                    int id = Convert.ToInt32(item.HomePic);
+                    item.HomePic = picRep.GetPicture(id).PicUrl;
+                }
+
+                if (!item.AwayPic.Equals("0"))
+                {
+                    int id = Convert.ToInt32(item.AwayPic);
+                    item.AwayPic = picRep.GetPicture(id).PicUrl;
+                }
+            }
+
+            return list;
+        }
+
+        public List<ResultRequest> GetEditResults(int ClientId, int EditId)
+        {
+            //...Get Data for App, based on the School Requesting the data, and the Edit of the News Requestes...//
+
+            List<ResultRequest> list = new List<ResultRequest>();
+            ResultRequest ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT r.ResultsId,f.StartTime,r.PointsA,r.PointsB,r.TimeInMatch,r.Comentry,t.Name as HomeTeam,tb.Name as AwayTeam,fd.FieldName,sc.CategoryName FROM Results r inner join fixtures f on r.FixtureId = f.FixturesId inner join Teams t on f.TeamIdA = t.TeamsId inner join Teams tb on f.TeamIdB=tb.TeamsId inner join Fields fd on f.FieldsId = fd.FieldsId inner join SportCategory sc on f.SportCategoryId=sc.SportCategoryId  WHERE r.ClientId='" + ClientId + "' AND r.ResultsId ='" + EditId + "'", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new ResultRequest();
+
+                    ins.ResultId = Convert.ToInt32(drI["ResultsId"]);
+                    ins.HomeTeam = drI["HomeTeam"].ToString();
+                    ins.HomePic = drI["HomePic"].ToString();
+                    ins.AwayTeam = drI["AwayTeam"].ToString();
+                    ins.AwayPic = drI["AwayPic"].ToString();
+                    ins.FieldName = drI["FieldName"].ToString();
+                    ins.SportCategory = drI["CategoryName"].ToString();
+                    ins.HomePoints = drI["PointsA"].ToString();
+                    ins.AwayPoints = drI["PointsB"].ToString();
+                    ins.Commentary = drI["Comentry"].ToString();
+                    ins.TimeInMatch = drI["TimeInMatch"].ToString();
+                    ins.StartTime = Convert.ToDateTime(drI["StartTime"]);
+                    list.Add(ins);
+                }
+            }
+            drI.Close();
+            con.Close();
+
+            foreach (ResultRequest item in list)
+            {
+                if (!item.HomePic.Equals("0"))
+                {
+                    int id = Convert.ToInt32(item.HomePic);
+                    item.HomePic = picRep.GetPicture(id).PicUrl;
+                }
+
+                if (!item.AwayPic.Equals("0"))
+                {
+                    int id = Convert.ToInt32(item.AwayPic);
+                    item.AwayPic = picRep.GetPicture(id).PicUrl;
+                }
+            }
+
+            return list;
+        }
+
+        public List<SportCategoryRequest> GetEditSportCategory(int ClientId, int EditId)
+        {
+            //...Get Data for App, based on the School Requesting the data, and the Edit of the News Requestes...//
+
+            List<SportCategoryRequest> list = new List<SportCategoryRequest>();
+            SportCategoryRequest ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("Select * From SportCategoryWHERE r.ClientId='" + ClientId + "' AND r.ResultsId ='" + EditId + "'", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new SportCategoryRequest();
+
+                    ins.SportCategoryId = Convert.ToInt32(drI["SportCategoryId"]);
+                    ins.CategoryName = drI["HomeTeam"].ToString();
+                    list.Add(ins);
+                }
+            }
+            drI.Close();
+            con.Close();
+
 
             return list;
         }

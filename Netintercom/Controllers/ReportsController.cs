@@ -25,16 +25,16 @@ namespace Netintercom.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public ActionResult GetFixturesReport(int FixtureId, DateTime ReportDate)
-        {
-            FixturesReport query = new FixturesReport();
-            query.FixturesId = FixtureId;
-            query.ReportDate = ReportDate;
+        //[HttpPost]
+        //public ActionResult GetFixturesReport(int FixtureId, DateTime ReportDate)
+        //{
+        //    FixturesReport query = new FixturesReport();
+        //    query.FixturesId = FixtureId;
+        //    query.ReportDate = ReportDate;
 
-            FixturesReport report = reportRep.GetFixtureReport(query);
+        //    FixturesReport report = reportRep.GetFixtureReport(query);
 
-            return new Rotativa.ViewAsPdf("CashierReportPDF", report);
-        }
+        //    return new Rotativa.ViewAsPdf("CashierReportPDF", report);
+        //}
     }
 }

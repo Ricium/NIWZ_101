@@ -25,6 +25,39 @@ namespace Netintercom.Controllers
         }
 
         [HttpPost]
+        public JsonResult GetFixtures(int ClientId, int LastId)
+        {
+            //...Query DB....
+            List<FixturesRequest> list = new List<FixturesRequest>();
+            list = appRep.GetFixtures(ClientId, LastId);
+
+            var j = this.Json(list);
+            return Json(j, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult GetResults(int ClientId, int LastId)
+        {
+            //...Query DB....
+            List<ResultRequest> list = new List<ResultRequest>();
+            list = appRep.GetResults(ClientId, LastId);
+
+            var j = this.Json(list);
+            return Json(j, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult GetSportCategory(int ClientId, int LastId)
+        {
+            //...Query DB....
+            List<SportCategoryRequest> list = new List<SportCategoryRequest>();
+            list = appRep.GetSportCategory(ClientId, LastId);
+
+            var j = this.Json(list);
+            return Json(j, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public JsonResult GetNotifications(int ClientId, int LastId)
         {
             //...Query DB....
@@ -93,6 +126,39 @@ namespace Netintercom.Controllers
             //...Query DB....
             List<NewsRequest> list = new List<NewsRequest>();
             list = appRep.GetEditNews(ClientId, EditId);
+
+            var j = this.Json(list);
+            return Json(j, JsonRequestBehavior.AllowGet);
+        }
+       
+        [HttpPost]
+        public JsonResult EditFixtures(int ClientId, int EditId)
+        {
+            //...Query DB....
+            List<FixturesRequest> list = new List<FixturesRequest>();
+            list = appRep.GetEditFixtures(ClientId, EditId);
+
+            var j = this.Json(list);
+            return Json(j, JsonRequestBehavior.AllowGet);
+        }
+       
+        [HttpPost]
+        public JsonResult EditResults(int ClientId, int EditId)
+        {
+            //...Query DB....
+            List<ResultRequest> list = new List<ResultRequest>();
+            list = appRep.GetEditResults(ClientId, EditId);
+
+            var j = this.Json(list);
+            return Json(j, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult EditSportCategory(int ClientId, int EditId)
+        {
+            //...Query DB....
+            List<SportCategoryRequest> list = new List<SportCategoryRequest>();
+            list = appRep.GetEditSportCategory(ClientId, EditId);
 
             var j = this.Json(list);
             return Json(j, JsonRequestBehavior.AllowGet);

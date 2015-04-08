@@ -16,7 +16,7 @@ namespace Netintercom.Models
             //...Get All Details
             FixturesReport report = new FixturesReport();
             report.ReportDate = query.ReportDate;
-            report = Fix.GetListFixtures(query.ClientId);
+            //report = Fix.GetListFixtures(query.ClientId);
 
             return report;
         }

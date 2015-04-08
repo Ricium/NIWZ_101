@@ -16,6 +16,44 @@ namespace Netintercom.Models
         public string PicUrl { get; set; }
     }
 
+    public class FixturesRequest
+    {
+        public int FixturesId { get; set; }
+        public string HomeTeam { get; set; }
+        public string HomePic { get; set; }
+        public string AwayTeam { get; set; }
+        public string AwayPic { get; set; }
+        public DateTime StartTime { get; set; }
+        public string FieldName { get; set; }
+        public string SportCategory { get; set; }
+        
+    }
+
+    public class ResultRequest
+    {
+        public int ResultId { get; set; }
+        public string HomeTeam { get; set; }
+        public string HomePic { get; set; }
+        public string HomePoints { get; set; }
+        public string AwayTeam { get; set; }
+        public string AwayPic { get; set; }
+        public string AwayPoints { get; set; }
+        public string FieldName { get; set; }
+        public string TimeInMatch { get; set; }
+        public string Commentary { get; set; }
+        public string SportCategory { get; set; }
+        public DateTime StartTime { get; set; }
+
+    }
+
+    public class SportCategoryRequest
+    {
+        public int SportCategoryId { get; set; }
+        public string CategoryName { get; set; }
+
+    }
+
+
     public class EventRequest
     {
         public int EventId { get; set; }
@@ -60,4 +98,6 @@ namespace Netintercom.Models
         public string DeviceReg { get; set; }
         public int ClientId { get; set; }
     }
+
+    
 }

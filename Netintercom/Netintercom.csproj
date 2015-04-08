@@ -425,6 +425,7 @@
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\NotesController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -463,6 +464,8 @@
     <Compile Include="Models\Picture.cs" />
     <Compile Include="Models\PictureRepository.cs" />
     <Compile Include="Models\RegisterClient.cs" />
+    <Compile Include="Models\ReportRepository.cs" />
+    <Compile Include="Models\Reports.cs" />
     <Compile Include="Models\Results.cs" />
     <Compile Include="Models\ResultsRepository.cs" />
     <Compile Include="Models\SchoolInfo.cs" />
@@ -1476,6 +1479,7 @@
     <Content Include="Views\News\News.aspx" />
     <Content Include="Views\Notes\Notes.aspx" />
     <Content Include="Views\Notifications\Announcements.aspx" />
+    <Content Include="Views\Reports\FixturesReport.aspx" />
     <Content Include="Views\Services\Services.aspx" />
     <Content Include="Views\Settings\MySettings.aspx" />
     <Content Include="Views\Settings\Settings.aspx" />
