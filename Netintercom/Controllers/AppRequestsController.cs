@@ -46,6 +46,16 @@ namespace Netintercom.Controllers
             return Json(j, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetSchools(int ClientId, int LastId)
+        {
+            //...Query DB....
+            List<SchoolsRequest> list = new List<SchoolsRequest>();
+            list = appRep.GetSchools(ClientId, LastId);
+
+            var j = this.Json(list);
+            return Json(j, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public JsonResult GetSportCategory(int ClientId, int LastId)
         {
@@ -137,6 +147,16 @@ namespace Netintercom.Controllers
             //...Query DB....
             List<FixturesRequest> list = new List<FixturesRequest>();
             list = appRep.GetEditFixtures(ClientId, EditId);
+
+            var j = this.Json(list);
+            return Json(j, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult EditSchools(int ClientId, int EditId)
+        {
+            //...Query DB....
+            List<SchoolsRequest> list = new List<SchoolsRequest>();
+            list = appRep.GetEditSchools(ClientId, EditId);
 
             var j = this.Json(list);
             return Json(j, JsonRequestBehavior.AllowGet);

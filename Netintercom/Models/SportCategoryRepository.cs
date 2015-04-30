@@ -31,7 +31,7 @@ namespace Netintercom.Models
                 {
                     ins.SportCategoryID = Convert.ToInt32(drI["SportCategoryId"]);
                     ins.ClientID = Convert.ToInt32(drI["ClientId"]);
-                    ins.CategoryName =drI["FixtureId"].ToString();
+                    ins.CategoryName = drI["CategoryName"].ToString();
 
 
                 }
@@ -321,13 +321,13 @@ namespace Netintercom.Models
         }
 
         #region DropDowns
-        public List<SelectListItem> GetSportCategory()
+        public List<SelectListItem> GetSportCategorys(int ClientId)
         {
             List<SelectListItem> obj = new List<SelectListItem>();
 
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
-            SqlCommand cmdI = new SqlCommand("SELECT * FROM SportCategory ", con);
+            SqlCommand cmdI = new SqlCommand("SELECT * FROM SportCategory where ClientId='"+ClientId+"' ", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 

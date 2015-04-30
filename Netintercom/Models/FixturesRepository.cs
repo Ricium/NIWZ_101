@@ -34,7 +34,7 @@ namespace Netintercom.Models
                     ins.TeamIdA = Convert.ToInt32(drI["TeamIdA"]);
                     ins.TeamIdB = Convert.ToInt32(drI["TeamIdB"]);
                     ins.StartTime = Convert.ToDateTime(drI["StartTime"]);
-                    ins.FieldId = Convert.ToInt32(drI["FieldsID"]);
+                    ins.FieldId = Convert.ToInt32(drI["FieldsId"]);
                     ins.SportCategoryId = Convert.ToInt32(drI["SportCategoryId"]);
 
                 }
@@ -164,7 +164,7 @@ namespace Netintercom.Models
                     ins.awayteam = drI["AwayTeam"].ToString();
                     ins.TeamIdB = Convert.ToInt32(drI["TeamIdB"]);
                     ins.StartTime = Convert.ToDateTime(drI["StartTime"]);
-                    ins.FieldId = Convert.ToInt32(drI["FieldID"]);
+                    ins.FieldId = Convert.ToInt32(drI["FieldsId"]);
                     ins.field = drI["FieldName"].ToString();
                     ins.SportCategoryId = Convert.ToInt32(drI["SportCategoryId"]);
                     ins.sportcategory = drI["CategoryName"].ToString();
@@ -188,7 +188,7 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT f.*,fd.FieldName,t.Name,t.Name as HomeTeam,tb.Name as AwayTeam,sc.CategoryName FROM fixtures f inner join Fields fd on f.FieldsId = fd.FieldsId inner join Teams t on f.TeamIdA = t.TeamsId inner join Teams tb on f.TeamIdB =tb.TeamsId inner join SportCategory sc on f.SportCategoryId =sc.SportCategoryId WHERE f.FixturesId not in (select FixtureId from Results) and  f.ClientId = " + ClientId + " ORDER BY f.FixturesId DESC", con);
+            cmdI = new SqlCommand("SELECT f.*,fd.FieldName,t.Age as AgeA,tb.Age as AgeB,t.Ranks as RankA,tb.Ranks as RankB,sh.Schoolabbreviation as HomeTeam,shb.Schoolabbreviation as AwayTeam,sc.CategoryName FROM fixtures f inner join Fields fd on f.FieldsId = fd.FieldsId inner join Teams t on f.TeamIdA = t.TeamsId inner join Teams tb on f.TeamIdB =tb.TeamsId inner join SportCategory sc on f.SportCategoryId =sc.SportCategoryId inner join Schools sh on t.SchoolId= sh.SchoolId inner join Schools shb on tb.SchoolId = shb.SchoolId WHERE f.FixturesId not in (select FixtureId from Results) and  f.ClientId = " + ClientId + " ORDER BY f.FixturesId DESC", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -201,8 +201,8 @@ namespace Netintercom.Models
                     ins.FixturesId = Convert.ToInt32(drI["FixturesId"]);
                     ins.ClientId = Convert.ToInt32(drI["ClientId"]);
                     ins.TeamIdA = Convert.ToInt32(drI["TeamIdA"]);
-                    ins.hometeam = drI["HomeTeam"].ToString();
-                    ins.awayteam = drI["AwayTeam"].ToString();
+                    ins.hometeam = drI["HomeTeam"].ToString()+" "+drI["AgeA"].ToString()+"/"+drI["RankA"].ToString();
+                    ins.awayteam = drI["AwayTeam"].ToString() + " " + drI["AgeB"].ToString() + "/" + drI["RankB"].ToString();
                     ins.TeamIdB = Convert.ToInt32(drI["TeamIdB"]);
                     ins.StartTime = Convert.ToDateTime(drI["StartTime"]);
                     ins.FieldId = Convert.ToInt32(drI["FieldsId"]);
@@ -351,7 +351,7 @@ namespace Netintercom.Models
 
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
-            SqlCommand cmdI = new SqlCommand("SELECT * FROM Teams ", con);
+            SqlCommand cmdI = new SqlCommand("SELECT t.*,s.* FROM Teams t inner join Schools s on t.SchoolId = s.SchoolId ", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -360,7 +360,7 @@ namespace Netintercom.Models
                 while (drI.Read())
                 {
                     var result = new SelectListItem();
-                    result.Text = drI["Name"].ToString() +" "+ drI["Age"].ToString()+"/"+drI["Ranks"].ToString();
+                    result.Text = drI["Schoolabbreviation"].ToString() + " " + drI["Age"].ToString() + "/" + drI["Ranks"].ToString();
                     result.Value = drI["TeamsId"].ToString();
                     obj.Add(result);
                 }

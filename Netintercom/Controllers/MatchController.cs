@@ -27,6 +27,7 @@ namespace Netintercom.Controllers
         private AppRequestRepository AppRep = new AppRequestRepository();
         private CommunicationRepository comrep = new CommunicationRepository();
         private Functions func = new Functions();
+        SchoolsRepository SchRep = new SchoolsRepository();
        
         #endregion
 
@@ -48,17 +49,17 @@ namespace Netintercom.Controllers
                 var newfilename = NewPicID.ToString() + extention;
 
                 // Check if Path exsits
-                string serverpath = Server.MapPath("~/Images/Client/" + HttpContext.Session["ClientId"].ToString() + "/Teams");
+                string serverpath = Server.MapPath("~/Images/Client/" + HttpContext.Session["ClientId"].ToString() + "/Schools");
                 if (!Directory.Exists(serverpath))
                 {
                     Directory.CreateDirectory(serverpath);
                 }
 
-                var physicalPath = Path.Combine(Server.MapPath("~/Images/Client/" + HttpContext.Session["ClientId"].ToString() + "/Teams"), newfilename);
+                var physicalPath = Path.Combine(Server.MapPath("~/Images/Client/" + HttpContext.Session["ClientId"].ToString() + "/Schools"), newfilename);
 
                 //...Resize..
                 Image original = Image.FromStream(file.InputStream, true, true);
-                Image resized = functions.ResizeImage(original, new Size(1000, 1000));
+                Image resized = functions.ResizeImage(original, new Size(100, 100));
 
                 resized.Save(physicalPath, ImageFormat.Jpeg);
 
@@ -91,13 +92,13 @@ namespace Netintercom.Controllers
                 var newfilename = NewPicID.ToString() + extention;
 
                 // Check if Path exsits
-                string serverpath = Server.MapPath("~/Images/Client/" + HttpContext.Session["ClientId"].ToString() + "/Teams");
+                string serverpath = Server.MapPath("~/Images/Client/" + HttpContext.Session["ClientId"].ToString() + "/Schools");
                 if (!Directory.Exists(serverpath))
                 {
                     Directory.CreateDirectory(serverpath);
                 }
 
-                var physicalPath = Path.Combine(Server.MapPath("~/Images/Client/" + HttpContext.Session["ClientId"].ToString() + "/Teams"), newfilename);
+                var physicalPath = Path.Combine(Server.MapPath("~/Images/Client/" + HttpContext.Session["ClientId"].ToString() + "/Schools"), newfilename);
 
                 // TODO: Verify user permissions
                 if (System.IO.File.Exists(physicalPath))
@@ -120,6 +121,12 @@ namespace Netintercom.Controllers
             System.Threading.Thread.Sleep(100);
         }
 
+        public ActionResult _AsyncResults(int? SportCategory)
+        {
+            DelayResponse();
+            List<SelectListItem> Result = ResRep.GetFixtures(((int)SportCategory));
+            return Json(Result);
+        }
         public ActionResult _AsyncFields(int? SportCategoryId)
         {
             DelayResponse();
@@ -147,7 +154,7 @@ namespace Netintercom.Controllers
         [Authorize(Roles = "news")]
         public ActionResult SportCategory()
         {
-            ViewData["SportCategoryID"] = SCRep.GetSportCategory();
+            ViewData["SportCategoryID"] = SCRep.GetSportCategorys(Convert.ToInt32(HttpContext.Session["ClientId"]));
             return View();
         }
 
@@ -242,11 +249,13 @@ namespace Netintercom.Controllers
         }
         #endregion
 
+
+
         #region Fields
         [Authorize(Roles = "news")]
         public ActionResult Fields()
         {
-            ViewData["SportCategoryID"] = SCRep.GetSportCategory();
+            ViewData["SportCategoryID"] = SCRep.GetSportCategorys(Convert.ToInt32(HttpContext.Session["ClientId"]));
             return View();
         }
 
@@ -274,12 +283,12 @@ namespace Netintercom.Controllers
             Fields ins2 = FieldsRep.InsertFields(ins);
 
             //...Notify...
-            string regIds = AppRep.GetAllRegIds(ins.ClientId);
-            List<string> reg = AppRep.GetAllRegIdsList(ins.ClientId);
-            if (!regIds.Equals(""))
-            {
-                comrep.NewsyncData(regIds, "CMD_NEWFields", reg, ins.ClientId);
-            }
+            //string regIds = AppRep.GetAllRegIds(ins.ClientId);
+            //List<string> reg = AppRep.GetAllRegIdsList(ins.ClientId);
+            //if (!regIds.Equals(""))
+            //{
+            //    comrep.NewsyncData(regIds, "CMD_NEWFields", reg, ins.ClientId);
+            //}
 
             //...Facebook...
             string access_token = FacebookPost.GetAccessToken(ins.ClientId);
@@ -306,12 +315,12 @@ namespace Netintercom.Controllers
             ins.ClientId = Convert.ToInt32(HttpContext.Session["ClientId"]);
             Fields ins2 = FieldsRep.UpdateFields(ins);
 
-            //...Notify...
-            string regIds = AppRep.GetAllRegIds(ins.ClientId);
-            if (!regIds.Equals(""))
-            {
-                comrep.NewUpdateData(regIds, "CMD_EDITFields", ins2.FieldsId.ToString());
-            }
+            ////...Notify...
+            //string regIds = AppRep.GetAllRegIds(ins.ClientId);
+            //if (!regIds.Equals(""))
+            //{
+            //    comrep.NewUpdateData(regIds, "CMD_EDITFields", ins2.FieldsId.ToString());
+            //}
 
             //...Repopulate Grid...
             List<Fields> lst = new List<Fields>();
@@ -327,12 +336,12 @@ namespace Netintercom.Controllers
             Fields ins = FieldsRep.GetFields(id);
             bool ins2 = FieldsRep.RemoveFields(id);
 
-            //...Notify...
-            string regIds = AppRep.GetAllRegIds(Convert.ToInt32(HttpContext.Session["ClientId"]));
-            if (!regIds.Equals(""))
-            {
-                comrep.NewUpdateData(regIds, "CMD_DELFields", id.ToString());
-            }
+            ////...Notify...
+            //string regIds = AppRep.GetAllRegIds(Convert.ToInt32(HttpContext.Session["ClientId"]));
+            //if (!regIds.Equals(""))
+            //{
+            //    comrep.NewUpdateData(regIds, "CMD_DELFields", id.ToString());
+            //}
 
             //...Repopulate Grid...
             List<Fields> lst = new List<Fields>();
@@ -346,7 +355,8 @@ namespace Netintercom.Controllers
         public ActionResult Teams()
         {
             ViewData["Ranks"] = TeamsRep.GetTeamRank();
-            ViewData["SportCategoryID"] = SCRep.GetSportCategory();
+            ViewData["SportCategoryID"] = SCRep.GetSportCategorys(Convert.ToInt32(HttpContext.Session["ClientId"]));
+            ViewData["SchoolId"] = TeamsRep.GetSchool(Convert.ToInt32(HttpContext.Session["ClientId"]));
             return View();
         }
 
@@ -369,7 +379,7 @@ namespace Netintercom.Controllers
         {
 
             ins.ClientId = Convert.ToInt32(HttpContext.Session["ClientId"]);
-
+            ins.Name = Convert.ToString(ins.SchoolId);
             //...Insert into Database...
             Teams ins2 = TeamsRep.InsertTeams(ins);
 
@@ -384,6 +394,7 @@ namespace Netintercom.Controllers
         {
             //...ViewData...
             ins.ClientId = Convert.ToInt32(HttpContext.Session["ClientId"]);
+            ins.Name = Convert.ToString(ins.SchoolId);
             Teams ins2 = TeamsRep.UpdateTeams(ins);
             //...Repopulate Grid...
             List<Teams> lst = new List<Teams>();
@@ -411,7 +422,7 @@ namespace Netintercom.Controllers
         [Authorize(Roles = "news")]
         public ActionResult Fixtures()
         {
-            ViewData["SportCategoryID"] = SCRep.GetSportCategory();
+            ViewData["SportCategoryId"] = SCRep.GetSportCategorys(Convert.ToInt32(HttpContext.Session["ClientId"]));
             ViewData["TeamIdA"] = FixRep.GetTeams();
             ViewData["TeamIdB"] = FixRep.GetTeams();
             ViewData["FieldId"] = FixRep.GetFields();
@@ -513,8 +524,9 @@ namespace Netintercom.Controllers
         [Authorize(Roles = "news")]
         public ActionResult Results()
         {
-            ViewData["FixturesId"] = ResRep.GetFixtures();
-        
+            ViewData["SportCategoryId"] = SCRep.GetSportCategorys(Convert.ToInt32(HttpContext.Session["ClientId"]));
+
+
             return View();
         }
 
@@ -550,7 +562,8 @@ namespace Netintercom.Controllers
             List<string> reg = AppRep.GetAllRegIdsList(ins.ClientId);
             if (!regIds.Equals(""))
             {
-                comrep.NewsyncData(regIds, "CMD_NEWResults", reg, ins.ClientId);
+               // comrep.NewUpdateData(regIds, "CMD_NEWResultWithID", ins2.ResultsId.ToString());
+                comrep.NewsyncData(regIds, "CMD_NEWResults", reg, ins.ClientId);                
             }
 
             //...Facebook...
@@ -576,7 +589,8 @@ namespace Netintercom.Controllers
         {
             //...ViewData...
             ins.ClientId = Convert.ToInt32(HttpContext.Session["ClientId"]);
-            Results ins2 = ResRep.UpdateResults(ins);
+            Results o = ResRep.GetResults(ins.ResultsId);
+            Results ins2 = ResRep.UpdateResults(ins,o.FixturesID);
 
             //...Notify...
             string regIds = AppRep.GetAllRegIds(ins.ClientId);
@@ -612,5 +626,197 @@ namespace Netintercom.Controllers
             return View(new GridModel(lst));
         }
         #endregion
+
+        #region Schools
+        [Authorize(Roles = "news")]
+        public ActionResult Schools()
+        {
+
+            return View();
+        }
+
+        [GridAction]
+        public ActionResult _ListSchools()
+        {
+            //...Initialize List...
+            List<Schoolsc> lst = new List<Schoolsc>();
+
+            //...Populate List...
+            lst = SchRep.GetListSchools(Convert.ToInt32(HttpContext.Session["ClientId"]));
+
+            //...Return List to Grid...
+            return View(new GridModel(lst));
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult _InsertSchools(Schoolsc ins)
+        {
+
+            ins.ClientId = Convert.ToInt32(HttpContext.Session["ClientId"]);
+
+            //...Insert into Database...
+            Schoolsc ins2 = SchRep.InsertSchools(ins);
+            //...Notify...
+            string regIds = AppRep.GetAllRegIds(ins.ClientId);
+            List<string> reg = AppRep.GetAllRegIdsList(ins.ClientId);
+            if (!regIds.Equals(""))
+            {
+                comrep.NewsyncData(regIds, "CMD_NEWSchools", reg, ins.ClientId);
+            }
+
+            //...Facebook...
+            string access_token = FacebookPost.GetAccessToken(ins.ClientId);
+
+            if (!access_token.Equals(""))
+            {
+                string page_id = FacebookPost.GetPageId(ins.ClientId);
+                if (!page_id.Equals(""))
+                {
+                    FacebookPost.Post(access_token, page_id, "Schools Update: " + ins.SchoolName);
+                }
+            }
+            //...Repopulate Grid...
+            List<Schoolsc> lst = new List<Schoolsc>();
+            lst = SchRep.GetListSchools(Convert.ToInt32(HttpContext.Session["ClientId"]));
+            return View(new GridModel(lst));
+        }
+
+        [GridAction]
+        public ActionResult _UpdateSchools(Schoolsc ins)
+        {
+            //...ViewData...
+            ins.ClientId = Convert.ToInt32(HttpContext.Session["ClientId"]);
+            Schoolsc ins2 = SchRep.UpdateSchools(ins);
+            //...Notify...
+            string regIds = AppRep.GetAllRegIds(ins.ClientId);
+            if (!regIds.Equals(""))
+            {
+                comrep.NewUpdateData(regIds, "CMD_EDITSchools", ins2.SchoolId.ToString());
+            }
+
+   
+            //...Repopulate Grid...
+            List<Schoolsc> lst = new List<Schoolsc>();
+            lst = SchRep.GetListSchools(Convert.ToInt32(HttpContext.Session["ClientId"]));
+            return View(new GridModel(lst));
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult _DeleteSchools(int id)
+        {
+
+            Schoolsc ins = SchRep.GetSchools(id);
+            bool ins2 = SchRep.RemoveSchools(id);
+
+            //...Notify...
+            string regIds = AppRep.GetAllRegIds(Convert.ToInt32(HttpContext.Session["ClientId"]));
+            if (!regIds.Equals(""))
+            {
+                comrep.NewUpdateData(regIds, "CMD_DELSchools", id.ToString());
+            }
+
+            //...Repopulate Grid...
+            List<Schoolsc> lst = new List<Schoolsc>();
+            lst = SchRep.GetListSchools(Convert.ToInt32(HttpContext.Session["ClientId"]));
+            return View(new GridModel(lst));
+        }
+
+        #endregion
+
+
+        ReportRepository reportRep = new ReportRepository();
+
+        public ActionResult FixturesReport()
+        {
+            ViewData["SportCategoryID"] = reportRep.GetSportCategorys(Convert.ToInt32(HttpContext.Session["ClientId"]));
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult GetFixtureReport(SportCategoryID SC)
+        {
+
+
+
+            List<FixturesReport> report = reportRep.GetFixtureReport(SC.SportCategory, SC.Date.Date);
+            SportCategoryRepository screp = new SportCategoryRepository();
+            StringWriter sw = new StringWriter();
+            sw.WriteLine("\"StartTime\",\"TeamA\",\"TeamsB\",\"Field\",\"FixtureId\"");
+
+            string name = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString();
+
+            Response.ClearContent();
+            Response.AddHeader("content-disposition", "attachment;filename=Fixture" + "_" + name + ".csv");
+            Response.ContentType = "text/csv";
+
+            sw.WriteLine("\"Fixtures\"");
+            sw.WriteLine(SC.SportCategory);
+            sw.WriteLine(SC.Date.Date);
+
+            foreach (FixturesReport ex in report)
+            {
+                sw.WriteLine(string.Format("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\""
+                                      , ex.StartTime
+                                      , ex.TeamIdA
+                                      , ex.TeamIdB
+                                      , ex.Field
+                                      , ex.FixturesId
+                                      ));
+            }
+
+
+
+
+            Response.Write(sw.ToString());
+            Response.End();
+            return null;
+        }
+
+        public ActionResult ResultsReport()
+        {
+            ViewData["SportCategoryID"] = reportRep.GetSportCategorys(Convert.ToInt32(HttpContext.Session["ClientId"]));
+            return View();
+        }
+        public ActionResult GetResultsReport(SportCategoryID SC)
+        {
+
+
+
+            List<ResultsReport> report = reportRep.GetResultsReport(SC.SportCategory, SC.Date.Date);
+            SportCategoryRepository screp = new SportCategoryRepository();
+            StringWriter sw = new StringWriter();
+            sw.WriteLine("\"StartTime\",\"TeamA\",\"PointsA\",\"TeamsB\",\"PointsB\",\"FixtureId\"");
+
+            string name = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString();
+
+            Response.ClearContent();
+            Response.AddHeader("content-disposition", "attachment;filename=Results" + "_" + name + ".csv");
+            Response.ContentType = "text/csv";
+
+            sw.WriteLine("\"Results\"");
+            sw.WriteLine(SC.SportCategory);
+            sw.WriteLine(SC.Date.Date);
+
+            foreach (ResultsReport ex in report)
+            {
+                sw.WriteLine(string.Format("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\""
+                                      , ex.StartTime
+                                      , ex.TeamIdA
+                                      , ex.PointsA
+                                      , ex.TeamIdB
+                                      , ex.PointsB
+                                      , ex.FixturesId
+                                      ));
+            }
+
+
+
+
+            Response.Write(sw.ToString());
+            Response.End();
+            return null;
+        }
     }
 }

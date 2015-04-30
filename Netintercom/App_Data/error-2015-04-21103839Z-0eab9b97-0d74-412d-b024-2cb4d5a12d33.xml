@@ -1,0 +1,224 @@
+﻿<error errorId="0eab9b97-0d74-412d-b024-2cb4d5a12d33" application="/LM/W3SVC/3/ROOT" host="CHRISTO-PC" type="System.ArgumentNullException" message="Value cannot be null.&#xD;&#xA;Parameter name: value" source="System.ComponentModel.DataAnnotations" detail="System.ArgumentNullException: Value cannot be null.&#xD;&#xA;Parameter name: value&#xD;&#xA;   at System.ComponentModel.DataAnnotations.ValidationContext.set_DisplayName(String value)&#xD;&#xA;   at System.Web.Mvc.DataAnnotationsModelValidator.&lt;Validate&gt;d__15.MoveNext()&#xD;&#xA;   at System.Web.Mvc.ModelValidator.CompositeModelValidator.&lt;Validate&gt;d__1.MoveNext()&#xD;&#xA;   at System.Web.Mvc.DefaultModelBinder.OnModelUpdated(ControllerContext controllerContext, ModelBindingContext bindingContext)&#xD;&#xA;   at System.Web.Mvc.DefaultModelBinder.BindComplexElementalModel(ControllerContext controllerContext, ModelBindingContext bindingContext, Object model)&#xD;&#xA;   at System.Web.Mvc.DefaultModelBinder.BindComplexModel(ControllerContext controllerContext, ModelBindingContext bindingContext)&#xD;&#xA;   at System.Web.Mvc.DefaultModelBinder.BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)&#xD;&#xA;   at System.Web.Mvc.ControllerActionInvoker.GetParameterValue(ControllerContext controllerContext, ParameterDescriptor parameterDescriptor)&#xD;&#xA;   at System.Web.Mvc.ControllerActionInvoker.GetParameterValues(ControllerContext controllerContext, ActionDescriptor actionDescriptor)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncControllerActionInvoker.&lt;&gt;c__DisplayClass25.&lt;BeginInvokeAction&gt;b__1e(AsyncCallback asyncCallback, Object asyncState)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.Begin(AsyncCallback callback, Object state, Int32 timeout)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncControllerActionInvoker.BeginInvokeAction(ControllerContext controllerContext, String actionName, AsyncCallback callback, Object state)&#xD;&#xA;   at System.Web.Mvc.Controller.&lt;&gt;c__DisplayClass1d.&lt;BeginExecuteCore&gt;b__17(AsyncCallback asyncCallback, Object asyncState)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.Begin(AsyncCallback callback, Object state, Int32 timeout)&#xD;&#xA;   at System.Web.Mvc.Controller.BeginExecuteCore(AsyncCallback callback, Object state)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.Begin(AsyncCallback callback, Object state, Int32 timeout)&#xD;&#xA;   at System.Web.Mvc.Controller.BeginExecute(RequestContext requestContext, AsyncCallback callback, Object state)&#xD;&#xA;   at System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.BeginExecute(RequestContext requestContext, AsyncCallback callback, Object state)&#xD;&#xA;   at System.Web.Mvc.MvcHandler.&lt;&gt;c__DisplayClass8.&lt;BeginProcessRequest&gt;b__2(AsyncCallback asyncCallback, Object asyncState)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.Begin(AsyncCallback callback, Object state, Int32 timeout)&#xD;&#xA;   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)&#xD;&#xA;   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)&#xD;&#xA;   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)&#xD;&#xA;   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()&#xD;&#xA;   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)" user="t" time="2015-04-21T10:38:39.2663034Z">
+  <serverVariables>
+    <item name="ALL_HTTP">
+      <value string="HTTP_CACHE_CONTROL:no-cache&#xD;&#xA;HTTP_CONNECTION:keep-alive&#xD;&#xA;HTTP_PRAGMA:no-cache&#xD;&#xA;HTTP_CONTENT_LENGTH:141&#xD;&#xA;HTTP_CONTENT_TYPE:application/x-www-form-urlencoded; charset=UTF-8&#xD;&#xA;HTTP_ACCEPT:text/plain, */*; q=0.01&#xD;&#xA;HTTP_ACCEPT_ENCODING:gzip, deflate&#xD;&#xA;HTTP_ACCEPT_LANGUAGE:en-US,en;q=0.5&#xD;&#xA;HTTP_COOKIE:ASP.NET_SessionId=0htldln0kgr0pwq1lf21i0la; .ASPXAUTH=2DC4B7E31908C7244A9EC7F409EBBCED413F7BA53F96114037092CF0444FC080B14BCFC07CF04B35D0336DC1298A01D6A740099C664DB141E21194B350F66279E8EB2DC259176DEE38E15ADB4CB731BC&#xD;&#xA;HTTP_HOST:localhost:54187&#xD;&#xA;HTTP_REFERER:http://localhost:54187/Match/Schools&#xD;&#xA;HTTP_USER_AGENT:Mozilla/5.0 (Windows NT 6.1; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0&#xD;&#xA;HTTP_DNT:1&#xD;&#xA;HTTP_X_REQUESTED_WITH:XMLHttpRequest&#xD;&#xA;" />
+    </item>
+    <item name="ALL_RAW">
+      <value string="Cache-Control: no-cache&#xD;&#xA;Connection: keep-alive&#xD;&#xA;Pragma: no-cache&#xD;&#xA;Content-Length: 141&#xD;&#xA;Content-Type: application/x-www-form-urlencoded; charset=UTF-8&#xD;&#xA;Accept: text/plain, */*; q=0.01&#xD;&#xA;Accept-Encoding: gzip, deflate&#xD;&#xA;Accept-Language: en-US,en;q=0.5&#xD;&#xA;Cookie: ASP.NET_SessionId=0htldln0kgr0pwq1lf21i0la; .ASPXAUTH=2DC4B7E31908C7244A9EC7F409EBBCED413F7BA53F96114037092CF0444FC080B14BCFC07CF04B35D0336DC1298A01D6A740099C664DB141E21194B350F66279E8EB2DC259176DEE38E15ADB4CB731BC&#xD;&#xA;Host: localhost:54187&#xD;&#xA;Referer: http://localhost:54187/Match/Schools&#xD;&#xA;User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0&#xD;&#xA;DNT: 1&#xD;&#xA;X-Requested-With: XMLHttpRequest&#xD;&#xA;" />
+    </item>
+    <item name="APPL_MD_PATH">
+      <value string="/LM/W3SVC/3/ROOT" />
+    </item>
+    <item name="APPL_PHYSICAL_PATH">
+      <value string="C:\dev\GitHub\NIWZ_101\Netintercom\" />
+    </item>
+    <item name="AUTH_TYPE">
+      <value string="Forms" />
+    </item>
+    <item name="AUTH_USER">
+      <value string="t" />
+    </item>
+    <item name="AUTH_PASSWORD">
+      <value string="*****" />
+    </item>
+    <item name="LOGON_USER">
+      <value string="t" />
+    </item>
+    <item name="REMOTE_USER">
+      <value string="t" />
+    </item>
+    <item name="CERT_COOKIE">
+      <value string="" />
+    </item>
+    <item name="CERT_FLAGS">
+      <value string="" />
+    </item>
+    <item name="CERT_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SERIALNUMBER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CERT_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CONTENT_LENGTH">
+      <value string="141" />
+    </item>
+    <item name="CONTENT_TYPE">
+      <value string="application/x-www-form-urlencoded; charset=UTF-8" />
+    </item>
+    <item name="GATEWAY_INTERFACE">
+      <value string="CGI/1.1" />
+    </item>
+    <item name="HTTPS">
+      <value string="off" />
+    </item>
+    <item name="HTTPS_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="INSTANCE_ID">
+      <value string="3" />
+    </item>
+    <item name="INSTANCE_META_PATH">
+      <value string="/LM/W3SVC/3" />
+    </item>
+    <item name="LOCAL_ADDR">
+      <value string="127.0.0.1" />
+    </item>
+    <item name="PATH_INFO">
+      <value string="/Match/_InsertSchools" />
+    </item>
+    <item name="PATH_TRANSLATED">
+      <value string="C:\dev\GitHub\NIWZ_101\Netintercom\Match\_InsertSchools" />
+    </item>
+    <item name="QUERY_STRING">
+      <value string="" />
+    </item>
+    <item name="REMOTE_ADDR">
+      <value string="127.0.0.1" />
+    </item>
+    <item name="REMOTE_HOST">
+      <value string="127.0.0.1" />
+    </item>
+    <item name="REMOTE_PORT">
+      <value string="6240" />
+    </item>
+    <item name="REQUEST_METHOD">
+      <value string="POST" />
+    </item>
+    <item name="SCRIPT_NAME">
+      <value string="/Match/_InsertSchools" />
+    </item>
+    <item name="SERVER_NAME">
+      <value string="localhost" />
+    </item>
+    <item name="SERVER_PORT">
+      <value string="54187" />
+    </item>
+    <item name="SERVER_PORT_SECURE">
+      <value string="0" />
+    </item>
+    <item name="SERVER_PROTOCOL">
+      <value string="HTTP/1.1" />
+    </item>
+    <item name="SERVER_SOFTWARE">
+      <value string="Microsoft-IIS/8.0" />
+    </item>
+    <item name="URL">
+      <value string="/Match/_InsertSchools" />
+    </item>
+    <item name="HTTP_CACHE_CONTROL">
+      <value string="no-cache" />
+    </item>
+    <item name="HTTP_CONNECTION">
+      <value string="keep-alive" />
+    </item>
+    <item name="HTTP_PRAGMA">
+      <value string="no-cache" />
+    </item>
+    <item name="HTTP_CONTENT_LENGTH">
+      <value string="141" />
+    </item>
+    <item name="HTTP_CONTENT_TYPE">
+      <value string="application/x-www-form-urlencoded; charset=UTF-8" />
+    </item>
+    <item name="HTTP_ACCEPT">
+      <value string="text/plain, */*; q=0.01" />
+    </item>
+    <item name="HTTP_ACCEPT_ENCODING">
+      <value string="gzip, deflate" />
+    </item>
+    <item name="HTTP_ACCEPT_LANGUAGE">
+      <value string="en-US,en;q=0.5" />
+    </item>
+    <item name="HTTP_COOKIE">
+      <value string="ASP.NET_SessionId=0htldln0kgr0pwq1lf21i0la; .ASPXAUTH=2DC4B7E31908C7244A9EC7F409EBBCED413F7BA53F96114037092CF0444FC080B14BCFC07CF04B35D0336DC1298A01D6A740099C664DB141E21194B350F66279E8EB2DC259176DEE38E15ADB4CB731BC" />
+    </item>
+    <item name="HTTP_HOST">
+      <value string="localhost:54187" />
+    </item>
+    <item name="HTTP_REFERER">
+      <value string="http://localhost:54187/Match/Schools" />
+    </item>
+    <item name="HTTP_USER_AGENT">
+      <value string="Mozilla/5.0 (Windows NT 6.1; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0" />
+    </item>
+    <item name="HTTP_DNT">
+      <value string="1" />
+    </item>
+    <item name="HTTP_X_REQUESTED_WITH">
+      <value string="XMLHttpRequest" />
+    </item>
+  </serverVariables>
+  <form>
+    <item name="ClientId">
+      <value string="0" />
+    </item>
+    <item name="SchoolId">
+      <value string="0" />
+    </item>
+    <item name="PictureId">
+      <value string="43" />
+    </item>
+    <item name="SchoolName">
+      <value string="Rm" />
+    </item>
+    <item name="Schoolabbreviation">
+      <value string="Rm" />
+    </item>
+    <item name="attachments">
+      <value string="" />
+    </item>
+    <item name="id">
+      <value string="0" />
+    </item>
+    <item name="page">
+      <value string="1" />
+    </item>
+    <item name="size">
+      <value string="50" />
+    </item>
+    <item name="groupBy">
+      <value string="" />
+    </item>
+    <item name="filter">
+      <value string="" />
+    </item>
+    <item name="orderBy">
+      <value string="" />
+    </item>
+    <item name="aggregates">
+      <value string="" />
+    </item>
+  </form>
+  <cookies>
+    <item name="ASP.NET_SessionId">
+      <value string="0htldln0kgr0pwq1lf21i0la" />
+    </item>
+    <item name=".ASPXAUTH">
+      <value string="2DC4B7E31908C7244A9EC7F409EBBCED413F7BA53F96114037092CF0444FC080B14BCFC07CF04B35D0336DC1298A01D6A740099C664DB141E21194B350F66279E8EB2DC259176DEE38E15ADB4CB731BC" />
+    </item>
+  </cookies>
+</error>

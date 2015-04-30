@@ -19,8 +19,8 @@
         .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(Telerik.Web.Mvc.UI.GridButtonType.ImageAndText).Text("Add New SportCategory"))
         .Columns(columns =>
         {
-            //columns.Bound(m => m.SportCategoryId).Title("SportCategory");
-            columns.Bound(m => m.SportCategoryID);
+
+
             columns.Bound(m => m.CategoryName);
             
                             columns.Command(commands =>

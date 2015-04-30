@@ -19,8 +19,11 @@ namespace Netintercom.Models
         [DisplayName("Sport Category")]
         public string sportcategory { get; set; }
         public int SportCategoryID { get; set; }
-        
-        [DisplayName("Picture Id")]
+
+        public int SchoolId { get; set; }
+        [DisplayName("Schools Name")]
+        public string schoolname { get; set; }
+        [DisplayName("Picture")]
         public int PictureId { get; set; }
         public string PicUrl { get; set; }
     }

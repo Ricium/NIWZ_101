@@ -158,6 +158,7 @@
     <Reference Include="Telerik.Web.Mvc.Contrib">
       <HintPath>..\packages\Telerik.Web.Mvc.Contrib.1.2.1\lib\Telerik.Web.Mvc.Contrib.dll</HintPath>
     </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Windows8, Version=2013.3.1328.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
     <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.2.0.20710.0\lib\net40\WebMatrix.Data.dll</HintPath>
@@ -425,7 +426,7 @@
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\NotesController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
-    <Compile Include="Controllers\ReportsController.cs" />
+    <Compile Include="Controllers\Reports2Controller.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -470,6 +471,8 @@
     <Compile Include="Models\ResultsRepository.cs" />
     <Compile Include="Models\SchoolInfo.cs" />
     <Compile Include="Models\SchoolInfoRepository.cs" />
+    <Compile Include="Models\Schools.cs" />
+    <Compile Include="Models\SchoolsRepository.cs" />
     <Compile Include="Models\Services.cs" />
     <Compile Include="Models\ServicesRepository.cs" />
     <Compile Include="Models\SettingRepository.cs" />
@@ -1459,6 +1462,7 @@
     <Content Include="Views\Account\_RemoveExternalLoginsPartial.aspx" />
     <Content Include="Views\Account\_SetPasswordPartial.aspx" />
     <Content Include="Views\Admin\Devices.aspx" />
+    <Content Include="Views\Admin\ForceUpdate.aspx" />
     <Content Include="Views\Admin\RegisterSchool.aspx" />
     <Content Include="Views\Admin\RegisterUser.aspx" />
     <Content Include="Views\Admin\Skwladaptor.aspx" />
@@ -1466,7 +1470,10 @@
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Match\Fields.aspx" />
     <Content Include="Views\Match\Fixtures.aspx" />
+    <Content Include="Views\Match\ResultsReport.aspx" />
+    <Content Include="Views\Match\FixturesReport.aspx" />
     <Content Include="Views\Match\Results.aspx" />
+    <Content Include="Views\Match\Schools.aspx" />
     <Content Include="Views\Match\SportCategory.aspx" />
     <Content Include="Views\Match\Teams.aspx" />
     <Content Include="Views\ProAd\ProAd.aspx" />
@@ -1479,7 +1486,7 @@
     <Content Include="Views\News\News.aspx" />
     <Content Include="Views\Notes\Notes.aspx" />
     <Content Include="Views\Notifications\Announcements.aspx" />
-    <Content Include="Views\Reports\FixturesReport.aspx" />
+    <Content Include="Views\Reports2\FixturesReport.aspx" />
     <Content Include="Views\Services\Services.aspx" />
     <Content Include="Views\Settings\MySettings.aspx" />
     <Content Include="Views\Settings\Settings.aspx" />
@@ -1494,6 +1501,7 @@
     <Content Include="Views\Shared\EditorTemplates\RegisterModel.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Results.aspx" />
     <Content Include="Views\Shared\EditorTemplates\SchoolInfo.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\Schoolsc.aspx" />
     <Content Include="Views\Shared\EditorTemplates\SportCategory.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Teams.aspx" />
     <Content Include="Views\Shared\Error.aspx" />

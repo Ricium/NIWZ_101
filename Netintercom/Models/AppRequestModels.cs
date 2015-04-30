@@ -29,6 +29,15 @@ namespace Netintercom.Models
         
     }
 
+    public class SchoolsRequest
+    {
+        public int SchoolId { get; set; }
+        public string SchoolName { get; set; }
+        public string Schoolabbreviation { get; set; }
+        public string PicUrl { get; set; }
+
+    }
+
     public class ResultRequest
     {
         public int ResultId { get; set; }

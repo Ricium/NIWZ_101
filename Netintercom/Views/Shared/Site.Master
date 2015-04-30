@@ -30,7 +30,7 @@
             </div>
       <%= Html.Telerik().StyleSheetRegistrar()
                  .DefaultGroup(group => group.Add("telerik.common.min.css")
-                 .Add("telerik.black.min.css")
+                 .Add("telerik.Outlook.min.css")
                      //.Add("telerik." + Html.GetCurrentTheme() + ".css")
                         )
 %>

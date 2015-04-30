@@ -19,7 +19,7 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM Teams WHERE TeamsId =" + TeamsId, con);
+            cmdI = new SqlCommand("SELECT t.*,sc.CategoryName,sch.* FROM Teams t inner join SportCategory sc on t.SportCategoryID = sc.SportCategoryId inner join Schools sch on t.SchoolId =sch.SchoolId  WHERE TeamsId =" + TeamsId, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -34,6 +34,8 @@ namespace Netintercom.Models
                     ins.Ranks = drI["Ranks"].ToString();
                     ins.ClientId = Convert.ToInt32(drI["ClientId"]);
                     ins.SportCategoryID = Convert.ToInt32(drI["SportCategoryID"]);
+                    ins.SchoolId = Convert.ToInt32(drI["SchoolId"]);
+                    ins.schoolname = drI["SchoolName"].ToString();
                     ins.PictureId = Convert.ToInt32(drI["PictureId"]);
 
                 }
@@ -75,7 +77,7 @@ namespace Netintercom.Models
                 cmdI.Parameters.AddWithValue("@Age", ins.Age);
                 cmdI.Parameters.AddWithValue("@Ranks", ins.Ranks);
                 cmdI.Parameters.AddWithValue("@SportCategoryID", ins.SportCategoryID);
-                cmdI.Parameters.AddWithValue("@PictureID", ins.PictureId);
+                cmdI.Parameters.AddWithValue("@SchoolId", ins.SchoolId);
 
                 //...Return new ID...
                 ins.TeamsId = (int)cmdI.ExecuteScalar();
@@ -129,7 +131,7 @@ namespace Netintercom.Models
             cmdI.Parameters.AddWithValue("@Age", ins.Age);
             cmdI.Parameters.AddWithValue("@Ranks", ins.Ranks);
             cmdI.Parameters.AddWithValue("@SportCategoryID", ins.SportCategoryID);
-            cmdI.Parameters.AddWithValue("@PictureID", ins.PictureId);
+            cmdI.Parameters.AddWithValue("@SchoolId", ins.SchoolId);
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();
 
@@ -147,7 +149,7 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT t.*,sc.CategoryName FROM Teams t inner join SportCategory sc on t.SportCategoryID = sc.SportCategoryId", con);
+            cmdI = new SqlCommand("SELECT t.*,sc.CategoryName,sch.* FROM Teams t inner join SportCategory sc on t.SportCategoryID = sc.SportCategoryId inner join Schools sch on t.SchoolId =sch.SchoolId ", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -164,6 +166,8 @@ namespace Netintercom.Models
                     ins.Ranks = drI["Ranks"].ToString();
                     ins.SportCategoryID = Convert.ToInt32(drI["SportCategoryID"]);
                     ins.sportcategory = drI["CategoryName"].ToString();
+                    ins.SchoolId = Convert.ToInt32(drI["SchoolId"]);
+                    ins.schoolname = drI["SchoolName"].ToString();
                     ins.PictureId = Convert.ToInt32(drI["PictureId"]);
                     list.Add(ins);
                 }
@@ -185,7 +189,7 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT t.*,sc.CategoryName FROM Teams t inner join SportCategory sc on t.SportCategoryID = sc.SportCategoryId WHERE t.ClientId = " + ClientId + " ORDER BY t.TeamsId DESC", con);
+            cmdI = new SqlCommand("SELECT t.*,sc.CategoryName,sch.* FROM Teams t inner join SportCategory sc on t.SportCategoryID = sc.SportCategoryId inner join Schools sch on t.SchoolId =sch.SchoolId  WHERE t.ClientId = " + ClientId + " ORDER BY t.TeamsId DESC", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -197,11 +201,13 @@ namespace Netintercom.Models
                     ins = new Teams();
                     ins.TeamsId = Convert.ToInt32(drI["TeamsId"]);
                     ins.ClientId = Convert.ToInt32(drI["ClientId"]);
-                    ins.Name = drI["Name"].ToString();
+                    ins.Name = drI["Schoolabbreviation"].ToString();
                     ins.Age = drI["Age"].ToString();
                     ins.Ranks = drI["Ranks"].ToString();
                     ins.SportCategoryID = Convert.ToInt32(drI["SportCategoryID"]);
                     ins.sportcategory = drI["CategoryName"].ToString();
+                    ins.SchoolId = Convert.ToInt32(drI["SchoolId"]);
+                    ins.schoolname = drI["SchoolName"].ToString();
                     ins.PictureId = Convert.ToInt32(drI["PictureId"]);
                     list.Add(ins);
                 }
@@ -209,7 +215,21 @@ namespace Netintercom.Models
             drI.Close();
             con.Close();
 
+            PictureRepository picRep = new PictureRepository();
 
+            foreach (Teams item in list)
+            {
+                if (item.PictureId != 0)
+                {
+                    item.PicUrl = picRep.GetPicture(item.PictureId).PicUrl;
+                    /*if (item.PicUrl.Contains("\\Images\\"))
+                    {
+                        string path = item.PicUrl.Substring(item.PicUrl.IndexOf("\\Images\\"));
+                        path = path.Replace('\\', '/');
+                        item.PicUrl = "http://www.netintercom.co.za" + path;
+                    }*/
+                }
+            }
             return list;
         }
 
@@ -364,7 +384,7 @@ namespace Netintercom.Models
                     ins.Ranks = drI["Ranks"].ToString();
                     ins.ClientId = Convert.ToInt32(drI["ClientId"]);
                     ins.SportCategoryID = Convert.ToInt32(drI["SportCategoryID"]);
-                    ins.PictureId = Convert.ToInt32(drI["PictureId"]);
+                    ins.SchoolId = Convert.ToInt32(drI["SchoolId"]);
                 }
             }
             drI.Close();
@@ -516,7 +536,7 @@ namespace Netintercom.Models
 
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
-            SqlCommand cmdI = new SqlCommand("SELECT t.*,sc.CategoryName FROM Teams t inner join SportCategory sc on t.SportCategoryID =sc.SportCategoryId inner join Fields f on sc.SportCategoryId = f.SportCategoryID where f.FieldsId ='" + Field + "'", con);
+            SqlCommand cmdI = new SqlCommand("SELECT t.*,sc.CategoryName,sch.* FROM Teams t inner join SportCategory sc on t.SportCategoryID =sc.SportCategoryId inner join Fields f on sc.SportCategoryId = f.SportCategoryID inner join Schools sch on t.SchoolId=sch.SchoolId where f.FieldsId ='" + Field + "'", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -525,7 +545,7 @@ namespace Netintercom.Models
                 while (drI.Read())
                 {
                     var result = new SelectListItem();
-                    result.Text = drI["Name"].ToString()+" "+drI["Age"].ToString()+"/"+drI["Ranks"].ToString();
+                    result.Text = drI["Schoolabbreviation"].ToString() + " " + drI["Age"].ToString() + "/" + drI["Ranks"].ToString();
                     result.Value = drI["TeamsId"].ToString();
                     obj.Add(result);
                 }
@@ -542,8 +562,8 @@ namespace Netintercom.Models
             Teams sport = GetTeamA(Team);
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
-           
-            SqlCommand cmdI = new SqlCommand("SELECT t.*,sc.CategoryName FROM Teams t inner join SportCategory sc on t.SportCategoryID =sc.SportCategoryId where t.Age='"+sport.Age+"'"+" and t.SportCategoryID='"+sport.SportCategoryID+"'"+" and t.TeamsId !='"+Team+"'" , con);
+
+            SqlCommand cmdI = new SqlCommand("SELECT t.*,sc.CategoryName,sch.* FROM Teams t inner join SportCategory sc on t.SportCategoryID =sc.SportCategoryId inner join Schools sch on t.SchoolId=sch.SchoolId where t.Age='" + sport.Age + "'" + " and t.SportCategoryID='" + sport.SportCategoryID + "'" + " and t.TeamsId !='" + Team + "'", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -552,9 +572,37 @@ namespace Netintercom.Models
                 while (drI.Read())
                 {
                     var result = new SelectListItem();
-                    result.Text = drI["Name"].ToString() + " " + drI["Age"].ToString() + "/" + drI["Ranks"].ToString();
+                    result.Text = drI["Schoolabbreviation"].ToString() + " " + drI["Age"].ToString() + "/" + drI["Ranks"].ToString();
                     result.Value = drI["TeamsId"].ToString();
                  
+                    obj.Add(result);
+                }
+            }
+            drI.Close();
+            con.Close();
+            con.Dispose();
+
+            return obj;
+        }
+
+        public List<SelectListItem> GetSchool(int ClientId)
+        {
+            List<SelectListItem> obj = new List<SelectListItem>();
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+
+            SqlCommand cmdI = new SqlCommand("SELECT * from Schools where ClientId ='"+ ClientId+"'", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    var result = new SelectListItem();
+                    result.Text = drI["Schoolabbreviation"].ToString();
+                    result.Value = drI["SchoolId"].ToString();
+
                     obj.Add(result);
                 }
             }

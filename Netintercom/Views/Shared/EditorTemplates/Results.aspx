@@ -12,14 +12,32 @@
 <body>
     <%: Html.ValidationSummary(false) %>
     <table>
-                    <tr>
+        <tr><td><%:Html.HiddenFor(m => m.ResultsId) %></td> </tr>
+
+
+                                                                    <tr>
                         <td>
-                           <%: Html.LabelFor(m => m.FixturesID)%>
+                            <b Class=asteriks>*</b> <%: Html.LabelFor(m => m.SportCategory)%>
                         </td>
                         <td>
-                           <%: Html.Telerik().DropDownListFor(m => m.FixturesID).BindTo((IEnumerable<SelectListItem>) ViewData["FixturesID"]).HtmlAttributes(new { style = "width: 500px" })
-                                                          .Placeholder("Please Select Fixture...")%>
-                            <%: Html.ValidationMessageFor(model => model.FixturesID) %>
+                            <%: Html.Telerik().DropDownListFor(m => m.SportCategory).BindTo((IEnumerable<SelectListItem>) ViewData["SportCategoryId"]).HtmlAttributes(new { style = "width: 250px" })
+                            .Placeholder("Please Select SportCategory....")    
+                            .CascadeTo("FixturesID")
+                            
+                                %>
+                            <%: Html.ValidationMessageFor(model => model.SportCategory) %>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td>
+                            <b Class=asteriks>*</b> <%: Html.LabelFor(m => m.FixturesID)%>
+                        </td>
+                        <td>
+                            <%= Html.Telerik().DropDownListFor(c => c.FixturesID)
+                                 .DataBinding(binding => binding.Ajax().Select("_AsyncResults", "Match")).SelectedIndex(0).HtmlAttributes(new { style = "width: 250px" })
+                                 .Placeholder("Please Select a Fixture....")
+                                %>
+                            <%: Html.ValidationMessageFor(m => m.FixturesID)%>
                         </td>
                     </tr> 
 

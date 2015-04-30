@@ -20,7 +20,6 @@
         .Columns(columns =>
         {
             //columns.Bound(m => m.ResultsId).Title("Results");
-            columns.Bound(m => m.ResultsId);
             columns.Bound(m => m.field);
             columns.Bound(m => m.fixtures);
             columns.Bound(m => m.TimeInMatch);

@@ -109,7 +109,7 @@ namespace Netintercom.Models
             return ins;
         }
 
-        public Results UpdateResults(Results ins)
+        public Results UpdateResults(Results ins, int fixtureid)
         {
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -128,7 +128,7 @@ namespace Netintercom.Models
             cmdI.Parameters.AddWithValue("@ClientId", ins.ClientId);
             cmdI.Parameters.AddWithValue("@PointsA", ins.PointsA);
             cmdI.Parameters.AddWithValue("@PointsB", ins.PointsB);
-            cmdI.Parameters.AddWithValue("@FixturesID", ins.FixturesID);
+            cmdI.Parameters.AddWithValue("@FixturesID", fixtureid);
             cmdI.Parameters.AddWithValue("@Comentry", ins.Comentry);
             cmdI.Parameters.AddWithValue("@TimeInMatch", ins.TimeInMatch);
             cmdI.ExecuteNonQuery();
@@ -160,7 +160,7 @@ namespace Netintercom.Models
                     ins = new Results();
                     ins.ResultsId = Convert.ToInt32(drI["ResultsId"]);
                     ins.ClientId = Convert.ToInt32(drI["ClientId"]);
-                    ins.FixturesID = Convert.ToInt32(drI["Fixtures"]);
+                    ins.FixturesID = Convert.ToInt32(drI["FixtureId"]);
                     ins.fixtures = drI["teamA"].ToString()+" "+drI["PiontsA"].ToString() + " VS " + drI["teamB"].ToString()+" "+drI["PointsB"].ToString();
                     ins.field = drI["FieldName"].ToString();
                     ins.PointsA = drI["PointsA"].ToString();
@@ -187,7 +187,7 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("select r.*,t.Name as HomeTeam,tb.Name as AwayTeam,fd.FieldName  from Results r inner join fixtures f on r.FixtureId = f.FixturesId inner join Teams t on f.TeamIdA = t.TeamsId inner join Teams tb on f.TeamIdB = tb.TeamsId inner join Fields fd on f.FieldsId = fd.FieldsId where r.ClientId ='" + ClientId + "' ORDER BY ResultsId DESC", con);
+            cmdI = new SqlCommand("select r.*,s.Schoolabbreviation as teamA,sb.Schoolabbreviation as teamB,t.Age as AgeA,tb.Age as AgeB,t.Ranks as RankA,tb.Ranks as RankB,fd.FieldName  from Results r inner join fixtures f on r.FixtureId = f.FixturesId inner join Teams t on f.TeamIdA = t.TeamsId inner join Teams tb on f.TeamIdB = tb.TeamsId inner join Fields fd on f.FieldsId = fd.FieldsId inner join Schools s on t.SchoolId = s.SchoolId inner join Schools sb on tb.SchoolId = sb.SchoolId where r.ClientId ='" + ClientId + "' ORDER BY ResultsId DESC", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -199,9 +199,10 @@ namespace Netintercom.Models
                     ins = new Results();
                     ins.ResultsId = Convert.ToInt32(drI["ResultsId"]);
                     ins.ClientId = Convert.ToInt32(drI["ClientId"]);
-                    ins.fixtures = drI["HomeTeam"].ToString() + " VS " + drI["AwayTeam"].ToString();
-                    ins.TeamA = drI["HomeTeam"].ToString();
-                    ins.TeamB = drI["AwayTeam"].ToString();
+                    ins.FixturesID = Convert.ToInt32(drI["FixtureId"]);
+                    ins.TeamA = drI["teamA"].ToString()+" "+drI["AgeA"].ToString()+"/"+drI["RankA"].ToString();
+                    ins.TeamB = drI["teamB"].ToString() + " " + drI["AgeB"].ToString() + "/" + drI["RankB"].ToString();
+                    ins.fixtures = ins.TeamA + " VS " + ins.TeamB;
                     ins.field = drI["FieldName"].ToString();
                     ins.PointsA = drI["PointsA"].ToString();
                     ins.PointsB = drI["PointsB"].ToString();
@@ -343,13 +344,13 @@ namespace Netintercom.Models
             return Removed;
         }
 
-        public List<SelectListItem> GetFixtures()
+        public List<SelectListItem> GetFixtures(int? sc)
         {
             List<SelectListItem> obj = new List<SelectListItem>();
 
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
-            SqlCommand cmdI = new SqlCommand("select f.*,t.Name as teamA,tb.Name as teamB from fixtures f inner join Teams t on f.TeamIdA = t.TeamsId inner join Teams tb on f.TeamIdB=tb.TeamsId where f.FixturesId not in (select FixtureId from Results) ", con);
+            SqlCommand cmdI = new SqlCommand("select f.*,s.Schoolabbreviation as teamA,sb.Schoolabbreviation as teamB,t.Age as AgeA,tb.Age as AgeB,t.Ranks as RankA,tb.Ranks as RankB from fixtures f inner join Teams t on f.TeamIdA = t.TeamsId inner join Teams tb on f.TeamIdB=tb.TeamsId inner join Schools s on t.SchoolId = s.SchoolId inner join Schools sb on tb.SchoolId = sb.SchoolId where f.SportCategoryID ='"+sc+"'and f.FixturesId not in (select FixtureId from Results) ", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -358,7 +359,7 @@ namespace Netintercom.Models
                 while (drI.Read())
                 {
                     var result = new SelectListItem();
-                    result.Text = drI["teamA"].ToString() + " VS " + drI["teamB"].ToString()+ " "+drI["StartTime"].ToString();
+                    result.Text = drI["teamA"].ToString() + " " + drI["AgeA"].ToString() + "/" + drI["RankA"].ToString() + " VS " + drI["teamB"].ToString() + " " + drI["AgeB"].ToString() + "/" + drI["RankB"].ToString() + " " + drI["StartTime"].ToString();
                     result.Value = drI["FixturesId"].ToString();
                     obj.Add(result);
                 }

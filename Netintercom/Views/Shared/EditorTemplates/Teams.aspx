@@ -7,32 +7,27 @@
 
 <html>
 <head id="Head1" runat="server">
-    <title>Contact</title>
-            <script type="text/javascript">
-                function onSuccess(e) {
-                    $('#PictureId').attr('value', e.response.status);
-                }
-    </script>
+    <title>Teams</title>
+
 </head>
 
 <body>
     <%: Html.ValidationSummary(false) %>
     <table> 
          <tr> <td> <%: Html.HiddenFor(m => m.TeamsId) %></td>
-                    <td><%:Html.HiddenFor(m => m.PictureId) %> </td>
                         <td><%:Html.HiddenFor(m => m.ClientId) %> </td>
              </tr>
+                                                        <tr>
+                        <td>
+                           <%: Html.LabelFor(m => m.SchoolId)%>
+                        </td>
+                        <td>
+                           <%: Html.Telerik().DropDownListFor(m => m.SchoolId).BindTo((IEnumerable<SelectListItem>) ViewData["SchoolId"]).HtmlAttributes(new { style = "width: 250px" })%>
+                            <%: Html.ValidationMessageFor(model => model.SchoolId) %>
+                        </td>
+                    </tr> 
         <tr>
-            <td title="Enter the Team Name ">
-             
-               <b Class=asteriks>*</b> <%: Html.LabelFor(m => m.Name) %>
-            </td>
-            <td title="Enter the Field Name">
-                <%: Html.TextBoxFor(m => m.Name) %>
-                <%: Html.ValidationMessageFor(m => m.Name) %>
-            </td>
-        </tr>
-    <tr>
+
             <td title="Enter the Team Age">
                <b Class=asteriks>*</b> <%: Html.LabelFor(m => m.Age) %>
             </td>
@@ -60,26 +55,7 @@
                             <%: Html.ValidationMessageFor(model => model.SportCategoryID) %>
                         </td>
                     </tr> 
-         <tr>
-            <td>
-                Photo Upload
-                </td>
-            <td>          
-<%= Html.Telerik().Upload()
-            .Name("attachments")
-            .Async(async => async
-                .Save("Save", "Match")
-                .Remove("Remove", "Match")              
-            ).ClientEvents(c => c
-                .OnSuccess("onSuccess")
-            )
-    %>    
-    <p class="note">
-        Maximum allowed file size: 5 MB
-    </p>
-            </td>
-            
-        </tr>
+
 
         </table>
     

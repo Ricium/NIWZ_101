@@ -20,7 +20,7 @@
         .Columns(columns =>
         {
             //columns.Bound(m => m.FixturesId).Title("Fixtures");
-            columns.Bound(m => m.FixturesId);
+         
             columns.Bound(m => m.field);
             columns.Bound(m => m.hometeam);
             columns.Bound(m => m.awayteam);
@@ -28,7 +28,7 @@
             columns.Bound(m => m.sportcategory);
                             columns.Command(commands =>
                             {   
-                                commands.Edit().ButtonType(Telerik.Web.Mvc.UI.GridButtonType.ImageAndText).Text("Update Fixtures");
+                                
                                 commands.Delete().ButtonType(Telerik.Web.Mvc.UI.GridButtonType.ImageAndText).Text("Remove Fixtures");
                             }).Title("");
                         })
@@ -37,7 +37,6 @@
             dataBinding.Ajax()
                        .Select("_ListFixtures", "Match")
                        .Insert("_InsertFixtures", "Match")
-                       .Update("_UpdateFixtures", "Match")
                        .Delete("_DeleteFixtures", "Match"); 
         })
        

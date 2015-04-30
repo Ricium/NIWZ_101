@@ -59,6 +59,53 @@ namespace Netintercom.Models
             return list;
         }
 
+        public List<SchoolsRequest> GetSchools(int ClientId, int LastId)
+        {
+            //...Get Data for App, based on the School Requesting the data, and the LastId of the data currently in the App...//
+
+            List<SchoolsRequest> list = new List<SchoolsRequest>();
+            SchoolsRequest ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("Select * from Schools  WHERE ClientId='" + ClientId + "' AND SchoolId >'" + LastId + "'", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new SchoolsRequest();
+                    ins.SchoolId = Convert.ToInt32(drI["SchoolId"]);
+                    ins.SchoolName = drI["SchoolName"].ToString();
+                    ins.Schoolabbreviation = drI["Schoolabbreviation"].ToString();
+                    ins.PicUrl = drI["PictureId"].ToString();
+
+                    list.Add(ins);
+                }
+            }
+            drI.Close();
+            con.Close();
+
+            foreach (SchoolsRequest item in list)
+            {
+                if (!item.PicUrl.Equals("0"))
+                {
+                    int id = Convert.ToInt32(item.PicUrl);
+                    item.PicUrl = picRep.GetPicture(id).PicUrl;
+                }
+
+
+            }
+
+            return list;
+        }
         public List<FixturesRequest> GetFixtures(int ClientId, int LastId)
         {
             //...Get Data for App, based on the School Requesting the data, and the LastId of the data currently in the App...//
@@ -72,7 +119,7 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT f.FixturesId,f.StartTime,t.PictureId As HomePic,t.Name as HomeTeam,tb.PictureId as AwayPic,tb.Name as AwayTeam,fd.FieldName,sc.CategoryName FROM fixtures f inner join Teams t on f.TeamIdA = t.TeamsId inner join Teams tb on f.TeamIdB=tb.TeamsId inner join Fields fd on f.FieldsId = fd.FieldsId inner join SportCategory sc on f.SportCategoryId=sc.SportCategoryId   WHERE f.ClientId='" + ClientId + "' AND f.FixturesId >'" + LastId + "'", con);
+            cmdI = new SqlCommand("SELECT f.*,fd.FieldName,t.Age as AgeA,tb.Age as AgeB,t.Ranks as RankA,tb.Ranks as RankB,sh.Schoolabbreviation as HomeTeam,shb.Schoolabbreviation as AwayTeam,sc.CategoryName,sh.PictureId as HomePic,shb.PictureId as AwayPic FROM fixtures f inner join Fields fd on f.FieldsId = fd.FieldsId inner join Teams t on f.TeamIdA = t.TeamsId inner join Teams tb on f.TeamIdB =tb.TeamsId inner join SportCategory sc on f.SportCategoryId =sc.SportCategoryId inner join Schools sh on t.SchoolId= sh.SchoolId inner join Schools shb on tb.SchoolId = shb.SchoolId   WHERE f.ClientId='" + ClientId + "' AND f.FixturesId >'" + LastId + "' AND f.StartTime >= '"+DateTime.Now.ToShortDateString()+"' order by StartTime DESC", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -84,9 +131,9 @@ namespace Netintercom.Models
                     ins = new FixturesRequest();
                     ins.FixturesId = Convert.ToInt32(drI["FixturesId"]);
                     ins.StartTime = Convert.ToDateTime(drI["StartTime"]);
-                    ins.HomeTeam = drI["HomeTeam"].ToString();
-                    ins.HomePic = drI["HomePic"].ToString();
-                    ins.AwayTeam = drI["AwayTeam"].ToString();
+                    ins.HomeTeam = drI["HomeTeam"].ToString() + " " + drI["AgeA"].ToString() + "/" + drI["RankA"].ToString();
+                    ins.HomePic = drI["HomePic"].ToString() ;
+                    ins.AwayTeam = drI["AwayTeam"].ToString() + " " + drI["AgeB"].ToString() + "/" + drI["RankB"].ToString();
                     ins.AwayPic = drI["AwayPic"].ToString();
                     ins.FieldName = drI["FieldName"].ToString();
                     ins.SportCategory = drI["CategoryName"].ToString();
@@ -128,7 +175,7 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT r.ResultsId,f.StartTime,r.PointsA,r.PointsB,r.TimeInMatch,r.Comentry,t.Name as HomeTeam,tb.Name as AwayTeam,fd.FieldName,sc.CategoryName FROM Results r inner join fixtures f on r.FixtureId = f.FixturesId inner join Teams t on f.TeamIdA = t.TeamsId inner join Teams tb on f.TeamIdB=tb.TeamsId inner join Fields fd on f.FieldsId = fd.FieldsId inner join SportCategory sc on f.SportCategoryId=sc.SportCategoryId WHERE r.ClientId='" + ClientId + "' AND r.FixturesId >'" + LastId + "'", con);
+            cmdI = new SqlCommand("select r.*,f.StartTime,sc.CategoryName,sh.Schoolabbreviation as HomeTeam,shb.Schoolabbreviation as AwayTeam,t.Age as AgeA,tb.Age as AgeB,t.Ranks as RankA,tb.Ranks as RankB,fd.FieldName,sh.PictureId as HomePic,shb.PictureId as AwayPic  from Results r inner join fixtures f on r.FixtureId = f.FixturesId inner join SportCategory sc on f.SportCategoryId = sc.SportCategoryId inner join Teams t on f.TeamIdA = t.TeamsId inner join Teams tb on f.TeamIdB = tb.TeamsId inner join Fields fd on f.FieldsId = fd.FieldsId inner join Schools sh on t.SchoolId = sh.SchoolId inner join Schools shb on tb.SchoolId = shb.SchoolId WHERE r.ClientId='" + ClientId + "' AND r.ResultsId >'" + LastId + "'order by f.StartTime DESC", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -140,9 +187,9 @@ namespace Netintercom.Models
                     ins = new ResultRequest();
 
                     ins.ResultId = Convert.ToInt32(drI["ResultsId"]);
-                    ins.HomeTeam = drI["HomeTeam"].ToString();
+                    ins.HomeTeam = drI["HomeTeam"].ToString() + " " + drI["AgeA"].ToString() + "/" + drI["RankA"].ToString();
                     ins.HomePic = drI["HomePic"].ToString();
-                    ins.AwayTeam = drI["AwayTeam"].ToString();
+                    ins.AwayTeam = drI["AwayTeam"].ToString() + " " + drI["AgeB"].ToString() + "/" + drI["RankB"].ToString();
                     ins.AwayPic = drI["AwayPic"].ToString();
                     ins.FieldName = drI["FieldName"].ToString();
                     ins.SportCategory = drI["CategoryName"].ToString();
@@ -201,7 +248,7 @@ namespace Netintercom.Models
                     ins = new SportCategoryRequest();
 
                     ins.SportCategoryId = Convert.ToInt32(drI["SportCategoryId"]);
-                    ins.CategoryName = drI["HomeTeam"].ToString();
+                    ins.CategoryName = drI["CategoryName"].ToString();
                     list.Add(ins);
                 }
             }
@@ -299,6 +346,54 @@ namespace Netintercom.Models
             return list;
         }
 
+        public List<SchoolsRequest> GetEditSchools(int ClientId, int EditId)
+        {
+            //...Get Data for App, based on the School Requesting the data, and the Edit of the News Requestes...//
+
+            List<SchoolsRequest> list = new List<SchoolsRequest>();
+            SchoolsRequest ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand(" Select * From Schools WHERE ClientId='" + ClientId + "' AND SchoolId ='" + EditId + "'", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new SchoolsRequest();
+                    ins.SchoolId = Convert.ToInt32(drI["SchoolId"]);
+                    ins.SchoolName = drI["SchoolName"].ToString();
+                    ins.Schoolabbreviation = drI["Schoolabbreviation"].ToString();
+                    ins.PicUrl = drI["PictureId"].ToString();
+                    list.Add(ins);
+                }
+            }
+            drI.Close();
+            con.Close();
+
+            foreach (SchoolsRequest item in list)
+            {
+                if (!item.PicUrl.Equals("0"))
+                {
+                    int id = Convert.ToInt32(item.PicUrl);
+                    item.PicUrl = picRep.GetPicture(id).PicUrl;
+                }
+
+
+            }
+            
+
+            return list;
+        }
+
         public List<FixturesRequest> GetEditFixtures(int ClientId, int EditId)
         {
             //...Get Data for App, based on the School Requesting the data, and the Edit of the News Requestes...//
@@ -312,7 +407,7 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT f.FixturesId,f.StartTime,t.PictureId As HomePic,t.Name as HomeTeam,tb.PictureId as AwayPic,tb.Name as AwayTeam,fd.FieldName,sc.CategoryName FROM fixtures f inner join Teams t on f.TeamIdA = t.TeamsId inner join Teams tb on f.TeamIdB=tb.TeamsId inner join Fields fd on f.FieldsId = fd.FieldsId inner join SportCategory sc on f.SportCategoryId=sc.SportCategoryId   WHERE f.ClientId='" + ClientId + "' AND f.FixturesId ='" + EditId + "'", con);
+            cmdI = new SqlCommand("select r.*,f.StartTime,sc.CategoryName,sh.Schoolabbreviation as HomeTeam,shb.Schoolabbreviation as AwayTeam,t.Age as AgeA,tb.Age as AgeB,t.Ranks as RankA,tb.Ranks as RankB,fd.FieldName,sh.PictureId as HomePic,shb.PictureId as AwayPic  from Results r inner join fixtures f on r.FixtureId = f.FixturesId inner join SportCategory sc on f.SportCategoryId = sc.SportCategoryId inner join Teams t on f.TeamIdA = t.TeamsId inner join Teams tb on f.TeamIdB = tb.TeamsId inner join Fields fd on f.FieldsId = fd.FieldsId inner join Schools sh on t.SchoolId = sh.SchoolId inner join Schools shb on tb.SchoolId = shb.SchoolId  WHERE f.ClientId='" + ClientId + "' AND f.FixturesId ='" + EditId + "'order by StartTime DESC", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -324,9 +419,9 @@ namespace Netintercom.Models
                     ins = new FixturesRequest();
                     ins.FixturesId = Convert.ToInt32(drI["FixturesId"]);
                     ins.StartTime = Convert.ToDateTime(drI["StartTime"]);
-                    ins.HomeTeam = drI["HomeTeam"].ToString();
+                    ins.HomeTeam = drI["HomeTeam"].ToString() + " " + drI["AgeA"].ToString() + "/" + drI["RankA"].ToString();
                     ins.HomePic = drI["HomePic"].ToString();
-                    ins.AwayTeam = drI["AwayTeam"].ToString();
+                    ins.AwayTeam = drI["AwayTeam"].ToString() + " " + drI["AgeB"].ToString() + "/" + drI["RankB"].ToString();
                     ins.AwayPic = drI["AwayPic"].ToString();
                     ins.FieldName = drI["FieldName"].ToString();
                     ins.SportCategory = drI["CategoryName"].ToString();
@@ -367,7 +462,7 @@ namespace Netintercom.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT r.ResultsId,f.StartTime,r.PointsA,r.PointsB,r.TimeInMatch,r.Comentry,t.Name as HomeTeam,tb.Name as AwayTeam,fd.FieldName,sc.CategoryName FROM Results r inner join fixtures f on r.FixtureId = f.FixturesId inner join Teams t on f.TeamIdA = t.TeamsId inner join Teams tb on f.TeamIdB=tb.TeamsId inner join Fields fd on f.FieldsId = fd.FieldsId inner join SportCategory sc on f.SportCategoryId=sc.SportCategoryId  WHERE r.ClientId='" + ClientId + "' AND r.ResultsId ='" + EditId + "'", con);
+            cmdI = new SqlCommand("select r.*,f.StartTime,sc.CategoryName,s.Schoolabbreviation as HomeTeam,sb.Schoolabbreviation as AwayTeam,t.Age as AgeA,tb.Age as AgeB,t.Ranks as RankA,tb.Ranks as RankB,fd.FieldName,sh.PictureId as HomePic,shb.PictureId as AwayPic  from Results r inner join fixtures f on r.FixtureId = f.FixturesIdinner join SportCategory sc on f.SportCategoryId = sc.SportCategoryId inner join Teams t on f.TeamIdA = t.TeamsId inner join Teams tb on f.TeamIdB = tb.TeamsId inner join Fields fd on f.FieldsId = fd.FieldsId inner join Schools s on t.SchoolId = s.SchoolId inner join Schools sb on tb.SchoolId = sb.SchoolId   WHERE r.ClientId='" + ClientId + "' AND r.ResultsId ='" + EditId + "'order by StartTime DESC", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -379,9 +474,9 @@ namespace Netintercom.Models
                     ins = new ResultRequest();
 
                     ins.ResultId = Convert.ToInt32(drI["ResultsId"]);
-                    ins.HomeTeam = drI["HomeTeam"].ToString();
+                    ins.HomeTeam = drI["HomeTeam"].ToString() + " " + drI["AgeA"].ToString() + "/" + drI["RankA"].ToString();
                     ins.HomePic = drI["HomePic"].ToString();
-                    ins.AwayTeam = drI["AwayTeam"].ToString();
+                    ins.AwayTeam = drI["AwayTeam"].ToString() + " " + drI["AgeB"].ToString() + "/" + drI["RankB"].ToString();
                     ins.AwayPic = drI["AwayPic"].ToString();
                     ins.FieldName = drI["FieldName"].ToString();
                     ins.SportCategory = drI["CategoryName"].ToString();
@@ -439,7 +534,7 @@ namespace Netintercom.Models
                     ins = new SportCategoryRequest();
 
                     ins.SportCategoryId = Convert.ToInt32(drI["SportCategoryId"]);
-                    ins.CategoryName = drI["HomeTeam"].ToString();
+                    ins.CategoryName = drI["CategoryName"].ToString();
                     list.Add(ins);
                 }
             }

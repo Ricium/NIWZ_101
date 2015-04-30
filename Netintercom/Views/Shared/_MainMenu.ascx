@@ -31,7 +31,11 @@
                         .Url("~/Settings/Settings");
                 items.Add()
                     .Text("Nuclear")
-                    .Url("~/Admin/Skwladaptor");
+                    .Items(i => {
+                        i.Add().Text("Nuke it").Url("~/Admin/Skwladaptor");
+                        i.Add().Text("Force Update").Url("~/Admin/ForceUpdate");
+                    });
+                    
             }
 
             if (HttpContext.Current.User.IsInRole("deviceusers"))
@@ -97,11 +101,14 @@
                      .Url("~/Home/Contact")
                      .Items(m =>
                      {
-                         m.Add().Text("SportCategory").Url("~/Match/SportCategory");
+                         m.Add().Text("Schools").Url("~/Match/Schools");
+                         m.Add().Text("Sport Category").Url("~/Match/SportCategory");
                          m.Add().Text("Fields").Url("~/Match/Fields");
                          m.Add().Text("Teams").Url("~/Match/Teams");
                          m.Add().Text("Fixtures").Url("~/Match/Fixtures");
                          m.Add().Text("Results").Url("~/Match/Results");
+                         m.Add().Text("Fixture Report").Url("~/Match/FixturesReport");
+                         m.Add().Text("Results Report").Url("~/Match/ResultsReport");
                      });
             }
             

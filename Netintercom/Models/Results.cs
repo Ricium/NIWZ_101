@@ -20,13 +20,17 @@ namespace Netintercom.Models
         public string TeamB { get; set; }
         [DisplayName("Time In Match")]
         public string TimeInMatch { get; set; }
-        [DisplayName("Comentry")]
+        [DisplayName("Commetary")]
         public string Comentry { get; set; }
         [DisplayName("Fixtures")]
         public string fixtures { get; set; }
+        [DisplayName("Field")]
         public string field { get; set; }
+        [DisplayName("Fixtures")]
         public int FixturesID { get; set; } 
         public int ClientId { get; set; }
+        [DisplayName("Sport Category")]
+        public int SportCategory { get; set; }
  
     }
 }

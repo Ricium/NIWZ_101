@@ -19,8 +19,6 @@
         .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(Telerik.Web.Mvc.UI.GridButtonType.ImageAndText).Text("Add New Fields"))
         .Columns(columns =>
         {
-            //columns.Bound(m => m.FieldsId).Title("Fields");
-            columns.Bound(m => m.FieldsId);
             columns.Bound(m => m.FieldName);
             columns.Bound(m => m.sportcategory);
                             columns.Command(commands =>

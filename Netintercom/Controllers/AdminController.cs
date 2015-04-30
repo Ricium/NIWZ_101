@@ -274,5 +274,28 @@ namespace Netintercom.Controllers
             s.RunQuery(ins);
             return RedirectToAction("Home", "Home");
         }
+
+        [Authorize(Roles = "admin")]
+        public ActionResult ForceUpdate()
+        {
+            ViewData["Clients"] = schReP.GetSchoolList();
+            return View();
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public ActionResult DoForceUpdate(SportCategoryID SC)
+        {
+            int ClientId = SC.SportCategory;
+
+            //...Notify...
+            string regIds = appRep.GetAllRegIds(ClientId);
+            List<string> reg = appRep.GetAllRegIdsList(ClientId);
+            if (!regIds.Equals(""))
+            {
+                comrep.NewsyncData(regIds, "CMD_FORCE_UPDATE", reg, ClientId);   
+            }
+            return RedirectToAction("Home","Home");
+        }
       }
 }

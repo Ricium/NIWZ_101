@@ -8,28 +8,38 @@ using System.Web.Mvc;
 
 namespace Netintercom.Models
 {
-    public class Reports
-    {
+   
+        public class SportCategoryID
+        {
+            public int SportCategory { get; set; }
+            public DateTime Date { get;set;}
 
-    }
-    public class FixturesReport
-    {
-        public int FixturesId { get; set; }
-        [DisplayName("Home Team")]
-        public string hometeam { get; set; }
-        public int TeamIdA { get; set; }
-        [DisplayName("Away Team")]
-        public string awayteam { get; set; }
-        public int TeamIdB { get; set; }
-        [DisplayName("Match Date and StartTime")]
-        public DateTime StartTime { get; set; }
-        [DisplayName("Play Field")]
-        public string field { get; set; }
-        public int FieldId { get; set; }
-        [DisplayName("Sport Category")]
-        public string sportcategory { get; set; }
-        public int SportCategoryId { get; set; }
-        public int ClientId { get; set; }
-        public DateTime ReportDate { get; set; }
-    }
+        }
+
+        public class FixturesReport
+        {
+            public string FixturesId { get; set; }
+            public string TeamIdA { get; set; }
+            public string TeamIdB { get; set; }
+            public string StartTime { get; set; }
+            public string Field { get; set; }
+            public string SportCategory { get; set; }
+            public DateTime ReportDate { get; set; }
+        }
+
+        public class ResultsReport
+        {
+            public string ResultId { get; set; }
+            public string FixturesId { get; set; }
+            public string fixtures { get; set; }
+            public string TeamIdA { get; set; }
+            public string PointsA { get; set; }
+            public string PointsB { get; set; }
+            public string TeamIdB { get; set; }
+            public string StartTime { get; set; }
+            public string TimeInMatch { get; set; }
+            public string Field { get; set; }
+            public string SportCategory { get; set; }
+            public DateTime ReportDate { get; set; }
+        }
 }

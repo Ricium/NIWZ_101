@@ -21,6 +21,7 @@ namespace Netintercom.Controllers
         private CommunicationRepository comrep = new CommunicationRepository();
         private ContactRepository conRep = new ContactRepository();
         private StatsRepository statsRep = new StatsRepository();
+        SchoolsRepository SchRep = new SchoolsRepository();
 
         public ActionResult Index()
         {
@@ -164,6 +165,8 @@ namespace Netintercom.Controllers
              List<Contact> lst = new List<Contact>();
              lst = conRep.GetListContact(Convert.ToInt32(HttpContext.Session["ClientId"]));
              return View(new GridModel(lst));
-         }       
+         }
+
+       
     }
 }

@@ -19,8 +19,7 @@
         .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(Telerik.Web.Mvc.UI.GridButtonType.ImageAndText).Text("Add New Teams"))
         .Columns(columns =>
         {
-            //columns.Bound(m => m.TeamsId).Title("Teams");
-            columns.Bound(m => m.TeamsId);
+
             columns.Bound(m => m.Name);
             columns.Bound(m => m.Age);
             columns.Bound(m => m.Ranks);
